@@ -9,22 +9,29 @@
 
 #import "AppDelegate.h"
 
+#import <dlfcn.h>
+
 #import "RCTBundleURLProvider.h"
 #import "RCTRootView.h"
 
 @implementation AppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+- (BOOL)application:(UIApplication *)application
+    didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+  dlopen("Razorpay.framework/Razorpay", RTLD_LAZY | RTLD_GLOBAL);
+
   NSURL *jsCodeLocation;
 
-  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+  jsCodeLocation = [[RCTBundleURLProvider sharedSettings]
+      jsBundleURLForBundleRoot:@"index.ios"
+              fallbackResource:nil];
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"example"
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
-  rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
+  rootView.backgroundColor =
+      [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];

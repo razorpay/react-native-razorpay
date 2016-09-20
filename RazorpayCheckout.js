@@ -1,5 +1,8 @@
 'use strict';
 
-import { NativeModules } from 'react-native';
+import { NativeModules, NativeEventEmitter } from 'react-native';
 
-module.exports = NativeModules.RazorpayCheckout;
+export const RZP = {
+  RazorpayCheckout: NativeModules.RazorpayCheckout,
+  RazorpayEventEmitter: NativeModules.RazorpayEventEmitter
+};

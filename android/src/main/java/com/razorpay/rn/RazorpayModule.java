@@ -13,7 +13,9 @@ import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeArray;
 import com.facebook.react.bridge.WritableNativeMap;
-import com.razorpay.Checkout;
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
+import com.razorpay.CheckoutActivity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,15 +23,25 @@ import java.util.Iterator;
 import android.app.Activity;
 import javax.annotation.Nullable;
 import android.content.Intent;
+import android.os.Bundle;
 
 
 
 
-public class RazorpayModule extends ReactContextBaseJavaModule {
 
+public class RazorpayModule extends ReactContextBaseJavaModule implements ActivityEventListener {
+
+
+  public static final int RZP_REQUEST_CODE = 72967729;
+  public static final String MAP_KEY_RZP_PAYMENT_ID = "razorpay_payment_id";
+  public static final String MAP_KEY_PAYMENT_ID = "payment_id";
+  public static final String MAP_KEY_ERROR_CODE = "code";
+  public static final String MAP_KEY_ERROR_DESC = "description";
+  ReactApplicationContext reactContext;
   public RazorpayModule(ReactApplicationContext reactContext) {
     super(reactContext);
-    //reactContext.addActivityEventListener(this);
+    this.reactContext = reactContext;
+    reactContext.addActivityEventListener(this);
   }
 
   @Override
@@ -38,21 +50,19 @@ public class RazorpayModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void open(ReadableMap options, Callback onSuccess, Callback onError) {
+  public void open(ReadableMap options) {
     Activity currentActivity = getCurrentActivity();
     try {
       JSONObject optionsJSON = readableMapToJson(options);
-      Checkout checkout = new Checkout();
-      checkout.setKeyID(optionsJSON.getString("key"));
-      checkout.open(currentActivity, optionsJSON);
-    } catch (Exception e) {
-
-    }
+      Intent intent = new Intent(currentActivity, CheckoutActivity.class);
+      intent.putExtra("OPTIONS", optionsJSON.toString());
+      currentActivity.startActivityForResult(intent, RZP_REQUEST_CODE);
+    } catch (Exception e) {}
   }
 
 
   @Nullable
-  public static JSONObject readableMapToJson(ReadableMap readableMap) {
+  private static JSONObject readableMapToJson(ReadableMap readableMap) {
     JSONObject jsonObject = new JSONObject();
 
     if (readableMap == null) {
@@ -95,9 +105,42 @@ public class RazorpayModule extends ReactContextBaseJavaModule {
         // Do nothing and fail silently
       }
     }
-
     return jsonObject;
   }
 
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data){
+    if (requestCode != RZP_REQUEST_CODE) return;
+    String result = null;
+    if (data != null) {
+      Bundle extras = data.getExtras();
+      if (extras != null) {
+        result = extras.getString("RESULT"); 
+      } 
+    }
+    if (resultCode == 1) {
+      try {
+        JSONObject resultJson = new JSONObject(result);
+        WritableMap successParams = Arguments.createMap();
+        successParams.putString(MAP_KEY_PAYMENT_ID, resultJson.getString(MAP_KEY_RZP_PAYMENT_ID));
+        sendEvent("onPaymentSuccess", successParams);  
+      } catch(Exception e){}
+    }
+    else {
+      if (resultCode == Activity.RESULT_CANCELED) {
+        result = "Payment Cancelled";
+      }
+      WritableMap errorParams = Arguments.createMap();
+      errorParams.putInt(MAP_KEY_ERROR_CODE, resultCode);
+      errorParams.putString(MAP_KEY_ERROR_DESC, result);
+      sendEvent("onPaymentError", errorParams);
+    }   
+  }
+
+  private void sendEvent(String eventName, @Nullable WritableMap params) {
+  reactContext
+      .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+      .emit(eventName, params);
+  }
 
 }

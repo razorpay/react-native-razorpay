@@ -10,13 +10,26 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableHighlight
+  TouchableHighlight,
+  NativeModules,
+  NativeEventEmitter
 } from 'react-native';
 
-var RazorpayCheckout = require('react-native-razorpay');
+import { RZP } from 'react-native-razorpay';
+const { RazorpayCheckout, RazorpayEventEmitter } = RZP;
 
+const rzpEvents = new NativeEventEmitter(RazorpayEventEmitter);
 
 class example extends Component {
+  componentWillMount() {
+    rzpEvents.addListener('onPaymentError', (data) => {
+      alert("Error: " + data.code + " | " + data.description)
+    });
+    rzpEvents.addListener('onPaymentSuccess', (data) => {
+      alert("Success: " + data.payment_id)
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -31,7 +44,7 @@ class example extends Component {
           prefill: {email: 'pranav@razorpay.com', contact: '8879524924', name: 'Pranav Gupta'},
           theme: {color: '#F37254'}
         }
-        RazorpayCheckout.open(options, this.onSuccess.bind(this), this.onError.bind(this))
+        RazorpayCheckout.open(options)
        }}>
       <Text style = {styles.text}>Pay</Text>
     </TouchableHighlight>
@@ -39,12 +52,8 @@ class example extends Component {
     );
   }
 
-  onSuccess(razorpay_payement_id){
-      alert("Success: "+ razorpay_payement_id)
-  }
-
-  onError(code, response){
-      alert("Error: " + code + "|" + "response")
+  componentWillUnmount () {
+    rzpEvents.remove();
   }
 
 }

@@ -17,8 +17,5 @@
   ],
   "author": "Razorpay Developers <developers@razorpay.com> (https://razorpay.com/)",
   "license": "",
-  "peerDependencies": {
-    "react-native": "0.30.0"
-  },
 	"homepage" : "https://github.com/razorpay/react-native-razorpay#readme" 
 }

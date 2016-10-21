@@ -23,7 +23,7 @@ If the above command doesn't work for you, try the following:
 2. Go to `node_modules` ➜ `react-native-razorpay` and add `RazorpayCheckout.xcodeproj`
 3. In XCode, in the project navigator, select your project. Add
 `libRazorpayCheckout.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
-4. Run your project (`Cmd+R`)
+4. Run your project (`⌘+R`)
 
 #### Android
 
@@ -32,27 +32,25 @@ If the above command doesn't work for you, try the following:
   the file
   - Add `new RazorpayPackage()` to the list returned by the `getPackages()` method
 2. Append the following lines to `android/settings.gradle`:
-  	```
-  	include ':react-native-razorpay'
-  	project(':react-native-razorpay').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-razorpay/android')
-  	```
+```gradle
+include ':react-native-razorpay'
+project(':react-native-razorpay').projectDir = new File(rootProject.projectDir,   '../node_modules/react-native-razorpay/android')
+```
 3. Insert the following lines inside the dependencies block in
 `android/app/build.gradle`:
-  	```
-      compile project(':react-native-razorpay')
-  	```
+```gradle
+compile project(':react-native-razorpay')
+```
 
 ## Linking iOS SDK
 
-React Native creates static library for each plugin / library / framework / native
- module being used.
+React Native creates static library for each plugin / library / framework / native module being used.
 
-Due to some limitation on the way Xcode links static and dynamic libraries / frameworks
- to projects, we require some additional steps to be followed to link our iOS SDK
- to the React Native project.
+Due to some limitation on the way Xcode links static and dynamic 
+libraries / frameworks to projects, we require some additional
+steps to be followed to link our iOS SDK to the React Native project.
 
-1. Download [Razorpay's iOS SDK from here](https://docs.razorpay.com/v1/page/ios-integration)
-and unzip it.
+1. Download [Razorpay's iOS SDK from here][ios-docs] and unzip it.
 2. Delete the `.framework` file from
 `path/to/your/project/node_modules/react-native-razorpay`.
 3. Copy the `.framework` file obtained in step 1 to
@@ -69,35 +67,31 @@ and unzip it.
 
 ## Usage
 
-Sample code to integrate with Razorpay can be found in [index.js] in the included
-example directory.
+Sample code to integrate with Razorpay can be found in 
+[index.js][index.js] in the included example directory.
 
-To run the example, simply do the following in example directory and then link iOS
-SDK as explained in the previous section:
+To run the example, simply do the following in example directory and then
+link iOS SDK as explained in the previous section:
 
 `$ npm i`
 
-  [index.js]: example/index.js
-
 ## Contributing
 
-See the [CONTRIBUTING] document.
-Thank you, [contributors]!
-
-  [CONTRIBUTING]: CONTRIBUTING.md
-  [contributors]: https://github.com/razorpay/react-native-razorpay/graphs/contributors
+See the [CONTRIBUTING] document. Thank you, [contributors]!
 
 ## License
 
 react-native-razorpay is Copyright (c) 2016 Razorpay Software Pvt. Ltd.
-It is free software, and may be redistributed
-under the terms specified in the [LICENSE] file.
-
-  [LICENSE]: /LICENSE
+It is distributed under [the MIT License][LICENSE].
 
 We love open source software!
 See [our other supported plugins / SDKs][integrations]
 or [contact us][contact] to help you with integrations.
 
-  [integrations]: https://razorpay.com/integrations
-  [contact]: mailto:integrations@razorpay.com?subject=Help%20with%20React%20Native
+[integrations]: https://razorpay.com/integrations "List of our integrations"
+[contact]: mailto:integrations@razorpay.com?subject=Help%20with%20React%20Native "Send us a mail"
+[CONTRIBUTING]: CONTRIBUTING.md "Our contributings guidelines"
+[contributors]: https://github.com/razorpay/react-native-razorpay/graphs/contributors "List of contributors"
+[LICENSE]: /LICENSE "MIT License"
+[index.js]: example/index.js "index.js"
+[ios-docs]: https://docs.razorpay.com/v1/page/ios-integration "Documentation for the iOS Integration"

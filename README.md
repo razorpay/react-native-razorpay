@@ -32,15 +32,15 @@ If the above command doesn't work for you, try the following:
   the file
   - Add `new RazorpayPackage()` to the list returned by the `getPackages()` method
 2. Append the following lines to `android/settings.gradle`:
-```gradle
-include ':react-native-razorpay'
-project(':react-native-razorpay').projectDir = new File(rootProject.projectDir,   '../node_modules/react-native-razorpay/android')
-```
+    ```gradle
+    include ':react-native-razorpay'
+    project(':react-native-razorpay').projectDir = new File(rootProject.projectDir,   '../node_modules/react-native-razorpay/android')
+    ```
 3. Insert the following lines inside the dependencies block in
 `android/app/build.gradle`:
-```gradle
-compile project(':react-native-razorpay')
-```
+    ```gradle
+    compile project(':react-native-razorpay')
+    ```
 
 ## Linking iOS SDK
 
@@ -84,7 +84,7 @@ See the [CONTRIBUTING] document. Thank you, [contributors]!
 react-native-razorpay is Copyright (c) 2016 Razorpay Software Pvt. Ltd.
 It is distributed under [the MIT License][LICENSE].
 
-We love open source software!
+We ♥ open source software!
 See [our other supported plugins / SDKs][integrations]
 or [contact us][contact] to help you with integrations.
 

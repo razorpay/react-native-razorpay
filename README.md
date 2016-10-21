@@ -88,10 +88,10 @@ We ♥ open source software!
 See [our other supported plugins / SDKs][integrations]
 or [contact us][contact] to help you with integrations.
 
-[integrations]: https://razorpay.com/integrations "List of our integrations"
 [contact]: mailto:integrations@razorpay.com?subject=Help%20with%20React%20Native "Send us a mail"
 [CONTRIBUTING]: CONTRIBUTING.md "Our contributings guidelines"
 [contributors]: https://github.com/razorpay/react-native-razorpay/graphs/contributors "List of contributors"
-[LICENSE]: /LICENSE "MIT License"
 [index.js]: example/index.js "index.js"
+[integrations]: https://razorpay.com/integrations "List of our integrations"
 [ios-docs]: https://docs.razorpay.com/v1/page/ios-integration "Documentation for the iOS Integration"
+[LICENSE]: /LICENSE "MIT License"

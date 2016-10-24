@@ -6,11 +6,15 @@ React Native wrapper around our Android and iOS mobile SDKs
 
 Run the following on terminal from your project directory:
 
-`$ npm i react-native-razorpay --save`
+```bash
+$ npm i react-native-razorpay --save
+```
 
 ### Automatic installation
 
-`$ react-native link react-native-razorpay`
+```bash
+$ react-native link react-native-razorpay
+```
 
 ### Manual installation
 
@@ -76,6 +80,48 @@ To run the example, simply do the following in example directory and then
 link iOS SDK as explained in the previous section:
 
 `$ npm i`
+
+### Steps
+
+1. Import Razorpay module to your component:
+```js
+import { Razorpay } from 'react-native-razorpay';
+const { RazorpayCheckout, RazorpayEventEmitter } = Razorpay;
+```
+2. Instantiate an event emitter with `RazorpayEventEmitter`:
+```js
+const razorpayEvents = new NativeEventEmitter(RazorpayEventEmitter);
+```
+3. Add payment event listeners to your component, preferably in `componentWillMount`:
+```js
+razorpayEvents.addListener('onPaymentError', (data) => {
+  alert("Error: " + data.code + " | " + data.description)
+});
+razorpayEvents.addListener('onPaymentSuccess', (data) => {
+  alert("Success: " + data.payment_id)
+});
+```
+4. Call RazorpayCheckout's `open` method with `options`, preferably on a user action:
+```js
+<TouchableHighlight onPress={() => {
+ var options = {
+   description: 'Credits towards consultation',
+   image: 'https://i.imgur.com/3g7nmJC.png',
+   currency: 'INR',
+   key: 'rzp_test_1DP5mmOlF5G5ag',
+   amount: '5000',
+   name: 'foo',
+   prefill: {email: 'pranav@razorpay.com', contact: '8879524924', name: 'Pranav Gupta'},
+   theme: {color: '#F37254'}
+ }
+ RazorpayCheckout.open(options)
+}}>
+```
+5. Stop listening for payment events, preferably in `componentWillMount`:
+```js
+razorpayEvents.remove();
+```
+
 
 ## Contributing
 

@@ -3,7 +3,7 @@
 We love contributions from everyone.
 By participating in this project,
 you agree to abide by our [code_of_conduct].
-  
+
 We expect everyone to follow the code of conduct
 anywhere in Razorpay's project codebases,
 issue trackers, chatrooms, and mailing lists.
@@ -19,9 +19,11 @@ contributed to it.
 Fork the repo.
 
 1. Use the example project to test the module.
-2. Edit example/reload.sh to configure your path.
-3. Follow instructions to link your project with the iOS SDK, as given in the [README].
-4. Run example/reload.sh every time you make a change to the module.
+2. Change `"react-native-razorpay": ">=1.0.0"` in `package.json` of example to
+`"react-native-razorpay": "./../"`.
+3. Edit example/reload.sh to configure your path.
+4. Follow instructions to link your project with the iOS SDK, as given in the [README].
+5. Run example/reload.sh every time you make a change to the module.
 
 Make your change. Follow this [style guide][style].
 

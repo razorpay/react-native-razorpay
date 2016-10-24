@@ -15,17 +15,17 @@ import {
   NativeEventEmitter
 } from 'react-native';
 
-import { RZP } from 'react-native-razorpay';
-const { RazorpayCheckout, RazorpayEventEmitter } = RZP;
+import { Razorpay } from 'react-native-razorpay';
+const { RazorpayCheckout, RazorpayEventEmitter } = Razorpay;
 
-const rzpEvents = new NativeEventEmitter(RazorpayEventEmitter);
+const razorpayEvents = new NativeEventEmitter(RazorpayEventEmitter);
 
 class example extends Component {
   componentWillMount() {
-    rzpEvents.addListener('onPaymentError', (data) => {
+    razorpayEvents.addListener('onPaymentError', (data) => {
       alert("Error: " + data.code + " | " + data.description)
     });
-    rzpEvents.addListener('onPaymentSuccess', (data) => {
+    razorpayEvents.addListener('onPaymentSuccess', (data) => {
       alert("Success: " + data.payment_id)
     });
   }
@@ -53,7 +53,7 @@ class example extends Component {
   }
 
   componentWillUnmount () {
-    rzpEvents.remove();
+    razorpayEvents.remove();
   }
 
 }

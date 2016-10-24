@@ -5,4 +5,4 @@ npm uninstall react-native-razorpay
 npm install
 react-native link
 rm -r ./node_modules/react-native-razorpay/ios/Razorpay.framework
-cp -R path/to/Razorpay.framework ./node_modules/react-native-razorpay/ios/
+cp -R ./../Razorpay.framework ./node_modules/react-native-razorpay/ios/

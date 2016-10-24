@@ -46,9 +46,11 @@ If the above command doesn't work for you, try the following:
 
 React Native creates static library for each plugin / library / framework / native module being used.
 
-Due to some limitation on the way Xcode links static and dynamic 
+Due to some limitation on the way Xcode links static and dynamic
 libraries / frameworks to projects, we require some additional
 steps to be followed to link our iOS SDK to the React Native project.
+
+You can skip steps 1, 2 and 3 if you used `npm`.
 
 1. Download [Razorpay's iOS SDK from here][ios-docs] and unzip it.
 2. Delete the `.framework` file from
@@ -67,7 +69,7 @@ steps to be followed to link our iOS SDK to the React Native project.
 
 ## Usage
 
-Sample code to integrate with Razorpay can be found in 
+Sample code to integrate with Razorpay can be found in
 [index.js][index.js] in the included example directory.
 
 To run the example, simply do the following in example directory and then

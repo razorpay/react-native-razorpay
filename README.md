@@ -88,10 +88,10 @@ link iOS SDK as explained in the previous section:
 
 1. Import RazorpayCheckout module to your component:
 ```js
-import { RazorpayCheckout } from 'react-native-razorpay';
+import RazorpayCheckout from 'react-native-razorpay';
 ```
-2. Call RazorpayCheckout's `open` method with `options` (preferably on a user
-action) as a **JS Promise**. The `then` part corresponds to a successful payment,
+2. Call `RazorpayCheckout.open` method with the payment `options`. The method
+returns a **JS Promise** where `then` part corresponds to a successful payment
 and the `catch` part corresponds to payment failure.
 ```js
 <TouchableHighlight onPress={() => {

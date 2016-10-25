@@ -123,7 +123,7 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
         JSONObject resultJson = new JSONObject(result);
         WritableMap successParams = Arguments.createMap();
         successParams.putString(MAP_KEY_PAYMENT_ID, resultJson.getString(MAP_KEY_RZP_PAYMENT_ID));
-        sendEvent("Razorpay::onPaymentSuccess", successParams);
+        sendEvent("Razorpay::PAYMENT_SUCCESS", successParams);
       } catch(Exception e){}
     }
     else {
@@ -133,7 +133,7 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
       WritableMap errorParams = Arguments.createMap();
       errorParams.putInt(MAP_KEY_ERROR_CODE, resultCode);
       errorParams.putString(MAP_KEY_ERROR_DESC, result);
-      sendEvent("Razorpay::onPaymentError", errorParams);
+      sendEvent("Razorpay::PAYMENT_ERROR", errorParams);
     }
   }
 

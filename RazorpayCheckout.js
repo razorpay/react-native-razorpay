@@ -4,20 +4,20 @@ import { NativeModules, NativeEventEmitter } from 'react-native';
 
 const razorpayEvents = new NativeEventEmitter(NativeModules.RazorpayEventEmitter);
 
-class RazorpayCheckout {
+const removeSubscriptions = () => {
+  razorpayEvents.removeAllListeners('Razorpay::PAYMENT_SUCCESS');
+  razorpayEvents.removeAllListeners('Razorpay::PAYMENT_ERROR');
+};
 
+class RazorpayCheckout {
   static open(options, successCallback, errorCallback) {
     return new Promise(function(resolve, reject) {
-      let removeSubscriptions = () => {
-        razorpayEvents.removeAllListeners('Razorpay::onPaymentSuccess');
-        razorpayEvents.removeAllListeners('Razorpay::onPaymentError');
-      };
-      razorpayEvents.addListener('Razorpay::onPaymentSuccess', (data) => {
+      razorpayEvents.addListener('Razorpay::PAYMENT_SUCCESS', (data) => {
         let resolveFn = successCallback || resolve;
         resolveFn(data);
         removeSubscriptions();
       });
-      razorpayEvents.addListener('Razorpay::onPaymentError', (data) => {
+      razorpayEvents.addListener('Razorpay::PAYMENT_ERROR', (data) => {
         let rejectFn = errorCallback || reject;
         rejectFn(data);
         removeSubscriptions();
@@ -25,7 +25,6 @@ class RazorpayCheckout {
       NativeModules.RazorpayCheckout.open(options);
     });
   }
-
 }
 
-export {RazorpayCheckout};
+export default RazorpayCheckout;

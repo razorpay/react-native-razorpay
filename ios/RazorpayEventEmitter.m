@@ -19,7 +19,7 @@ NSString *const kPaymentSuccess = @"PAYMENT_SUCCESS";
 RCT_EXPORT_MODULE();
 
 - (NSArray<NSString *> *)supportedEvents {
-  return @[ @"Razorpay::onPaymentSuccess", @"Razorpay::onPaymentError" ];
+  return @[ @"Razorpay::PAYMENT_SUCCESS", @"Razorpay::PAYMENT_ERROR" ];
 }
 
 - (void)startObserving {
@@ -38,12 +38,12 @@ RCT_EXPORT_MODULE();
 }
 
 - (void)paymentSuccess:(NSNotification *)notification {
-  [self sendEventWithName:@"Razorpay::onPaymentSuccess"
+  [self sendEventWithName:@"Razorpay::PAYMENT_SUCCESS"
                      body:notification.userInfo];
 }
 
 - (void)paymentError:(NSNotification *)notification {
-  [self sendEventWithName:@"Razorpay::onPaymentError"
+  [self sendEventWithName:@"Razorpay::PAYMENT_ERROR"
                      body:notification.userInfo];
 }
 

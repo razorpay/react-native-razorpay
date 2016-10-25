@@ -1,8 +1,8 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+* Sample React Native App
+* https://github.com/facebook/react-native
+* @flow
+*/
 
 import React, { Component } from 'react';
 import {
@@ -15,37 +15,39 @@ import {
   NativeEventEmitter
 } from 'react-native';
 
-import { RazorpayCheckout } from 'react-native-razorpay';
+import RazorpayCheckout from 'react-native-razorpay';
 
 class example extends Component {
 
   render() {
     return (
       <View style={styles.container}>
-       <TouchableHighlight onPress={() => {
+      <TouchableHighlight onPress={() => {
         var options = {
-         description: 'Credits towards consultation',
-         image: 'https://i.imgur.com/3g7nmJC.png',
-         currency: 'INR',
-         key: 'rzp_test_1DP5mmOlF5G5ag',
-         amount: '5000',
-         name: 'foo',
-         prefill: {
-           email: 'akshay@razorpay.com',
-           contact: '8955806560',
-           name: 'Akshay Bhalotia'
-         },
-         theme: {color: '#F37254'}
+          description: 'Credits towards consultation',
+          image: 'https://i.imgur.com/3g7nmJC.png',
+          currency: 'INR',
+          key: 'rzp_test_1DP5mmOlF5G5ag',
+          amount: '5000',
+          name: 'foo',
+          prefill: {
+            email: 'akshay@razorpay.com',
+            contact: '8955806560',
+            name: 'Akshay Bhalotia'
+          },
+          theme: {color: '#F37254'}
         }
-        RazorpayCheckout.open(options).then(data =>
-          { alert("Success: " + data.payment_id) }
-        ).catch(data =>
-          { alert("Error: " + data.code + " | " + data.description) }
-        );
-       }}>
+        RazorpayCheckout.open(options).then((data) => {
+          // handle success
+          alert(`Success: ${data.payment_id}`);
+        }).catch((error) => {
+          // handle failure
+          alert(`Error: ${error.code} | ${error.description}`);
+        });
+      }}>
       <Text style = {styles.text}>Pay</Text>
-    </TouchableHighlight>
-    </View>
+      </TouchableHighlight>
+      </View>
     );
   }
 

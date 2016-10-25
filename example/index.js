@@ -1,8 +1,8 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+* Sample React Native App
+* https://github.com/facebook/react-native
+* @flow
+*/
 
 import React, { Component } from 'react';
 import {
@@ -15,25 +15,14 @@ import {
   NativeEventEmitter
 } from 'react-native';
 
-import { RZP } from 'react-native-razorpay';
-const { RazorpayCheckout, RazorpayEventEmitter } = RZP;
-
-const rzpEvents = new NativeEventEmitter(RazorpayEventEmitter);
+import RazorpayCheckout from 'react-native-razorpay';
 
 class example extends Component {
-  componentWillMount() {
-    rzpEvents.addListener('onPaymentError', (data) => {
-      alert("Error: " + data.code + " | " + data.description)
-    });
-    rzpEvents.addListener('onPaymentSuccess', (data) => {
-      alert("Success: " + data.payment_id)
-    });
-  }
 
   render() {
     return (
       <View style={styles.container}>
-       <TouchableHighlight onPress={() => {
+      <TouchableHighlight onPress={() => {
         var options = {
           description: 'Credits towards consultation',
           image: 'https://i.imgur.com/3g7nmJC.png',
@@ -41,19 +30,25 @@ class example extends Component {
           key: 'rzp_test_1DP5mmOlF5G5ag',
           amount: '5000',
           name: 'foo',
-          prefill: {email: 'pranav@razorpay.com', contact: '8879524924', name: 'Pranav Gupta'},
+          prefill: {
+            email: 'akshay@razorpay.com',
+            contact: '8955806560',
+            name: 'Akshay Bhalotia'
+          },
           theme: {color: '#F37254'}
         }
-        RazorpayCheckout.open(options)
-       }}>
+        RazorpayCheckout.open(options).then((data) => {
+          // handle success
+          alert(`Success: ${data.payment_id}`);
+        }).catch((error) => {
+          // handle failure
+          alert(`Error: ${error.code} | ${error.description}`);
+        });
+      }}>
       <Text style = {styles.text}>Pay</Text>
-    </TouchableHighlight>
-    </View>
+      </TouchableHighlight>
+      </View>
     );
-  }
-
-  componentWillUnmount () {
-    rzpEvents.remove();
   }
 
 }

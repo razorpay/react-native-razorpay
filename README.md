@@ -87,35 +87,39 @@ link iOS SDK as explained in the previous section:
 ### Steps
 
 1. Import RazorpayCheckout module to your component:
-```js
-import RazorpayCheckout from 'react-native-razorpay';
-```
+    ```js
+    import RazorpayCheckout from 'react-native-razorpay';
+    ```
+
 2. Call `RazorpayCheckout.open` method with the payment `options`. The method
 returns a **JS Promise** where `then` part corresponds to a successful payment
 and the `catch` part corresponds to payment failure.
-```js
-<TouchableHighlight onPress={() => {
- var options = {
-   description: 'Credits towards consultation',
-   image: 'https://i.imgur.com/3g7nmJC.png',
-   currency: 'INR',
-   key: 'rzp_test_1DP5mmOlF5G5ag',
-   amount: '5000',
-   name: 'foo',
-   prefill: {
-     email: 'akshay@razorpay.com',
-     contact: '8955806560',
-     name: 'Akshay Bhalotia'
-   },
-   theme: {color: '#F37254'}
- }
- RazorpayCheckout.open(options).then(data =>
-   { alert("Success: " + data.payment_id) }
- ).catch(data =>
-   { alert("Error: " + data.code + " | " + data.description) }
- );
-}}>
-```
+    ```js
+    <TouchableHighlight onPress={() => {
+      var options = {
+        description: 'Credits towards consultation',
+        image: 'https://i.imgur.com/3g7nmJC.png',
+        currency: 'INR',
+        key: 'rzp_test_1DP5mmOlF5G5ag',
+        amount: '5000',
+        name: 'foo',
+        prefill: {
+          email: 'akshay@razorpay.com',
+          contact: '8955806560',
+          name: 'Akshay Bhalotia'
+        },
+        theme: {color: '#F37254'}
+      }
+      RazorpayCheckout.open(options).then((data) => {
+        // handle success
+        alert(`Success: ${data.payment_id}`);
+      }).catch((error) => {
+        // handle failure
+        alert(`Error: ${error.code} | ${error.description}`);
+      });
+    }}>
+    ```
+
 A descriptive [list of valid options for checkout][options] is available (under
 Manual Checkout column).
 

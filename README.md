@@ -94,11 +94,11 @@ const razorpayEvents = new NativeEventEmitter(RazorpayEventEmitter);
 ```
 3. Add payment event listeners to your component, preferably in `componentWillMount`:
 ```js
-razorpayEvents.addListener('onPaymentError', (data) => {
-  alert("Error: " + data.code + " | " + data.description)
-});
-razorpayEvents.addListener('onPaymentSuccess', (data) => {
+razorpayEvents.addListener('Razorpay::onPaymentSuccess', (data) => {
   alert("Success: " + data.payment_id)
+});
+razorpayEvents.addListener('Razorpay::onPaymentError', (data) => {
+  alert("Error: " + data.code + " | " + data.description)
 });
 ```
 4. Call RazorpayCheckout's `open` method with `options`, preferably on a user action:

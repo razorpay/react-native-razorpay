@@ -115,15 +115,15 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
     if (data != null) {
       Bundle extras = data.getExtras();
       if (extras != null) {
-        result = extras.getString("RESULT"); 
-      } 
+        result = extras.getString("RESULT");
+      }
     }
     if (resultCode == 1) {
       try {
         JSONObject resultJson = new JSONObject(result);
         WritableMap successParams = Arguments.createMap();
         successParams.putString(MAP_KEY_PAYMENT_ID, resultJson.getString(MAP_KEY_RZP_PAYMENT_ID));
-        sendEvent("onPaymentSuccess", successParams);  
+        sendEvent("Razorpay::onPaymentSuccess", successParams);
       } catch(Exception e){}
     }
     else {
@@ -133,8 +133,8 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
       WritableMap errorParams = Arguments.createMap();
       errorParams.putInt(MAP_KEY_ERROR_CODE, resultCode);
       errorParams.putString(MAP_KEY_ERROR_DESC, result);
-      sendEvent("onPaymentError", errorParams);
-    }   
+      sendEvent("Razorpay::onPaymentError", errorParams);
+    }
   }
 
   private void sendEvent(String eventName, @Nullable WritableMap params) {

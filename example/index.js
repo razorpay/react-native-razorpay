@@ -22,11 +22,11 @@ const razorpayEvents = new NativeEventEmitter(RazorpayEventEmitter);
 
 class example extends Component {
   componentWillMount() {
-    razorpayEvents.addListener('onPaymentError', (data) => {
-      alert("Error: " + data.code + " | " + data.description)
-    });
-    razorpayEvents.addListener('onPaymentSuccess', (data) => {
+    razorpayEvents.addListener('Razorpay::onPaymentSuccess', (data) => {
       alert("Success: " + data.payment_id)
+    });
+    razorpayEvents.addListener('Razorpay::onPaymentError', (data) => {
+      alert("Error: " + data.code + " | " + data.description)
     });
   }
 

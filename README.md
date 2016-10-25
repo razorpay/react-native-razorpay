@@ -2,6 +2,9 @@
 
 React Native wrapper around our Android and iOS mobile SDKs
 
+To know more about Razorpay payment flow and steps involved, please read up here:
+<https://docs.razorpay.com/docs>
+
 ## Installation
 
 Run the following on terminal from your project directory:
@@ -83,25 +86,13 @@ link iOS SDK as explained in the previous section:
 
 ### Steps
 
-1. Import Razorpay module to your component:
+1. Import RazorpayCheckout module to your component:
 ```js
-import { Razorpay } from 'react-native-razorpay';
-const { RazorpayCheckout, RazorpayEventEmitter } = Razorpay;
+import RazorpayCheckout from 'react-native-razorpay';
 ```
-2. Instantiate an event emitter with `RazorpayEventEmitter`:
-```js
-const razorpayEvents = new NativeEventEmitter(RazorpayEventEmitter);
-```
-3. Add payment event listeners to your component, preferably in `componentWillMount`:
-```js
-razorpayEvents.addListener('onPaymentError', (data) => {
-  alert("Error: " + data.code + " | " + data.description)
-});
-razorpayEvents.addListener('onPaymentSuccess', (data) => {
-  alert("Success: " + data.payment_id)
-});
-```
-4. Call RazorpayCheckout's `open` method with `options`, preferably on a user action:
+2. Call `RazorpayCheckout.open` method with the payment `options`. The method
+returns a **JS Promise** where `then` part corresponds to a successful payment
+and the `catch` part corresponds to payment failure.
 ```js
 <TouchableHighlight onPress={() => {
  var options = {
@@ -111,17 +102,22 @@ razorpayEvents.addListener('onPaymentSuccess', (data) => {
    key: 'rzp_test_1DP5mmOlF5G5ag',
    amount: '5000',
    name: 'foo',
-   prefill: {email: 'pranav@razorpay.com', contact: '8879524924', name: 'Pranav Gupta'},
+   prefill: {
+     email: 'akshay@razorpay.com',
+     contact: '8955806560',
+     name: 'Akshay Bhalotia'
+   },
    theme: {color: '#F37254'}
  }
- RazorpayCheckout.open(options)
+ RazorpayCheckout.open(options).then(data =>
+   { alert("Success: " + data.payment_id) }
+ ).catch(data =>
+   { alert("Error: " + data.code + " | " + data.description) }
+ );
 }}>
 ```
-5. Stop listening for payment events, preferably in `componentWillMount`:
-```js
-razorpayEvents.remove();
-```
-
+A descriptive [list of valid options for checkout][options] is available (under
+Manual Checkout column).
 
 ## Contributing
 
@@ -143,3 +139,4 @@ or [contact us][contact] to help you with integrations.
 [integrations]: https://razorpay.com/integrations "List of our integrations"
 [ios-docs]: https://docs.razorpay.com/v1/page/ios-integration "Documentation for the iOS Integration"
 [LICENSE]: /LICENSE "MIT License"
+[options]: https://docs.razorpay.com/docs/checkout-form#checkout-fields "Checkout Options"

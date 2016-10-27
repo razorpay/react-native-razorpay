@@ -1,4 +1,5 @@
 # react-native-razorpay
+[![npm](https://img.shields.io/npm/v/razorpay.svg?maxAge=2592000?style=flat-square)](https://www.npmjs.com/package/react-native-razorpay)
 
 React Native wrapper around our Android and iOS mobile SDKs
 
@@ -6,6 +7,10 @@ To know more about Razorpay payment flow and steps involved, please read up here
 <https://docs.razorpay.com/docs>
 
 ## Installation
+
+This has 3 steps: add to project, installation and linking iOS SDK.
+
+### Add to project
 
 Run the following on terminal from your project directory:
 
@@ -19,37 +24,11 @@ $ npm i react-native-razorpay --save
 $ react-native link react-native-razorpay
 ```
 
-### Manual installation
+##### Manual installation
 
-If the above command doesn't work for you, try the following:
+If the above command doesn't work for you (installation), try [these steps from wiki][wiki].
 
-#### iOS
-
-1. In XCode, in the project navigator, right click `Libraries` ➜
-`Add Files to [your project's name]`
-2. Go to `node_modules` ➜ `react-native-razorpay` and add `RazorpayCheckout.xcodeproj`
-3. In XCode, in the project navigator, select your project. Add
-`libRazorpayCheckout.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
-4. Run your project (`⌘+R`)
-
-#### Android
-
-1. Open up `android/app/src/main/java/[...]/MainApplication.java`
-  - Add `import com.razorpay.rn.RazorpayPackage;` to the imports at the top of
-  the file
-  - Add `new RazorpayPackage()` to the list returned by the `getPackages()` method
-2. Append the following lines to `android/settings.gradle`:
-    ```gradle
-    include ':react-native-razorpay'
-    project(':react-native-razorpay').projectDir = new File(rootProject.projectDir,   '../node_modules/react-native-razorpay/android')
-    ```
-3. Insert the following lines inside the dependencies block in
-`android/app/build.gradle`:
-    ```gradle
-    compile project(':react-native-razorpay')
-    ```
-
-## Linking iOS SDK
+### Additional Steps for Linking iOS SDK
 
 React Native creates static library for each plugin / library / framework / native module being used.
 
@@ -144,3 +123,4 @@ or [contact us][contact] to help you with integrations.
 [ios-docs]: https://docs.razorpay.com/v1/page/ios-integration "Documentation for the iOS Integration"
 [LICENSE]: /LICENSE "MIT License"
 [options]: https://docs.razorpay.com/docs/checkout-form#checkout-fields "Checkout Options"
+[wiki]: https://github.com/razorpay/react-native-razorpay/wiki/Manual-Installation

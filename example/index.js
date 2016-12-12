@@ -66,4 +66,4 @@ const styles = StyleSheet.create({
   }
 });
 
-module.exports = example;
+AppRegistry.registerComponent('example', () => example);

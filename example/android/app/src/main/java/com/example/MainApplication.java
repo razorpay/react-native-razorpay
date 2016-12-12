@@ -28,6 +28,11 @@ public class MainApplication extends Application implements ReactApplication {
             new RazorpayPackage()
       );
     }
+
+    @Override
+    protected String getJSMainModuleName() {
+        return "index";
+    }
   };
 
   @Override

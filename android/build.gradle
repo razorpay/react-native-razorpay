@@ -1,5 +1,7 @@
 apply plugin: 'com.android.library'
-
+repositories {
+    mavenCentral()
+}
 android {
     compileSdkVersion 23
     buildToolsVersion "24.0.0"
@@ -14,6 +16,6 @@ android {
 
 dependencies {
     compile 'com.facebook.react:react-native:0.20.+'
-    compile 'com.razorpay:checkout:1.0.2'
+    compile 'com.razorpay:checkout:1.2.0'
 }
   

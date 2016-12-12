@@ -1,4 +1,3 @@
-
 {
   "name": "react-native-razorpay",
   "version": "1.0.0",
@@ -19,5 +18,8 @@
   ],
   "author": "Razorpay Developers <developers@razorpay.com> (https://razorpay.com/)",
   "license": "MIT",
-  "homepage" : "https://github.com/razorpay/react-native-razorpay#readme"
+  "homepage": "https://github.com/razorpay/react-native-razorpay#readme",
+  "dependencies": {
+    "react-native": "^0.39.1"
+  }
 }

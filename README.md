@@ -42,9 +42,9 @@ You can skip steps 1, 2 and 3 if you used `npm`.
 
 1. Download [Razorpay's iOS SDK from here][ios-docs] and unzip it.
 2. Delete the `.framework` file from
-`path/to/your/project/node_modules/react-native-razorpay`.
+`path/to/your/project/node_modules/react-native-razorpay/ios`.
 3. Copy the `.framework` file obtained in step 1 to
-`path/to/your/project/node_modules/react-native-razorpay`.
+`path/to/your/project/node_modules/react-native-razorpay/ios`.
 4. Open `path/to/your/project/ios/<your_project>.xcworkspace` or
 `path/to/your/project/ios/<your_project>.xcodeproj`
 5. Also link the `.framework` file **_directly_ to your project** in Xcode. Check the

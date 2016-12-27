@@ -1,5 +1,7 @@
 # react-native-razorpay
-[![npm](https://img.shields.io/npm/v/razorpay.svg?maxAge=2592000?style=flat-square)](https://www.npmjs.com/package/react-native-razorpay)
+[![npm](https://img.shields.io/npm/l/express.svg)]()
+
+[![NPM](https://nodei.co/npm/react-native-razorpay.png?downloads=true)](https://nodei.co/npm/react-native-razorpay/)
 
 React Native wrapper around our Android and iOS mobile SDKs
 

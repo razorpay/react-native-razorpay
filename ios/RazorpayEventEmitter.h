@@ -6,7 +6,7 @@
 //  Copyright © 2016 Facebook. All rights reserved.
 //
 
-#import "RCTEventEmitter.h"
+#import <React/RCTEventEmitter.h>
 
 @interface RazorpayEventEmitter : RCTEventEmitter
 

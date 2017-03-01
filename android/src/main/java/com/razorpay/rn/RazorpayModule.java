@@ -117,6 +117,11 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
   }
 
   @Override
+  public void onNewIntent(Intent intent) {
+
+  }
+
+
   public void onActivityResult(int requestCode, int resultCode, Intent data){
      Checkout.handleActivityResult(getCurrentActivity(), requestCode, resultCode, data, this);
   }

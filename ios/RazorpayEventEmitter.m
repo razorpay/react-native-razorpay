@@ -47,15 +47,22 @@ RCT_EXPORT_MODULE();
                      body:notification.userInfo];
 }
 
-+ (void)onPaymentSuccess:(NSString *)payment_id {
-  NSDictionary *payload = @{ @"payment_id" : payment_id };
++ (void)onPaymentSuccess:(NSString *)payment_id
+                 andData:(NSDictionary *)response {
+  NSDictionary *payload = [NSDictionary dictionaryWithDictionary:response];
   [[NSNotificationCenter defaultCenter] postNotificationName:kPaymentSuccess
                                                       object:nil
                                                     userInfo:payload];
 }
 
-+ (void)onPaymentError:(int)code description:(NSString *)str {
-  NSDictionary *payload = @{ @"code" : @(code), @"description" : str };
++ (void)onPaymentError:(int)code
+           description:(NSString *)str
+               andData:(NSDictionary *)response {
+  NSDictionary *payload = @{
+    @"code" : @(code),
+    @"description" : str,
+    @"data" : response
+  };
   [[NSNotificationCenter defaultCenter] postNotificationName:kPaymentError
                                                       object:nil
                                                     userInfo:payload];

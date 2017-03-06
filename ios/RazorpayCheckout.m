@@ -10,9 +10,9 @@
 #import "RazorpayEventEmitter.h"
 
 #import <Razorpay/Razorpay.h>
-#import <Razorpay/RazorpayPaymentCompletionProtocol.h>
+#import <Razorpay/RazorpayPaymentCompletionProtocolWithData.h>
 
-@interface RazorpayCheckout () <RazorpayPaymentCompletionProtocol>
+@interface RazorpayCheckout () <RazorpayPaymentCompletionProtocolWithData>
 
 @end
 
@@ -23,19 +23,22 @@ RCT_EXPORT_MODULE()
 RCT_EXPORT_METHOD(open : (NSDictionary *)options) {
 
   NSString *keyID = (NSString *)[options objectForKey:@"key"];
-  id razorpay =
-      [NSClassFromString(@"Razorpay") initWithKey:keyID andDelegate:self];
+  id razorpay = [NSClassFromString(@"Razorpay") initWithKey:keyID
+                                        andDelegateWithData:self];
   dispatch_sync(dispatch_get_main_queue(), ^{
     [razorpay open:options];
   });
 }
 
-- (void)onPaymentSuccess:(NSString *)payment_id {
-  [RazorpayEventEmitter onPaymentSuccess:payment_id];
+- (void)onPaymentSuccess:(nonnull NSString *)payment_id
+                 andData:(nullable NSDictionary *)response {
+  [RazorpayEventEmitter onPaymentSuccess:payment_id andData:response];
 }
 
-- (void)onPaymentError:(int)code description:(NSString *)str {
-  [RazorpayEventEmitter onPaymentError:code description:str];
+- (void)onPaymentError:(int)code
+           description:(nonnull NSString *)str
+               andData:(nullable NSDictionary *)response {
+  [RazorpayEventEmitter onPaymentError:code description:str andData:response];
 }
 
 @end

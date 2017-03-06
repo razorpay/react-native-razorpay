@@ -10,7 +10,9 @@
 
 @interface RazorpayEventEmitter : RCTEventEmitter
 
-+ (void)onPaymentSuccess:(NSString *)payment_id;
-+ (void)onPaymentError:(int)code description:(NSString *)str;
-
++ (void)onPaymentSuccess:(NSString *)payment_id
+                 andData:(NSDictionary *)response;
++ (void)onPaymentError:(int)code
+           description:(NSString *)str
+               andData:(NSDictionary *)response;
 @end

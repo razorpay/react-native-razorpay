@@ -39,7 +39,7 @@ class example extends Component {
         }
         RazorpayCheckout.open(options).then((data) => {
           // handle success
-          alert(`Success: ${data.payment_id}`);
+          alert(`Success: ${data.razorpay_payment_id}`);
         }).catch((error) => {
           // handle failure
           alert(`Error: ${error.code} | ${error.description}`);

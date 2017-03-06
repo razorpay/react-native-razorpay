@@ -9,10 +9,12 @@
 #import "RazorpayCheckout.h"
 #import "RazorpayEventEmitter.h"
 
+#import <Razorpay/ExternalWalletSelectionProtocol.h>
 #import <Razorpay/Razorpay.h>
 #import <Razorpay/RazorpayPaymentCompletionProtocolWithData.h>
 
-@interface RazorpayCheckout () <RazorpayPaymentCompletionProtocolWithData>
+@interface RazorpayCheckout () <RazorpayPaymentCompletionProtocolWithData,
+                                ExternalWalletSelectionProtocol>
 
 @end
 
@@ -25,6 +27,7 @@ RCT_EXPORT_METHOD(open : (NSDictionary *)options) {
   NSString *keyID = (NSString *)[options objectForKey:@"key"];
   id razorpay = [NSClassFromString(@"Razorpay") initWithKey:keyID
                                         andDelegateWithData:self];
+  [razorpay setExternalWalletSelectionDelegate:self];
   dispatch_sync(dispatch_get_main_queue(), ^{
     [razorpay open:options];
   });
@@ -39,6 +42,12 @@ RCT_EXPORT_METHOD(open : (NSDictionary *)options) {
            description:(nonnull NSString *)str
                andData:(nullable NSDictionary *)response {
   [RazorpayEventEmitter onPaymentError:code description:str andData:response];
+}
+
+- (void)onExternalWalletSelected:(nonnull NSString *)walletName
+                 WithPaymentData:(nullable NSDictionary *)paymentData {
+  [RazorpayEventEmitter onExternalWalletSelected:walletName
+                                         andData:paymentData];
 }
 
 @end

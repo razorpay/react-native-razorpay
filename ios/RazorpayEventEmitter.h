@@ -15,4 +15,6 @@
 + (void)onPaymentError:(int)code
            description:(NSString *)str
                andData:(NSDictionary *)response;
++ (void)onExternalWalletSelected:(NSString *)walletName
+                         andData:(NSDictionary *)paymentData;
 @end

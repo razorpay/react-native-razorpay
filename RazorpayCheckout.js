@@ -7,6 +7,7 @@ const razorpayEvents = new NativeEventEmitter(NativeModules.RazorpayEventEmitter
 const removeSubscriptions = () => {
   razorpayEvents.removeAllListeners('Razorpay::PAYMENT_SUCCESS');
   razorpayEvents.removeAllListeners('Razorpay::PAYMENT_ERROR');
+  razorpayEvents.removeAllListeners('Razorpay::EXTERNAL_WALLET_SELECTED');
 };
 
 class RazorpayCheckout {
@@ -23,6 +24,12 @@ class RazorpayCheckout {
         removeSubscriptions();
       });
       NativeModules.RazorpayCheckout.open(options);
+    });
+  }
+  static onExternalWalletSelection(externalWalletCallback) {
+    razorpayEvents.addListener('Razorpay::EXTERNAL_WALLET_SELECTED', (data) => {
+      externalWalletCallback(data);
+      removeSubscriptions();
     });
   }
 }

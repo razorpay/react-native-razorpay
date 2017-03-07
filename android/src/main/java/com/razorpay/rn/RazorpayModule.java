@@ -18,13 +18,13 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.razorpay.CheckoutActivity;
 import com.razorpay.PaymentData;
 import com.razorpay.PaymentResultWithDataListener;
+import com.razorpay.ExternalWalletListener;
 import com.razorpay.Checkout;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.Iterator;
 import android.app.Activity;
-import javax.annotation.Nullable;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -32,7 +32,7 @@ import android.os.Bundle;
 
 
 
-public class RazorpayModule extends ReactContextBaseJavaModule implements ActivityEventListener, PaymentResultWithDataListener {
+public class RazorpayModule extends ReactContextBaseJavaModule implements ActivityEventListener, PaymentResultWithDataListener , ExternalWalletListener {
 
 
   public static final int RZP_REQUEST_CODE = 72967729;
@@ -40,6 +40,8 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
   public static final String MAP_KEY_PAYMENT_ID = "payment_id";
   public static final String MAP_KEY_ERROR_CODE = "code";
   public static final String MAP_KEY_ERROR_DESC = "description";
+  public static final String MAP_KEY_PAYMENT_DETAILS = "details";
+  public static final String MAP_KEY_WALLET_NAME="name";
   ReactApplicationContext reactContext;
   public RazorpayModule(ReactApplicationContext reactContext) {
     super(reactContext);
@@ -56,60 +58,12 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
   public void open(ReadableMap options) {
     Activity currentActivity = getCurrentActivity();
     try {
-      JSONObject optionsJSON = readableMapToJson(options);
+      JSONObject optionsJSON = Utils.readableMapToJson(options);
       Intent intent = new Intent(currentActivity, CheckoutActivity.class);
       intent.putExtra("OPTIONS", optionsJSON.toString());
       intent.putExtra("FRAMEWORK", "react_native");
       currentActivity.startActivityForResult(intent, Checkout.RZP_REQUEST_CODE);
     } catch (Exception e) {}
-  }
-
-
-  @Nullable
-  private static JSONObject readableMapToJson(ReadableMap readableMap) {
-    JSONObject jsonObject = new JSONObject();
-
-    if (readableMap == null) {
-      return null;
-    }
-
-    ReadableMapKeySetIterator iterator = readableMap.keySetIterator();
-    if (!iterator.hasNextKey()) {
-      return null;
-    }
-
-    while (iterator.hasNextKey()) {
-      String key = iterator.nextKey();
-      ReadableType readableType = readableMap.getType(key);
-
-      try {
-        switch (readableType) {
-        case Null:
-          jsonObject.put(key, null);
-          break;
-        case Boolean:
-          jsonObject.put(key, readableMap.getBoolean(key));
-          break;
-        case Number:
-          // Can be int or double.
-          jsonObject.put(key, readableMap.getInt(key));
-          break;
-        case String:
-          jsonObject.put(key, readableMap.getString(key));
-          break;
-        case Map:
-          jsonObject.put(key, readableMapToJson(readableMap.getMap(key)));
-          break;
-        case Array:
-          jsonObject.put(key, readableMap.getArray(key));
-        default:
-          // Do nothing and fail silently
-        }
-      } catch (JSONException ex) {
-        // Do nothing and fail silently
-      }
-    }
-    return jsonObject;
   }
  
   public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
@@ -118,10 +72,10 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
 
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data){
-     Checkout.handleActivityResult(getCurrentActivity(), requestCode, resultCode, data, this);
+     Checkout.handleActivityResult(getCurrentActivity(), requestCode, resultCode, data, this, this);
   }
 
-  private void sendEvent(String eventName, @Nullable WritableMap params) {
+  private void sendEvent(String eventName, WritableMap params) {
   reactContext
       .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
       .emit(eventName, params);
@@ -131,6 +85,7 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
     public void onPaymentSuccess(String razorpayPaymentId, PaymentData paymentData) {
       WritableMap successParams = Arguments.createMap();
       successParams.putString(MAP_KEY_PAYMENT_ID, razorpayPaymentId);
+      successParams.putMap(MAP_KEY_PAYMENT_DETAILS, Utils.jsonToWritableMap(paymentData.getData()));
       sendEvent("Razorpay::PAYMENT_SUCCESS", successParams); 
     }
 
@@ -139,7 +94,17 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
       WritableMap errorParams = Arguments.createMap();
       errorParams.putInt(MAP_KEY_ERROR_CODE, code);
       errorParams.putString(MAP_KEY_ERROR_DESC, description);
+      errorParams.putMap(MAP_KEY_PAYMENT_DETAILS, Utils.jsonToWritableMap(paymentData.getData()));
       sendEvent("Razorpay::PAYMENT_ERROR", errorParams);
+    }
+
+    @Override 
+    public void onExternalWalletSelected(String walletName, PaymentData paymentData){
+      WritableMap params = Arguments.createMap();
+      params.putString(MAP_KEY_WALLET_NAME, walletName);
+      params.putMap(MAP_KEY_PAYMENT_DETAILS, Utils.jsonToWritableMap(paymentData.getData()));
+      sendEvent("Razorpay::EXTERNAL_WALLET_SELECTED", params);
+
     }
 
 }

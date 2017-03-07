@@ -29,6 +29,9 @@ class example extends Component {
           currency: 'INR',
           key: 'rzp_test_1DP5mmOlF5G5ag',
           amount: '5000',
+          external: {
+            wallets: ['paytm']
+          },
           name: 'foo',
           prefill: {
             email: 'akshay@razorpay.com',
@@ -39,10 +42,13 @@ class example extends Component {
         }
         RazorpayCheckout.open(options).then((data) => {
           // handle success
-          alert(`Success: ${data.payment_id}`);
+          alert(`Success: ${data.razorpay_payment_id}`);
         }).catch((error) => {
           // handle failure
           alert(`Error: ${error.code} | ${error.description}`);
+        });
+        RazorpayCheckout.onExternalWalletSelection(data => {
+          alert(`External Wallet Selected: ${data.name} | ${data.details}`);
         });
       }}>
       <Text style = {styles.text}>Pay</Text>

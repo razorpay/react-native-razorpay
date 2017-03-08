@@ -47,8 +47,10 @@ You can skip steps 1, 2 and 3 if you used `npm`.
 `path/to/your/project/node_modules/react-native-razorpay/ios`.
 4. Open `path/to/your/project/ios/<your_project>.xcworkspace` or
 `path/to/your/project/ios/<your_project>.xcodeproj`
-5. Also link the `.framework` file **_directly_ to your project** in Xcode. Check the
- `Copy items if needed` box and select your project target from the list below.
+5. Also link the `.framework` file **_directly_ to your project** in Xcode. You
+ can do this by simply dragging-and-dropping the `.framework` file into Xcode
+under directory named `your_project`. Check the `Copy items if needed` box and
+ select your project target from the list below.
 6. Add the following line of code in your `AppDelegate.m` under the imports section:  
 `#import <dlfcn.h>`
 7. Add the following line of code in your `AppDelegate.m` inside the
@@ -93,7 +95,7 @@ and the `catch` part corresponds to payment failure.
       }
       RazorpayCheckout.open(options).then((data) => {
         // handle success
-        alert(`Success: ${data.payment_id}`);
+        alert(`Success: ${data.razorpay_payment_id}`);
       }).catch((error) => {
         // handle failure
         alert(`Error: ${error.code} | ${error.description}`);

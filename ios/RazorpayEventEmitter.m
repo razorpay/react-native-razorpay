@@ -7,8 +7,6 @@
 //
 
 #import "RazorpayEventEmitter.h"
-
-#import "RCTBridge.h"
 #import "RCTEventDispatcher.h"
 
 NSString *const kPaymentError = @"PAYMENT_ERROR";

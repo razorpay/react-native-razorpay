@@ -70,10 +70,7 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
     onActivityResult(requestCode, resultCode, data);
   }
 
-  @Override
-  public void onNewIntent(Intent intent) {
-
-  }
+  public void onNewIntent(Intent intent) {}
 
 
   public void onActivityResult(int requestCode, int resultCode, Intent data){

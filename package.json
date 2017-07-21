@@ -1,11 +1,11 @@
 {
   "name": "react-native-razorpay",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "React Native wrapper for Razorpay",
   "main": "RazorpayCheckout.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "./download_ios_framework.sh"
+    "postinstall": "sh ./download_ios_framework.sh"
   },
   "repository": {
     "type": "git",

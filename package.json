@@ -5,7 +5,7 @@
   "main": "RazorpayCheckout.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "./download_ios_framework.sh"
+    "postinstall": "sh ./download_ios_framework.sh"
   },
   "repository": {
     "type": "git",

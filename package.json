@@ -5,7 +5,7 @@
   "main": "RazorpayCheckout.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "sh ./download_ios_framework.sh"
+    "postinstall": "node download_ios_framework.js"
   },
   "repository": {
     "type": "git",
@@ -13,6 +13,10 @@
   },
   "dependencies": {
     "react-native": ">=0.40.0"
+  },
+  "devDependencies": {
+    "adm-zip": "^0.4.7",
+    "download-file": "^0.1.5"
   },
   "peerDependencies": {
     "react-native": ">=0.40.0"

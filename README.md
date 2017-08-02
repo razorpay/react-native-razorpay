@@ -16,6 +16,8 @@ This has 3 steps: add to project, installation and linking iOS SDK.
 
 Run the following on terminal from your project directory:
 
+**Note**: For Windows users, please run this on Git Bash instead of Command Prompt. You can download Git for Windows [here](https://github.com/git-for-windows/git/releases/latest).
+
 ```bash
 $ npm i react-native-razorpay --save
 ```

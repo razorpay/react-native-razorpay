@@ -108,6 +108,10 @@ and the `catch` part corresponds to payment failure.
 A descriptive [list of valid options for checkout][options] is available (under
 Manual Checkout column).
 
+## Things to be taken care:
+
+- The react native plugin is wrapper around native SDK, so it doesn't work with the tools like expo which doesn't support native modules.
+
 ## Contributing
 
 See the [CONTRIBUTING] document. Thank you, [contributors]!

@@ -1,0 +1,10 @@
+framework module Razorpay {
+  umbrella header "Razorpay.h"
+
+  export *
+  module * { export * }
+}
+
+module Razorpay.Swift {
+    header "Razorpay-Swift.h"
+}

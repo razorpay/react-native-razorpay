@@ -51,7 +51,7 @@ class example extends Component {
           alert(`External Wallet Selected: ${data.name} | ${data.details}`);
         });
       }}>
-      <Text style = {styles.text}>Pay</Text>
+      <Text style = {styles.text}>PAY</Text>
       </TouchableHighlight>
       </View>
     );

@@ -1,7 +1,10 @@
 #!/bin/sh
 ## Run this script after installing the module
 
-curl -O http://downloads.razorpay.com/Razorpay.framework-0.15.1.zip
-unzip -o ./Razorpay.framework-0.15.1.zip
+
+curl -O https://rzp-mobile.s3.amazonaws.com/ios/checkout/1.0.6/RazorpayX9.framework.zip
+unzip -o ./RazorpayX9.framework.zip
 rm -r ./ios/Razorpay.framework
-cp -R ./Razorpay.framework ./ios/
+cp -r ./Razorpay.framework ./ios/
+rm -r Razorpay.framework
+rm RazorpayX9.framework.zip

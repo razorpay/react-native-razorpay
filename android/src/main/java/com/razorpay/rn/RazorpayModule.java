@@ -85,28 +85,24 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
 
    @Override
     public void onPaymentSuccess(String razorpayPaymentId, PaymentData paymentData) {
-      WritableMap successParams = Arguments.createMap();
-      successParams.putString(MAP_KEY_PAYMENT_ID, razorpayPaymentId);
-      successParams.putMap(MAP_KEY_PAYMENT_DETAILS, Utils.jsonToWritableMap(paymentData.getData()));
-      sendEvent("Razorpay::PAYMENT_SUCCESS", successParams); 
+      sendEvent("Razorpay::PAYMENT_SUCCESS", Utils.jsonToWritableMap(paymentData.getData())); 
     }
 
     @Override
     public void onPaymentError(int code, String description, PaymentData paymentData) {
       WritableMap errorParams = Arguments.createMap();
-      errorParams.putInt(MAP_KEY_ERROR_CODE, code);
-      errorParams.putString(MAP_KEY_ERROR_DESC, description);
-      errorParams.putMap(MAP_KEY_PAYMENT_DETAILS, Utils.jsonToWritableMap(paymentData.getData()));
-      sendEvent("Razorpay::PAYMENT_ERROR", errorParams);
+      JSONObject paymentDataJson = paymentData.getData();
+      try{
+        paymentDataJson.put(MAP_KEY_ERROR_CODE, code);
+        paymentDataJson.put(MAP_KEY_ERROR_DESC, description);
+      } catch(Exception e){
+      }
+      sendEvent("Razorpay::PAYMENT_ERROR", Utils.jsonToWritableMap(paymentDataJson));
     }
 
     @Override 
     public void onExternalWalletSelected(String walletName, PaymentData paymentData){
-      WritableMap params = Arguments.createMap();
-      params.putString(MAP_KEY_WALLET_NAME, walletName);
-      params.putMap(MAP_KEY_PAYMENT_DETAILS, Utils.jsonToWritableMap(paymentData.getData()));
-      sendEvent("Razorpay::EXTERNAL_WALLET_SELECTED", params);
-
+      sendEvent("Razorpay::EXTERNAL_WALLET_SELECTED", Utils.jsonToWritableMap(paymentData.getData()));
     }
 
 }

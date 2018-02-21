@@ -27,7 +27,7 @@
 		924876631D8BEAFC002ADD01 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 924876621D8BEAFC002ADD01 /* SystemConfiguration.framework */; };
 		AD303AA11F9E1C5E009CE9B5 /* Razorpay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 920D7AD01D8BE9E700CA6795 /* Razorpay.framework */; };
 		AD303AA21F9E1C5E009CE9B5 /* Razorpay.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 920D7AD01D8BE9E700CA6795 /* Razorpay.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C965BD7112A3425686EC2BCC /* libRazorpayCheckout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BFD36E0BFFA4163855158DC /* libRazorpayCheckout.a */; };
+		E844CC64996F4F1A8718D55C /* libRazorpayCheckout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 90E62A34DB624C2489848F4D /* libRazorpayCheckout.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -281,8 +281,8 @@
 		920D7AD01D8BE9E700CA6795 /* Razorpay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Razorpay.framework; sourceTree = "<group>"; };
 		924876551D8BEAF4002ADD01 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		924876621D8BEAFC002ADD01 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		2E6D90F2286843C281E73D59 /* RazorpayCheckout.xcodeproj */ = {isa = PBXFileReference; name = "RazorpayCheckout.xcodeproj"; path = "../node_modules/react-native-razorpay/ios/RazorpayCheckout.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		7BFD36E0BFFA4163855158DC /* libRazorpayCheckout.a */ = {isa = PBXFileReference; name = "libRazorpayCheckout.a"; path = "libRazorpayCheckout.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		794F1E83F20C4F04A7988077 /* RazorpayCheckout.xcodeproj */ = {isa = PBXFileReference; name = "RazorpayCheckout.xcodeproj"; path = "../node_modules/react-native-razorpay/ios/RazorpayCheckout.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		90E62A34DB624C2489848F4D /* libRazorpayCheckout.a */ = {isa = PBXFileReference; name = "libRazorpayCheckout.a"; path = "libRazorpayCheckout.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -312,7 +312,7 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				920D7AD11D8BE9E700CA6795 /* Razorpay.framework in Frameworks */,
-				C965BD7112A3425686EC2BCC /* libRazorpayCheckout.a in Frameworks */,
+				E844CC64996F4F1A8718D55C /* libRazorpayCheckout.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,7 +453,7 @@
 				832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */,
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
-				2E6D90F2286843C281E73D59 /* RazorpayCheckout.xcodeproj */,
+				794F1E83F20C4F04A7988077 /* RazorpayCheckout.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -494,7 +494,7 @@
 		ADCB1EF61FC3096200A14E91 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				143EC6054168498F96B6AF47 /* libRazorpayCheckout.a */,
+				7BFD36E0BFFA4163855158DC /* libRazorpayCheckout.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";

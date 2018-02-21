@@ -48,7 +48,7 @@ class example extends Component {
           alert(`Error: ${error.code} | ${error.description}`);
         });
         RazorpayCheckout.onExternalWalletSelection(data => {
-          alert(`External Wallet Selected: ${data.name} | ${data.details}`);
+          alert(`External Wallet Selected: ${data.external_wallet} `);
         });
       }}>
       <Text style = {styles.text}>PAY</Text>

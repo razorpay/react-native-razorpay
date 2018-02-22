@@ -32,33 +32,6 @@ $ react-native link react-native-razorpay
 
 If the above command doesn't work for you (installation), try [these steps from wiki][wiki].
 
-### Additional Steps for Linking iOS SDK
-
-React Native creates static library for each plugin / library / framework / native module being used.
-
-Due to some limitation on the way Xcode links static and dynamic
-libraries / frameworks to projects, we require some additional
-steps to be followed to link our iOS SDK to the React Native project.
-
-You can skip steps 1, 2 and 3 if you used `npm`.
-
-1. Download [Razorpay's iOS SDK from here][ios-docs] and unzip it.
-2. Delete the `.framework` file from
-`path/to/your/project/node_modules/react-native-razorpay/ios`.
-3. Copy the `.framework` file obtained in step 1 to
-`path/to/your/project/node_modules/react-native-razorpay/ios`.
-4. Open `path/to/your/project/ios/<your_project>.xcworkspace` or
-`path/to/your/project/ios/<your_project>.xcodeproj`
-5. Also link the `.framework` file **_directly_ to your project** in Xcode. You
- can do this by simply dragging-and-dropping the `.framework` file into Xcode
-under directory named `your_project`. Check the `Copy items if needed` box and
- select your project target from the list below.
-6. Add the following line of code in your `AppDelegate.m` under the imports section:  
-`#import <dlfcn.h>`
-7. Add the following line of code in your `AppDelegate.m` inside the
-`application:didFinishLaunchingWithOptions:` method:  
-`dlopen("Razorpay.framework/Razorpay", RTLD_LAZY | RTLD_GLOBAL);`
-
 ## Usage
 
 Sample code to integrate with Razorpay can be found in

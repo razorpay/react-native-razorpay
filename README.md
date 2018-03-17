@@ -5,8 +5,17 @@
 
 React Native wrapper around our Android and iOS mobile SDKs
 
-To know more about Razorpay payment flow and steps involved, please read up here:
+**Note**: The following documentation is only focussed on the react-native wrapper around our Android and iOS sdks. To know more about our sdks and how to link them within the projects, refer to the following documentation-
+
+**Android** - https://docs.razorpay.com/v1/page/android-checkout-sdk-v13x
+
+**iOS** - https://razorpay.com/docs/ios/
+
+To know more about Razorpay payment flow and steps involved, read up here:
 <https://docs.razorpay.com/docs>
+
+
+
 
 ## Installation
 
@@ -16,7 +25,7 @@ This has 3 steps: add to project, installation and linking iOS SDK.
 
 Run the following on terminal from your project directory:
 
-**Note**: For Windows users, please run this on Git Bash instead of Command Prompt. You can download Git for Windows [here](https://github.com/git-for-windows/git/releases/latest).
+**Note**: For Windows users, run this on Git Bash instead of Command Prompt. You can download Git for Windows [here](https://github.com/git-for-windows/git/releases/latest).
 
 ```bash
 $ npm i react-native-razorpay --save
@@ -62,9 +71,9 @@ and the `catch` part corresponds to payment failure.
         amount: '5000',
         name: 'foo',
         prefill: {
-          email: 'akshay@razorpay.com',
-          contact: '8955806560',
-          name: 'Akshay Bhalotia'
+          email: 'void@razorpay.com',
+          contact: '9191919191',
+          name: 'Razorpay Software'
         },
         theme: {color: '#F37254'}
       }

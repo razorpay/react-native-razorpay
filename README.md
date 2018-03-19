@@ -7,7 +7,7 @@ React Native wrapper around our Android and iOS mobile SDKs
 
 **Note**: The following documentation is only focussed on the react-native wrapper around our Android and iOS sdks. To know more about our sdks and how to link them within the projects, refer to the following documentation-
 
-**Android** - https://docs.razorpay.com/v1/page/android-checkout-sdk-v13x
+**Android** - https://docs.razorpay.com/v1/page/android/
 
 **iOS** - https://razorpay.com/docs/ios/
 

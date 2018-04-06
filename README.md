@@ -5,6 +5,7 @@
 
 React Native wrapper around our Android and iOS mobile SDKs
 
+**Note**: This release is meant for Xcode 9.3 as it uses a framework compiled in Swift 4.1.This will not work in XCode 9.2 as you will get a "dlyb error : framework not found error".
 **Note**: The following documentation is only focussed on the react-native wrapper around our Android and iOS sdks. To know more about our sdks and how to link them within the projects, refer to the following documentation-
 
 **Android** - https://docs.razorpay.com/v1/page/android/

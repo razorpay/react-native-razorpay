@@ -4,8 +4,7 @@
   "description": "React Native wrapper for Razorpay",
   "main": "RazorpayCheckout.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "sh ./download_ios_framework.sh"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",

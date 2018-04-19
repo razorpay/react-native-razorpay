@@ -188,6 +188,20 @@ SWIFT_PROTOCOL("_TtP8Razorpay31ExternalWalletSelectionProtocol_")
 - (void)onExternalWalletSelected:(NSString * _Nonnull)walletName WithPaymentData:(NSDictionary * _Nullable)paymentData;
 @end
 
+@class WKWebView;
+@class WKNavigation;
+
+SWIFT_CLASS("_TtC8Razorpay6Otpelf")
+@interface Otpelf : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
++ (void)initWithWebView:(WKWebView * _Nonnull)webView andMerchantKey:(NSString * _Nullable)merchantKey SWIFT_METHOD_FAMILY(none);
++ (Otpelf * _Nullable)getSharedInstance SWIFT_WARN_UNUSED_RESULT;
+- (void)setPaymentData:(NSDictionary * _Nonnull)data;
+- (BOOL)webViewWithDidFinish:(WKNavigation * _Null_unspecified)navigation error:(NSError * _Nullable * _Nullable)error;
+- (void)close;
+@end
+
 @protocol RazorpayPaymentCompletionProtocol;
 @class UIViewController;
 @protocol RazorpayPaymentCompletionProtocolWithData;

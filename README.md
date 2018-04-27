@@ -5,7 +5,14 @@
 
 React Native wrapper around our Android and iOS mobile SDKs
 
-**Note**: The following documentation is only focussed on the react-native wrapper around our Android and iOS sdks. To know more about our sdks and how to link them within the projects, refer to the following documentation-
+**Note**: This release is meant for Xcode 9.3 as it uses a framework compiled in Swift 4.1.This will not work in Xcode 9.2 as you will get a "dlyd error : framework not found error".In case you are using an older version of Xcode and need Swift 3.1 visit the following link and download the respective framework.
+
+https://razorpay.com/docs/ios
+
+After this replace the framework in  /node_modules/react-native-razorpay/ios/ 
+and link your project either using react-native commands or manually.
+
+The following documentation is only focussed on the react-native wrapper around our Android and iOS sdks. To know more about our sdks and how to link them within the projects, refer to the following documentation-
 
 **Android** - https://docs.razorpay.com/v1/page/android/
 
@@ -28,7 +35,7 @@ Run the following on terminal from your project directory:
 **Note**: For Windows users, run this on Git Bash instead of Command Prompt. You can download Git for Windows [here](https://github.com/git-for-windows/git/releases/latest).
 
 ```bash
-$ npm i react-native-razorpay --save
+$ npm i react-native-razorpay@2.0.3 --save
 ```
 
 ### Automatic installation

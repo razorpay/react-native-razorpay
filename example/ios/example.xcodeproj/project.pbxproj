@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -22,12 +23,11 @@
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
-		920D7AD11D8BE9E700CA6795 /* Razorpay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 920D7AD01D8BE9E700CA6795 /* Razorpay.framework */; };
 		924876561D8BEAF4002ADD01 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 924876551D8BEAF4002ADD01 /* CoreTelephony.framework */; };
 		924876631D8BEAFC002ADD01 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 924876621D8BEAFC002ADD01 /* SystemConfiguration.framework */; };
+		A28BA86A20775FC2007AD883 /* Razorpay.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 920D7AD01D8BE9E700CA6795 /* Razorpay.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A28BA86B20775FCA007AD883 /* libRazorpayCheckout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A29E156620775D1D0092ABE4 /* libRazorpayCheckout.a */; };
 		AD303AA11F9E1C5E009CE9B5 /* Razorpay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 920D7AD01D8BE9E700CA6795 /* Razorpay.framework */; };
-		AD303AA21F9E1C5E009CE9B5 /* Razorpay.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 920D7AD01D8BE9E700CA6795 /* Razorpay.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		E844CC64996F4F1A8718D55C /* libRazorpayCheckout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 90E62A34DB624C2489848F4D /* libRazorpayCheckout.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +107,41 @@
 			proxyType = 2;
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
+		};
+		A216D2B220775B1B001A0606 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EBF21BDC1FC498900052F4D5;
+			remoteInfo = jsinspector;
+		};
+		A216D2B420775B1B001A0606 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EBF21BFA1FC4989A0052F4D5;
+			remoteInfo = "jsinspector-tvOS";
+		};
+		A216D2B620775B1B001A0606 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9936F3131F5F2E4B0010BF04;
+			remoteInfo = privatedata;
+		};
+		A216D2B820775B1B001A0606 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9936F32F1F5F2E5B0010BF04;
+			remoteInfo = "privatedata-tvOS";
+		};
+		A29E156520775D1D0092ABE4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A29E156020775D1C0092ABE4 /* RazorpayCheckout.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RazorpayCheckout;
 		};
 		AD303A621F9E121D009CE9B5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -250,7 +285,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				AD303AA21F9E1C5E009CE9B5 /* Razorpay.framework in Embed Frameworks */,
+				A28BA86A20775FC2007AD883 /* Razorpay.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -278,11 +313,11 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		90E62A34DB624C2489848F4D /* libRazorpayCheckout.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRazorpayCheckout.a; sourceTree = "<group>"; };
 		920D7AD01D8BE9E700CA6795 /* Razorpay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Razorpay.framework; sourceTree = "<group>"; };
 		924876551D8BEAF4002ADD01 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		924876621D8BEAFC002ADD01 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		794F1E83F20C4F04A7988077 /* RazorpayCheckout.xcodeproj */ = {isa = PBXFileReference; name = "RazorpayCheckout.xcodeproj"; path = "../node_modules/react-native-razorpay/ios/RazorpayCheckout.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		90E62A34DB624C2489848F4D /* libRazorpayCheckout.a */ = {isa = PBXFileReference; name = "libRazorpayCheckout.a"; path = "libRazorpayCheckout.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		A29E156020775D1C0092ABE4 /* RazorpayCheckout.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RazorpayCheckout.xcodeproj; path = ../../ios/RazorpayCheckout.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -309,10 +344,9 @@
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
+				A28BA86B20775FCA007AD883 /* libRazorpayCheckout.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
-				920D7AD11D8BE9E700CA6795 /* Razorpay.framework in Frameworks */,
-				E844CC64996F4F1A8718D55C /* libRazorpayCheckout.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,10 +457,14 @@
 				AD303A941F9E121D009CE9B5 /* libcxxreact.a */,
 				AD303A961F9E121D009CE9B5 /* libjschelpers.a */,
 				AD303A981F9E121D009CE9B5 /* libjschelpers.a */,
+				A216D2B320775B1B001A0606 /* libjsinspector.a */,
+				A216D2B520775B1B001A0606 /* libjsinspector-tvOS.a */,
 				AD303A9A1F9E121D009CE9B5 /* libthird-party.a */,
 				AD303A9C1F9E121D009CE9B5 /* libthird-party.a */,
 				AD303A9E1F9E121D009CE9B5 /* libdouble-conversion.a */,
 				AD303AA01F9E121D009CE9B5 /* libdouble-conversion.a */,
+				A216D2B720775B1B001A0606 /* libprivatedata.a */,
+				A216D2B920775B1B001A0606 /* libprivatedata-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -453,7 +491,7 @@
 				832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */,
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
-				794F1E83F20C4F04A7988077 /* RazorpayCheckout.xcodeproj */,
+				A29E156020775D1C0092ABE4 /* RazorpayCheckout.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -477,6 +515,7 @@
 				00E356EF1AD99517003FC87E /* exampleTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				ADCB1EF61FC3096200A14E91 /* Recovered References */,
+				A29E156720775D400092ABE4 /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -491,10 +530,25 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		A29E156120775D1C0092ABE4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A29E156620775D1D0092ABE4 /* libRazorpayCheckout.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A29E156720775D400092ABE4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		ADCB1EF61FC3096200A14E91 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				7BFD36E0BFFA4163855158DC /* libRazorpayCheckout.a */,
+				90E62A34DB624C2489848F4D /* libRazorpayCheckout.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -567,6 +621,10 @@
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = A29E156120775D1C0092ABE4 /* Products */;
+					ProjectRef = A29E156020775D1C0092ABE4 /* RazorpayCheckout.xcodeproj */;
+				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
@@ -685,6 +743,41 @@
 			fileType = archive.ar;
 			path = libRCTText.a;
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A216D2B320775B1B001A0606 /* libjsinspector.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libjsinspector.a;
+			remoteRef = A216D2B220775B1B001A0606 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A216D2B520775B1B001A0606 /* libjsinspector-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libjsinspector-tvOS.a";
+			remoteRef = A216D2B420775B1B001A0606 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A216D2B720775B1B001A0606 /* libprivatedata.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libprivatedata.a;
+			remoteRef = A216D2B620775B1B001A0606 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A216D2B920775B1B001A0606 /* libprivatedata-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libprivatedata-tvOS.a";
+			remoteRef = A216D2B820775B1B001A0606 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A29E156620775D1D0092ABE4 /* libRazorpayCheckout.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRazorpayCheckout.a;
+			remoteRef = A29E156520775D1D0092ABE4 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		AD303A631F9E121D009CE9B5 /* libRCTImage-tvOS.a */ = {

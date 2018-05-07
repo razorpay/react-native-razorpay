@@ -11,7 +11,7 @@ module Razorpay.Swift {
 }
 
 module RazorpayCommonCrypto [system] {
-	header "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/include/CommonCrypto/CommonCrypto.h"
+	header "/Applications/Xcode9.3.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/include/CommonCrypto/CommonCrypto.h"
 	export *
 }
 

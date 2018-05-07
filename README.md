@@ -48,7 +48,7 @@ Run the following on terminal from your project directory:
 **Note**: For Windows users, run this on Git Bash instead of Command Prompt. You can download Git for Windows [here](https://github.com/git-for-windows/git/releases/latest).
 
 ```bash
-$ npm i react-native-razorpay@2.0.3 --save
+$ npm i react-native-razorpay --save
 ```
 
 ### Automatic installation

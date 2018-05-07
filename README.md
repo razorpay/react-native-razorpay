@@ -9,7 +9,7 @@ React Native wrapper around our Android and iOS mobile SDKs
 
 For eg:
 
-if the razorpay framework is in 
+if the path of the razorpay framework is 
 
 /node_modules/react-native-razorpay/ios/Razorpay.framework
 

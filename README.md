@@ -5,7 +5,7 @@
 
 React Native wrapper around our Android and iOS mobile SDKs
 
-**Note**: This release contains a module map embedded in the framework which by default considers that your Xcode is named Xcode.app.If your Xcode is named differently please copy the script added in the scripts/ , paste it  and run it in the folder containing the razorpay framework.
+**Note**: This release contains a module map embedded in the framework which by default considers that your Xcode is named Xcode.app.If your Xcode is named differently please copy the script added in the /node_modules/react-native-razorpay/scripts/ , paste it  and run it in the folder containing the razorpay framework.
 
 For eg:
 

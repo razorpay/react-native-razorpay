@@ -10,8 +10,7 @@
 
 ## Retro Steps
 <!-- 
-  Required. Let us know how to reproduce the issue. Include a code sample, share a project, 
-  or share an app that reproduces the issue using [Snack](https://snack.expo.io/).
+  Required.
 -->
 
 ## Screenshots 

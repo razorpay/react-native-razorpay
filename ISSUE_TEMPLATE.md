@@ -1,7 +1,14 @@
-- [ ] I have gone through the README and modified the module - map(only for iOS).(https://github.com/razorpay/react-native-razorpay)
+Common to Both platforms:-
+
+- [ ] I have gone through the README (https://github.com/razorpay/react-native-razorpay)
 - [ ] I have searched for a similar issue (https://github.com/razorpay/react-native-razorpay/issues)
 - [ ] I am using the latest version of our framework (https://github.com/razorpay/react-native-razorpay/releases)
-- [ ] I have cleaned my project(iOS and android) , deleted derived data and rebuilt it(iOS).
+- [ ] I have cleaned my project.
+
+for iOS Users
+
+- [ ] I have modified the module map as specified in the readme (https://github.com/razorpay/react-native-razorpay)
+- [ ] I have deleted the contents of the derived data folder and rebuild it.
 
 <!-- Describe your issue in detail. -->
 

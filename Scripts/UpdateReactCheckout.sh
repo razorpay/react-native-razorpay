@@ -15,7 +15,7 @@ read -p "Enter the latest version of the react native checkout package :" NEW_RE
 
 read -p "Enter the latest version of the example package :" EXAMPLE_RELEASE_VERSION
 
-if [ "$NEW_IOS_RELEASE_VERSION" == "" ] && [ "$NEW_REACT_NATIVE_RELEASE_VERSION" == "" ] && [ "$EXAMPLE_RELEASE_VERSION" == "" ]
+if [ "$NEW_IOS_RELEASE_VERSION" == "" ] || [ "$NEW_REACT_NATIVE_RELEASE_VERSION" == "" ] || [ "$EXAMPLE_RELEASE_VERSION" == "" ]
   then
   exit 1
 fi 

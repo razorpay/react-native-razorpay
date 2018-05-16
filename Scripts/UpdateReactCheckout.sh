@@ -32,13 +32,11 @@ function decrementedVersion() {
 
 }
 
-OLD_IOS_RELEASE_VERSION=$( decrementedVersion "$NEW_IOS_RELEASE_VERSION" )
-
 OLD_REACT_NATIVE_RELEASE_VERSION=$( decrementedVersion "$NEW_REACT_NATIVE_RELEASE_VERSION" )
 
 OLD_EXAMPLE_RELEASE_VERSION=$( decrementedVersion "$EXAMPLE_RELEASE_VERSION" )
 
-echo "old iOS release version : $OLD_IOS_RELEASE_VERSION , \nnew release version :$NEW_IOS_RELEASE_VERSION, \n new react native version: $NEW_REACT_NATIVE_RELEASE_VERSION,\n old react native release version : $OLD_REACT_NATIVE_RELEASE_VERSION ,\n new example version : $EXAMPLE_RELEASE_VERSION, \n old example version : $OLD_EXAMPLE_RELEASE_VERSION"
+echo "\nnew release version :$NEW_IOS_RELEASE_VERSION, \n new react native version: $NEW_REACT_NATIVE_RELEASE_VERSION,\n old react native release version : $OLD_REACT_NATIVE_RELEASE_VERSION ,\n new example version : $EXAMPLE_RELEASE_VERSION, \n old example version : $OLD_EXAMPLE_RELEASE_VERSION"
 
 # create a new branch and make the changes
 

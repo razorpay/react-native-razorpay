@@ -1,0 +1,12 @@
+//
+//  Debug.xcconfig
+//  RazorpayIOS
+//
+//  Created by N.A Shashank on 24/04/18.
+//  Copyright © 2018 Razorpay. All rights reserved.
+//
+
+// OTHER_SWIFT_FLAGS is not inherited due to some reason so if you have a value for other swift flags you have to manually set the configuration file for that target
+IS_BITCODE_ENABLED = YES
+BUILD_ACTIVE_ARCHITECTURE = YES
+OTHER_SWIFT_FLAGS = 

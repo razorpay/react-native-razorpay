@@ -20,6 +20,8 @@ and run the scipt , it will perform the required changes to the module map in th
 
 **Note**: This release is meant for Xcode 9.3 as it uses a framework compiled in Swift 4.1.This will not work in Xcode 9.2 as you will get a "dlyd error : framework not found error".In case you are using an older version of Xcode and need Swift 3.1 visit the following link and download the respective framework.
 
+**Note**: The iOS framework is shipped with simulator architectures , you have to remove them before you archive, just search for stripping simulator architectures and follow the steps.Also remember to enable bitcode on both your iOS project as well as the RazorpayCheckout project.
+
 https://razorpay.com/docs/ios
 
 After this replace the framework in  /node_modules/react-native-razorpay/ios/ 

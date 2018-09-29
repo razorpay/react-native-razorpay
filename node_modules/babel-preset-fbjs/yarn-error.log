@@ -1,0 +1,92 @@
+Arguments: 
+  /Users/mjimenez/.nvm/versions/node/v8.9.1/bin/node /opt/facebook/fb-kpm/bin/yarn.js jest inline-req
+
+PATH: 
+  /Users/mjimenez/.nvm/versions/node/v8.9.1/bin:/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/bin/:/opt/facebook/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin:/opt/facebook/ops/scripts/chef:/opt/facebook/nuclide/latest/nuclide/pkg/fb-on-demand-cli/bin:/opt/facebook/nuclide/latest/nuclide/pkg/fb-biggrep-cli/bin:/usr/local/munki:/opt/facebook/hg/bin:/opt/android_sdk/tools:/opt/android_sdk/platform-tools
+
+Yarn version: 
+  1.5.1
+
+Node version: 
+  8.9.1
+
+Platform: 
+  darwin x64
+
+npm manifest: 
+  {
+    "name": "babel-preset-fbjs",
+    "version": "2.2.0",
+    "description": "Babel preset for Facebook projects.",
+    "repository": "facebook/fbjs",
+    "license": "MIT",
+    "main": "index.js",
+    "scripts": {
+      "test": "NODE_ENV=test jest"
+    },
+    "dependencies": {
+      "babel-plugin-check-es2015-constants": "^6.8.0",
+      "babel-plugin-syntax-class-properties": "^6.8.0",
+      "babel-plugin-syntax-flow": "^6.8.0",
+      "babel-plugin-syntax-jsx": "^6.8.0",
+      "babel-plugin-syntax-object-rest-spread": "^6.8.0",
+      "babel-plugin-syntax-trailing-function-commas": "^6.8.0",
+      "babel-plugin-transform-class-properties": "^6.8.0",
+      "babel-plugin-transform-es2015-arrow-functions": "^6.8.0",
+      "babel-plugin-transform-es2015-block-scoped-functions": "^6.8.0",
+      "babel-plugin-transform-es2015-block-scoping": "^6.8.0",
+      "babel-plugin-transform-es2015-classes": "^6.8.0",
+      "babel-plugin-transform-es2015-computed-properties": "^6.8.0",
+      "babel-plugin-transform-es2015-destructuring": "^6.8.0",
+      "babel-plugin-transform-es2015-for-of": "^6.8.0",
+      "babel-plugin-transform-es2015-function-name": "^6.8.0",
+      "babel-plugin-transform-es2015-literals": "^6.8.0",
+      "babel-plugin-transform-es2015-modules-commonjs": "^6.8.0",
+      "babel-plugin-transform-es2015-object-super": "^6.8.0",
+      "babel-plugin-transform-es2015-parameters": "^6.8.0",
+      "babel-plugin-transform-es2015-shorthand-properties": "^6.8.0",
+      "babel-plugin-transform-es2015-spread": "^6.8.0",
+      "babel-plugin-transform-es2015-template-literals": "^6.8.0",
+      "babel-plugin-transform-es3-member-expression-literals": "^6.8.0",
+      "babel-plugin-transform-es3-property-literals": "^6.8.0",
+      "babel-plugin-transform-flow-strip-types": "^6.8.0",
+      "babel-plugin-transform-object-rest-spread": "^6.8.0",
+      "babel-plugin-transform-react-display-name": "^6.8.0",
+      "babel-plugin-transform-react-jsx": "^6.8.0"
+    },
+    "devDependencies": {
+      "babel-core": "^6.8.0",
+      "jest-cli": "^17.0.3"
+    },
+    "jest": {
+      "modulePathIgnorePatterns": [
+        "/node_modules/"
+      ],
+      "rootDir": "",
+      "testPathDirs": [
+        "<rootDir>"
+      ]
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  Error: Command failed.
+  Exit code: 1
+  Command: sh
+  Arguments: -c /Users/mjimenez/Dev/fbjs/packages/babel-preset-fbjs/node_modules/.bin/jest inline-req
+  Directory: /Users/mjimenez/Dev/fbjs/packages/babel-preset-fbjs
+  Output:
+  
+      at ProcessTermError.MessageError (/opt/facebook/fb-kpm/lib/cli.js:186:110)
+      at new ProcessTermError (/opt/facebook/fb-kpm/lib/cli.js:226:113)
+      at ChildProcess.<anonymous> (/opt/facebook/fb-kpm/lib/cli.js:30281:17)
+      at emitTwo (events.js:126:13)
+      at ChildProcess.emit (events.js:214:7)
+      at maybeClose (internal/child_process.js:925:16)
+      at Process.ChildProcess._handle.onexit (internal/child_process.js:209:5)

@@ -1,5 +1,0 @@
-rootProject.name = 'example'
-include ':react-native-razorpay'
-project(':react-native-razorpay').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-razorpay/android')
-
-include ':app'

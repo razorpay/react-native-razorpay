@@ -1,6 +1,6 @@
 {
   "name": "react-native-razorpay",
-  "version": "2.0.10",
+  "version": "2.0.11",
   "description": "React Native wrapper for Razorpay",
   "main": "RazorpayCheckout.js",
   "scripts": {
@@ -12,10 +12,8 @@
     "url": "git+https://github.com/razorpay/react-native-razorpay.git"
   },
   "dependencies": {
-    "react-native": ">=0.55.0"
-  },
-  "peerDependencies": {
-    "react-native": ">=0.55.0"
+    "react": "16.5.0",
+    "react-native": "0.57.1"
   },
   "keywords": [
     "react-native",

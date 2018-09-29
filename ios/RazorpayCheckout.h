@@ -6,7 +6,7 @@
 //  Copyright © 2016 Razorpay. All rights reserved.
 //
 
-#import <React/RCTBridgeModule.h>
+#import "RCTBridgeModule.h"
 
 @interface RazorpayCheckout : NSObject <RCTBridgeModule>
 

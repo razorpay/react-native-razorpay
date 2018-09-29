@@ -8,8 +8,8 @@
 
 #import "RazorpayEventEmitter.h"
 
-#import <React/RCTBridge.h>
-#import <React/RCTEventDispatcher.h>
+#import "RCTBridge.h"
+#import "RCTEventDispatcher.h"
 
 NSString *const kPaymentError = @"PAYMENT_ERROR";
 NSString *const kPaymentSuccess = @"PAYMENT_SUCCESS";

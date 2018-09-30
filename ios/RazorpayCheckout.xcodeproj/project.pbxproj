@@ -22,8 +22,8 @@
 
 /* Begin PBXBuildFile section */
 		92C07E121D77267E00918AB5 /* Razorpay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92C07E111D77267E00918AB5 /* Razorpay.framework */; };
-		92E23FE41D8FDD490021FFE9 /* RazorpayEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E23FE31D8FDD490021FFE9 /* RazorpayEventEmitter.m */; };
-		B3E7B58A1CC2AC0600A0062D /* RazorpayCheckout.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* RazorpayCheckout.m */; };
+		A2B6B78C215EB5FE0093EE66 /* RazorpayCheckout.m in Sources */ = {isa = PBXBuildFile; fileRef = A2B6B788215EB5FD0093EE66 /* RazorpayCheckout.m */; };
+		A2B6B78D215EB5FE0093EE66 /* RazorpayEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = A2B6B78A215EB5FE0093EE66 /* RazorpayEventEmitter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,10 +42,10 @@
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libRazorpayCheckout.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRazorpayCheckout.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		92C07E111D77267E00918AB5 /* Razorpay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Razorpay.framework; sourceTree = "<group>"; };
-		92E23FE21D8FDD490021FFE9 /* RazorpayEventEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RazorpayEventEmitter.h; sourceTree = "<group>"; };
-		92E23FE31D8FDD490021FFE9 /* RazorpayEventEmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RazorpayEventEmitter.m; sourceTree = "<group>"; };
-		B3E7B5881CC2AC0600A0062D /* RazorpayCheckout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RazorpayCheckout.h; sourceTree = "<group>"; };
-		B3E7B5891CC2AC0600A0062D /* RazorpayCheckout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RazorpayCheckout.m; sourceTree = "<group>"; };
+		A2B6B788215EB5FD0093EE66 /* RazorpayCheckout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RazorpayCheckout.m; sourceTree = "<group>"; };
+		A2B6B789215EB5FD0093EE66 /* RazorpayCheckout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RazorpayCheckout.h; sourceTree = "<group>"; };
+		A2B6B78A215EB5FE0093EE66 /* RazorpayEventEmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RazorpayEventEmitter.m; sourceTree = "<group>"; };
+		A2B6B78B215EB5FE0093EE66 /* RazorpayEventEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RazorpayEventEmitter.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,10 +71,10 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
-				B3E7B5881CC2AC0600A0062D /* RazorpayCheckout.h */,
-				B3E7B5891CC2AC0600A0062D /* RazorpayCheckout.m */,
-				92E23FE21D8FDD490021FFE9 /* RazorpayEventEmitter.h */,
-				92E23FE31D8FDD490021FFE9 /* RazorpayEventEmitter.m */,
+				A2B6B789215EB5FD0093EE66 /* RazorpayCheckout.h */,
+				A2B6B788215EB5FD0093EE66 /* RazorpayCheckout.m */,
+				A2B6B78B215EB5FE0093EE66 /* RazorpayEventEmitter.h */,
+				A2B6B78A215EB5FE0093EE66 /* RazorpayEventEmitter.m */,
 				92C07E111D77267E00918AB5 /* Razorpay.framework */,
 				134814211AA4EA7D00B7C361 /* Products */,
 			);
@@ -156,8 +156,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92E23FE41D8FDD490021FFE9 /* RazorpayEventEmitter.m in Sources */,
-				B3E7B58A1CC2AC0600A0062D /* RazorpayCheckout.m in Sources */,
+				A2B6B78C215EB5FE0093EE66 /* RazorpayCheckout.m in Sources */,
+				A2B6B78D215EB5FE0093EE66 /* RazorpayEventEmitter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,9 +198,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/**";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "$(inherited)";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -233,8 +235,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/**";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "$(inherited)";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -244,6 +248,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -252,11 +257,10 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SRCROOT)/../../../React/**",
-					"$(SRCROOT)/../../react-native/React/**",
+					"$(SRCROOT)/HeaderFiles/**",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = RazorpayCheckout;
 				SKIP_INSTALL = YES;
 			};
@@ -266,6 +270,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -274,11 +279,10 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SRCROOT)/../../../React/**",
-					"$(SRCROOT)/../../react-native/React/**",
+					"$(SRCROOT)/HeaderFiles/**",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = RazorpayCheckout;
 				SKIP_INSTALL = YES;
 			};

@@ -5,22 +5,12 @@
 
 React Native wrapper around our Android and iOS mobile SDKs
 
-**Note**: Please update to the latest version of react-native i.e 0.55 and above
-
-**Note**: This release contains a module map embedded in the framework which by default considers that your Xcode is named Xcode.app.If your Xcode is named differently please copy the script added in the /node_modules/react-native-razorpay/scripts/ , paste it  and run it in the folder containing the razorpay framework.
-
-For eg:
-
-if the path of the razorpay framework is 
-
-/node_modules/react-native-razorpay/ios/Razorpay.framework
-
-paste the script in /node_modules/react-native-razorpay/ios
-
-and run the scipt , it will perform the required changes to the module map in the framework , you can then copy it and use it like before.
+**Note**: Please update to the latest version of react-native i.e 0.57 and above
 
 
-**Note**: This release is meant for Xcode 9.3 as it uses a framework compiled in Swift 4.1.This will not work in Xcode 9.2 as you will get a "dlyd error : framework not found error".In case you are using an older version of Xcode and need Swift 3.1 visit the following link and download the respective framework.
+**Note**: This release is meant for Xcode 10. We strongly recommend you to wait till the stable version of react-native that supports Xcode 10 comes out , we have made our fixes but it is still remommended that you wait.You can see here that react-native is still working on a stable Xcode 10 release.Please use your discretion.
+
+https://github.com/facebook/react-native/issues/19573
 
 **Note**: The iOS framework is shipped with simulator architectures , you have to remove them before you archive, just google  stripping simulator architectures and follow the steps.Also remember to enable bitcode on both your iOS project as well as the RazorpayCheckout project.
 

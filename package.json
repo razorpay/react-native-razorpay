@@ -1,10 +1,10 @@
 {
   "name": "react-native-razorpay",
-  "version": "2.0.9",
+  "version": "2.0.13",
   "description": "React Native wrapper for Razorpay",
   "main": "RazorpayCheckout.js",
   "scripts": {
-    "start":"node node_modules/react-native/local-cli/cli.js start",
+    "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -12,10 +12,8 @@
     "url": "git+https://github.com/razorpay/react-native-razorpay.git"
   },
   "dependencies": {
-    "react-native": ">=0.55.0"
-  },
-  "peerDependencies": {
-    "react-native": ">=0.55.0"
+    "react": "16.5.0",
+    "react-native": "0.57.1"
   },
   "keywords": [
     "react-native",

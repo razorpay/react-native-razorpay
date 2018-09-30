@@ -1,18 +1,4 @@
 framework module Razorpay {
-  umbrella header "Razorpay.h"
-
-  export *
-  module * { export * }
+  header "Razorpay-Swift.h"
+  requires objc
 }
-
-module Razorpay.Swift {
-    header "Razorpay-Swift.h"
-    requires objc
-}
-
-module RazorpayCommonCrypto [system] {
-	header "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/include/CommonCrypto/CommonCrypto.h"
-	export *
-}
-
-

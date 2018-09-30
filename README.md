@@ -5,12 +5,14 @@
 
 React Native wrapper around our Android and iOS mobile SDKs
 
-**Note**: Please update to the latest version of react-native i.e 0.57 and above
+**Note**: Please update to the latest version of react-native i.e 0.57.1 and react version 16.5.0.
 
 
 **Note**: This release is meant for Xcode 10. We strongly recommend you to wait till the stable version of react-native that supports Xcode 10 comes out , we have made our fixes but it is still remommended that you wait.You can see here that react-native is still working on a stable Xcode 10 release.Please use your discretion.
 
 https://github.com/facebook/react-native/issues/19573
+
+**Note** : To avoid duplicate module name collisions please copy the example project to a separate folder and try.
 
 **Note**: The iOS framework is shipped with simulator architectures , you have to remove them before you archive, just google  stripping simulator architectures and follow the steps.Also remember to enable bitcode on both your iOS project as well as the RazorpayCheckout project.
 

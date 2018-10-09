@@ -51,7 +51,7 @@ echo "\nDownloading file from URL:https://rzp-mobile.s3.amazonaws.com/ios/checko
 wget https://rzp-mobile.s3.amazonaws.com/ios/checkout/"$NEW_IOS_RELEASE_VERSION"/RazorpayBitcodeX9.framework.zip
 unzip RazorpayBitcodeX9.framework.zip
 cp -R Razorpay.framework ./ios/
-cp -R Razorpay.framework ./example/ios/
+#cp -R Razorpay.framework ./example/ios/
    # r for recursive i.e for directories , f makes rm consider a success if the file it is trying to delete is not found , as in the
    # of __MACOSX - a macos dependant file which is generated only when unzipped from iOS 11 zips and not from iOS 8
 rm -rf RazorpayBitcode*.framework.zip Razorpay.framework/ __MACOSX/

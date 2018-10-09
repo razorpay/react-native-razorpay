@@ -214,6 +214,7 @@ SWIFT_CLASS("_TtC8Razorpay8Razorpay")
 + (Razorpay * _Nonnull)initWithKey:(NSString * _Nonnull)key andDelegate:(id <RazorpayPaymentCompletionProtocol> _Nonnull)delegate SWIFT_METHOD_FAMILY(none) SWIFT_WARN_UNUSED_RESULT;
 + (Razorpay * _Nonnull)initWithKey:(NSString * _Nonnull)key andDelegateWithData:(id <RazorpayPaymentCompletionProtocolWithData> _Nonnull)delegate SWIFT_METHOD_FAMILY(none) SWIFT_WARN_UNUSED_RESULT;
 - (void)setExternalWalletSelectionDelegate:(id <ExternalWalletSelectionProtocol> _Nonnull)walletDelegate;
+- (void)open:(NSDictionary * _Nonnull)options displayController:(UIViewController * _Nonnull)displayController;
 - (void)open:(NSDictionary * _Nonnull)options;
 - (void)close;
 @end

@@ -13,12 +13,12 @@ read -p "Enter the latest version of the framework : " NEW_IOS_RELEASE_VERSION
 
 read -p "Enter the latest version of the react native checkout package :" NEW_REACT_NATIVE_RELEASE_VERSION
 
-read -p "Enter the latest version of the example package :" EXAMPLE_RELEASE_VERSION
-
-if [ "$NEW_IOS_RELEASE_VERSION" == "" ] || [ "$NEW_REACT_NATIVE_RELEASE_VERSION" == "" ] || [ "$EXAMPLE_RELEASE_VERSION" == "" ]
-  then
-  exit 1
-fi 
+#read -p "Enter the latest version of the example package :" EXAMPLE_RELEASE_VERSION
+#
+#if [ "$NEW_IOS_RELEASE_VERSION" == "" ] || [ "$NEW_REACT_NATIVE_RELEASE_VERSION" == "" ] || [ "$EXAMPLE_RELEASE_VERSION" == "" ]
+#  then
+#  exit 1
+#fi
 
 # split version into components
 
@@ -34,9 +34,9 @@ function decrementedVersion() {
 
 OLD_REACT_NATIVE_RELEASE_VERSION=$( decrementedVersion "$NEW_REACT_NATIVE_RELEASE_VERSION" )
 
-OLD_EXAMPLE_RELEASE_VERSION=$( decrementedVersion "$EXAMPLE_RELEASE_VERSION" )
+#OLD_EXAMPLE_RELEASE_VERSION=$( decrementedVersion "$EXAMPLE_RELEASE_VERSION" )
 
-echo "\nnew release version :$NEW_IOS_RELEASE_VERSION, \n new react native version: $NEW_REACT_NATIVE_RELEASE_VERSION,\n old react native release version : $OLD_REACT_NATIVE_RELEASE_VERSION ,\n new example version : $EXAMPLE_RELEASE_VERSION, \n old example version : $OLD_EXAMPLE_RELEASE_VERSION"
+echo "\nnew release version :$NEW_IOS_RELEASE_VERSION, \n new react native version: $NEW_REACT_NATIVE_RELEASE_VERSION,\n old react native release version : $OLD_REACT_NATIVE_RELEASE_VERSION"
 
 # create a new branch and make the changes
 
@@ -62,9 +62,9 @@ echo "current path is $(pwd)"
 
 sed -i '' "s/$OLD_REACT_NATIVE_RELEASE_VERSION/$NEW_REACT_NATIVE_RELEASE_VERSION/g" package.json
 
-cd example/
-
-sed -i '' "s/$OLD_EXAMPLE_RELEASE_VERSION/$EXAMPLE_RELEASE_VERSION/g" package.json
+#cd example/
+#
+#sed -i '' "s/$OLD_EXAMPLE_RELEASE_VERSION/$EXAMPLE_RELEASE_VERSION/g" package.json
 
 # go back to the original directory
 

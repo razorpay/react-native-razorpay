@@ -9,7 +9,7 @@
 #import "RazorpayCheckout.h"
 #import "RazorpayEventEmitter.h"
 
-#import <Razorpay/Razorpay.h>
+//#import <Razorpay/Razorpay.h>
 #import <Razorpay/Razorpay-Swift.h>
 
 @interface RazorpayCheckout () <RazorpayPaymentCompletionProtocolWithData,

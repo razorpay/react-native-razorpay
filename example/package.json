@@ -1,0 +1,13 @@
+{
+  "name": "example",
+  "version": "1.0.3",
+  "private": true,
+  "dependencies": {
+    "react": "16.5.0",
+    "react-native": "0.57.1",
+    "react-native-razorpay": "2.0.13"
+  },
+  "devDependencies": {
+    "schedule": "^0.4.0"
+  }
+}

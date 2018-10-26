@@ -5,7 +5,7 @@
 
 React Native wrapper around our Android and iOS mobile SDKs
 
-**Note**: Please update to the latest version of react-native i.e 0.57.1 and react version 16.5.0.
+**Note**: Please update to the latest version of react-native i.e 0.57.1 and react version 16.5.0.Also please note that we only support iOS devices using 64 bit architecture i.e iPhone 5s and above.
 
 
 **Note**: This release is meant for Xcode 10. We strongly recommend you to wait till the stable version of react-native that supports Xcode 10 comes out , we have made our fixes but it is still remommended that you wait.You can see here that react-native is still working on a stable Xcode 10 release.Please use your discretion.

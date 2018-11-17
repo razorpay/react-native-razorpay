@@ -15,7 +15,7 @@ android {
 }
 
 dependencies {
-    compile 'com.facebook.react:react-native:0.20.+'
-    compile 'com.razorpay:checkout:1.4.9'
+    implementation 'com.facebook.react:react-native:0.20.+'
+    implementation 'com.razorpay:checkout:1.4.8'
 }
   

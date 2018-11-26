@@ -3,12 +3,12 @@ repositories {
     mavenCentral()
 }
 android {
-    compileSdkVersion 23
-    buildToolsVersion "24.0.0"
+    compileSdkVersion 26
+    buildToolsVersion "24.0.3"
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
     }
@@ -16,6 +16,6 @@ android {
 
 dependencies {
     compile 'com.facebook.react:react-native:0.20.+'
-    compile 'com.razorpay:checkout:1.4.9'
+    compile 'com.razorpay:checkout:1.5.0'
 }
   

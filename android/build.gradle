@@ -4,7 +4,7 @@ repositories {
 }
 android {
     compileSdkVersion 26
-    buildToolsVersion "24.0.3"
+    buildToolsVersion "26.0.3"
 
     defaultConfig {
         minSdkVersion 16
@@ -15,7 +15,7 @@ android {
 }
 
 dependencies {
-    compile 'com.facebook.react:react-native:0.20.+'
-    compile 'com.razorpay:checkout:1.5.0'
+    implementation 'com.facebook.react:react-native:0.20.+'
+    implementation 'com.razorpay:checkout:1.5.1'
 }
   

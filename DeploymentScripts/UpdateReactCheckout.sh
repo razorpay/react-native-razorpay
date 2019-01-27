@@ -47,9 +47,9 @@ git checkout -b r/v"$NEW_REACT_NATIVE_RELEASE_VERSION"
 # download and replace framework
 
 cd "$REACT_CHECKOUT_DIRECTORY_PATH"
-echo "\nDownloading file from URL:https://rzp-mobile.s3.amazonaws.com/ios/checkout/$NEW_IOS_RELEASE_VERSION/RazorpayBitcodeX9.framework.zip"
-wget https://rzp-mobile.s3.amazonaws.com/ios/checkout/"$NEW_IOS_RELEASE_VERSION"/RazorpayBitcodeX9.framework.zip
-unzip RazorpayBitcodeX9.framework.zip
+echo "\nDownloading file from URL:https://rzp-mobile.s3.amazonaws.com/ios/checkout/$NEW_IOS_RELEASE_VERSION/RazorpayBitcodeX10.framework.zip"
+wget https://rzp-mobile.s3.amazonaws.com/ios/checkout/"$NEW_IOS_RELEASE_VERSION"/RazorpayBitcodeX10.framework.zip
+unzip RazorpayBitcodeX10.framework.zip
 cp -R Razorpay.framework ./ios/
 #cp -R Razorpay.framework ./example/ios/
    # r for recursive i.e for directories , f makes rm consider a success if the file it is trying to delete is not found , as in the

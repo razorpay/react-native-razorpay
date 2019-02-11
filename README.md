@@ -5,7 +5,7 @@
 
 React Native wrapper around our Android and iOS mobile SDKs
 
-**Note**: Please update to the latest version of react-native i.e 0.57.1 and react version 16.5.0.
+**Note**: Please update to the latest version of react-native and react.This package has been tested on version react-native 0.58. 
 
 **Note**: We no longer support Swift 3 , moving forward we will only support the latest version of swift.This decision is based on the following link which states that Xcode 10 is the last version to support Swift 3. 
 

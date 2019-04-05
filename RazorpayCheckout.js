@@ -13,6 +13,10 @@ const removeSubscriptions = () => {
 class RazorpayCheckout {
   static open(options, successCallback, errorCallback) {
     return new Promise(function(resolve, reject) {
+      if (!NativeModules.RazorpayCheckout) {
+        errorCallback({ code: 'RAZORPAY_NOT_INAPP', description: 'razorpay is not added in this app' });
+        return;
+      }
       razorpayEvents.addListener('Razorpay::PAYMENT_SUCCESS', (data) => {
         let resolveFn = successCallback || resolve;
         resolveFn(data);

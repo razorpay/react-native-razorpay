@@ -2,7 +2,7 @@
 
 import { NativeModules, NativeEventEmitter } from 'react-native';
 
-const razorpayEvents = NativeModules.RazorpayEventEmitter ? new NativeEventEmitter(NativeModules.RazorpayEventEmitter) : null;
+const razorpayEvents = NativeModules.RazorpayEventEmitter || Platform.OS !== 'ios' ? new NativeEventEmitter(NativeModules.RazorpayEventEmitter) : null;
 
 const removeSubscriptions = () => {
   if (!razorpayEvents) {

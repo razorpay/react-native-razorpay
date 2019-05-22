@@ -1,6 +1,6 @@
 'use strict';
 
-import { NativeModules, NativeEventEmitter } from 'react-native';
+import { NativeModules, NativeEventEmitter, Platform } from 'react-native';
 
 const razorpayEvents = NativeModules.RazorpayEventEmitter || Platform.OS !== 'ios' ? new NativeEventEmitter(NativeModules.RazorpayEventEmitter) : null;
 

@@ -32,7 +32,7 @@ import android.os.Bundle;
 
 
 
-public class RazorpayModule extends ReactContextBaseJavaModule implements ActivityEventListener, PaymentResultWithDataListener , ExternalWalletListener {
+public class RazorpayModule extends ReactContextBaseJavaModule implements ActivityEventListener, PaymentResultWithDataListener , ExternalWalletListener, RazorpayResultListener {
 
 
   public static final int RZP_REQUEST_CODE = 72967729;
@@ -83,26 +83,33 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
       .emit(eventName, params);
   }
 
-   @Override
-    public void onPaymentSuccess(String razorpayPaymentId, PaymentData paymentData) {
-      sendEvent("Razorpay::PAYMENT_SUCCESS", Utils.jsonToWritableMap(paymentData.getData())); 
-    }
 
-    @Override
-    public void onPaymentError(int code, String description, PaymentData paymentData) {
+
+   @Override
+   public void onPaymentSuccess(String razorpayPaymentId, PaymentData paymentData) {
+      sendEvent("Razorpay::PAYMENT_SUCCESS", Utils.jsonToWritableMap(paymentData.getData()));
+   }
+
+  @Override
+  public void onComplete(JSONObject result) {
+    sendEvent("Razorpay::PAYMENT_COMPLETE", Utils.jsonToWritableMap(result));
+  }
+
+   @Override
+   public void onPaymentError(int code, String description, PaymentData paymentData) {
       WritableMap errorParams = Arguments.createMap();
       JSONObject paymentDataJson = paymentData.getData();
       try{
-        paymentDataJson.put(MAP_KEY_ERROR_CODE, code);
-        paymentDataJson.put(MAP_KEY_ERROR_DESC, description);
-      } catch(Exception e){
+          paymentDataJson.put(MAP_KEY_ERROR_CODE, code);
+          paymentDataJson.put(MAP_KEY_ERROR_DESC, description);
+        } catch(Exception e){
       }
       sendEvent("Razorpay::PAYMENT_ERROR", Utils.jsonToWritableMap(paymentDataJson));
-    }
+  }
 
-    @Override 
-    public void onExternalWalletSelected(String walletName, PaymentData paymentData){
+  @Override
+  public void onExternalWalletSelected(String walletName, PaymentData paymentData){
       sendEvent("Razorpay::EXTERNAL_WALLET_SELECTED", Utils.jsonToWritableMap(paymentData.getData()));
-    }
+  }
 
 }

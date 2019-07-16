@@ -1,6 +1,6 @@
 {
   "name": "react-native-razorpay",
-  "version": "2.1.25",
+  "version": "2.1.26",
   "description": "React Native wrapper for Razorpay",
   "main": "RazorpayCheckout.js",
   "scripts": {

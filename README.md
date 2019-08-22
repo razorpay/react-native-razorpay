@@ -111,6 +111,18 @@ and the `catch` part corresponds to payment failure.
 A descriptive [list of valid options for checkout][options] is available (under
 Manual Checkout column).
 
+## Proguard rules
+If you are using proguard for your builds, you need to add following lines to proguard files
+```
+-keepattributes *Annotation*
+-dontwarn com.razorpay.**
+-keep class com.razorpay.** {*;}
+-optimizations !method/inlining/
+-keepclasseswithmembers class * {
+  public void onPayment*(...);
+}
+```
+
 ## Things to be taken care:
 
 - The react native plugin is wrapper around native SDK, so it doesn't work with the tools like expo which doesn't support native modules.

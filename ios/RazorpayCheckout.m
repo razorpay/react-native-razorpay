@@ -38,6 +38,10 @@ RCT_EXPORT_METHOD(open : (NSDictionary *)options) {
     [RazorpayEventEmitter onPaymentSuccess:payment_id andData:response];
 }
 
+- (void)onComplete:(nullable NSDictionary *)response {
+    [RazorpayEventEmitter onComplete:response];
+}
+
 - (void)onPaymentError:(int)code
            description:(nonnull NSString *)str
                andData:(nullable NSDictionary *)response {

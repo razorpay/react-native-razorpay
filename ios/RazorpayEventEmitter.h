@@ -19,4 +19,7 @@
                andData:(NSDictionary *)response;
 + (void)onExternalWalletSelected:(NSString *)walletName
                          andData:(NSDictionary *)paymentData;
+
++ (void)onComplete:(NSDictionary *)result;
+
 @end

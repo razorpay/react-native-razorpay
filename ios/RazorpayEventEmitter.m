@@ -96,4 +96,9 @@ RCT_EXPORT_MODULE();
      userInfo:payload];
 }
 
++ (void)onComplete:(NSDictionary *)result {
+    
+}
+
+
 @end

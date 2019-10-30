@@ -13,7 +13,7 @@ React Native wrapper around our Android and iOS mobile SDKs
 https://developer.apple.com/documentation/xcode_release_notes/xcode_10_release_notes
 ```
 
-**Note**: This release is meant for Xcode 10. We strongly recommend you to wait till the stable version of react-native that supports Xcode 10 comes out , we have made our fixes but it is still remommended that you wait.You can see here that react-native is still working on a stable Xcode 10 release.Please use your discretion.
+**Note**: This release is meant for Xcode 10. We strongly recommend you to wait till the stable version of react-native that supports Xcode 10 comes out , we have made our fixes but it is still recommended that you wait.You can see here that react-native is still working on a stable Xcode 10 release.Please use it at your own discretion.
 
 https://github.com/facebook/react-native/issues/19573
 

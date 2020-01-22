@@ -58,6 +58,32 @@ $ npm i react-native-razorpay --save
 $ react-native link react-native-razorpay
 ```
 
+### Adding Razorpay to root project 
+
+Drag the `Razorpay.framework` file from the Libraries folder and drop it under the root folder, for more info follow [this link](https://razorpay.com/docs/payment-gateway/react-native-integration/standard/#step-2---link-the-sdk-with-react),
+after this go to **Target** > **General Settings**> **Framework, Libraries and Embedded Content** section, set the **Embed** status of Razorpay.framework to **Embed & Sign**. 
+
+### Always Embed Swift Standard Binaries - YES
+
+Also make sure the razorpay framework is added in the embedded binaries section and you have Always Embed Swift Standard Binaries set to yes in build settings. 
+
+### Android
+
+1. Open up `android/app/src/main/java/[...]/MainApplication.java`
+  - Add `import com.razorpay.rn.RazorpayPackage;` to the imports at the top of
+  the file
+  - Add `new RazorpayPackage()` to the list returned by the `getPackages()` method
+2. Append the following lines to `android/settings.gradle`:
+    ```gradle
+    include ':react-native-razorpay'
+    project(':react-native-razorpay').projectDir = new File(rootProject.projectDir,   '../node_modules/react-native-razorpay/android')
+    ```
+3. Insert the following lines inside the dependencies block in
+`android/app/build.gradle`:
+    ```gradle
+    compile project(':react-native-razorpay')
+    ```
+
 ##### Manual installation
 
 If the above command doesn't work for you (installation), try [these steps from wiki][wiki].

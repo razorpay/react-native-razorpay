@@ -5,62 +5,117 @@
 
 React Native wrapper around our Android and iOS mobile SDKs
 
-**Note**: Please update to the latest version of react-native and react.This package has been tested on version react-native 0.58. 
+* [Installation](#installation)
+* [Linking](#linking)
+* [Usage](#usage)
+* [API](#api)
+* [Troubleshooting](#troubleshooting)
+* [Release Notes](#release-notes)
+* [react-native-dom / react-native-web](#react-native-dom)
 
-**Note**: We no longer support Swift 3 , moving forward we will only support the latest version of swift.This decision is based on the following link which states that Xcode 10 is the last version to support Swift 3. 
+The following documentation is only focussed on the react-native wrapper around our Android and iOS sdks. To know more about our react-native SDK, refer to the following documentation - 
 
-```
-https://developer.apple.com/documentation/xcode_release_notes/xcode_10_release_notes
-```
-
-**Note**: This release is meant for Xcode 10. We strongly recommend you to wait till the stable version of react-native that supports Xcode 10 comes out , we have made our fixes but it is still remommended that you wait.You can see here that react-native is still working on a stable Xcode 10 release.Please use your discretion.
-
-https://github.com/facebook/react-native/issues/19573
-
-**Note** : To avoid duplicate module name collisions please copy the example project to a separate folder and try.
-
-**Note**: The iOS framework is shipped with simulator architectures , you have to remove them before you archive, just google  stripping simulator architectures and follow the steps.Also remember to enable bitcode on both your iOS project as well as the RazorpayCheckout project.
-
-https://razorpay.com/docs/ios
-
-After this replace the framework in  /node_modules/react-native-razorpay/ios/ 
-and link your project either using react-native commands or manually.
-
-The following documentation is only focussed on the react-native wrapper around our Android and iOS sdks. To know more about our sdks and how to link them within the projects, refer to the following documentation-
-
-**Android** - https://docs.razorpay.com/v1/page/android/
-
-**iOS** - https://razorpay.com/docs/ios/
+https://razorpay.com/docs/payment-gateway/react-native-integration/
 
 To know more about Razorpay payment flow and steps involved, read up here:
 <https://docs.razorpay.com/docs>
 
-
-
-
 ## Installation
 
-This has 3 steps: add to project, installation and linking iOS SDK.
+Using npm:
 
-### Add to project
-
-Run the following on terminal from your project directory:
-
-**Note**: For Windows users, run this on Git Bash instead of Command Prompt. You can download Git for Windows [here](https://github.com/git-for-windows/git/releases/latest).
-
-```bash
-$ npm i react-native-razorpay --save
+```shell
+npm install --save react-native-razorpay
 ```
 
-### Automatic installation
+or using yarn:
 
-```bash
-$ react-native link react-native-razorpay
+```shell
+yarn add react-native-razorpay
 ```
+## Linking
 
-##### Manual installation
+### Automatic
 
-If the above command doesn't work for you (installation), try [these steps from wiki][wiki].
+<details>
+    <summary>iOS</summary>
+  
+### For React Native 0.60+
+
+```sh
+# install
+npm install react-native-razorpay --save
+cd ios && open podfile # Change the platform from iOS 9.0 to 10.0
+pod install && cd .. # CocoaPods on iOS needs this extra step
+# run
+yarn react-native run-ios
+```
+### For React Native 0.59 and lower
+
+
+1. `$ npm install react-native-razorpay --save` // Install the Razorpay React Native Standard SDK using the npm command.
+
+2. `react-native link react-native-razorpay` // Link the SDK with React Native Project using Xcode.
+
+3. Drag the `Razorpay.framework` file from the Libraries folder and drop it under the root folder, for more info follow [this link](https://razorpay.com/docs/payment-gateway/react-native-integration/standard/#step-2---link-the-sdk-with-react),
+after this go to **Target** > **General Settings**> **Framework, Libraries and Embedded Content** section, set the **Embed** status of Razorpay.framework to **Embed & Sign**. 
+
+6. Also make sure the razorpay framework is added in the embedded binaries section and you have Always Embed Swift 
+   Standard Binaries set to yes in build settings.
+</details>
+
+### Manual
+
+<details>
+    <summary>iOS (via CocoaPods)</summary>
+
+Add the following line to your build targets in your `Podfile`
+
+`pod 'react-native-razorpay', :path => '../node_modules/react-native-razorpay'`
+
+Then run `pod install`
+
+</details>
+
+<details>
+    <summary>iOS (without CocoaPods)</summary>
+
+In XCode, in the project navigator:
+
+* Right click _Libraries_
+* Add Files to _[your project's name]_
+* Go to `node_modules/react-native-razorpay`
+* Add the `.xcodeproj` file
+
+In XCode, in the project navigator, select your project.
+
+* Add the `libRNDeviceInfo.a` from the _deviceinfo_ project to your project's _Build Phases ➜ Link Binary With Libraries_
+* Click `.xcodeproj` file you added before in the project navigator and go the _Build Settings_ tab. Make sure _All_ is toggled on (instead of _Basic_).
+* Look for _Header Search Paths_ and make sure it contains both `$(SRCROOT)/../react-native/React` and `$(SRCROOT)/../../React`
+* Mark both as recursive (should be OK by default).
+
+Run your project (Cmd+R)
+</details>
+
+<details>
+    <summary>Android </summary>
+
+
+1. Open up `android/app/src/main/java/[...]/MainApplication.java`
+  - Add `import com.razorpay.rn.RazorpayPackage;` to the imports at the top of
+  the file
+  - Add `new RazorpayPackage()` to the list returned by the `getPackages()` method
+2. Append the following lines to `android/settings.gradle`:
+    ```gradle
+    include ':react-native-razorpay'
+    project(':react-native-razorpay').projectDir = new File(rootProject.projectDir,   '../node_modules/react-native-razorpay/android')
+    ```
+3. Insert the following lines inside the dependencies block in
+`android/app/build.gradle`:
+    ```gradle
+    implementation project(':react-native-razorpay')
+    ```
+</details>
 
 ## Usage
 

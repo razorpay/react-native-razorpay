@@ -7,22 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		005C21433309473251548129 /* libPods-SampleProjectTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB698216BF4CC69CCEFF477F /* libPods-SampleProjectTests.a */; };
 		00E356F31AD99517003FC87E /* SampleProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* SampleProjectTests.m */; };
-		0C1E81B123D70374006545B6 /* Razorpay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1E81AF23D70372006545B6 /* Razorpay.framework */; };
-		0C1E81B223D70374006545B6 /* Razorpay.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1E81AF23D70372006545B6 /* Razorpay.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		16490E154062811A50F658BC /* libPods-SampleProject-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4FACD5EBE6CD48ACF62CB65 /* libPods-SampleProject-tvOS.a */; };
-		1E7504CD979FFB27EF4CD4E8 /* libPods-SampleProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DAB723E6A3D56BEEBC05590 /* libPods-SampleProject.a */; };
+		1CDA4C87DBE778DE16E051A9 /* libPods-SampleProject-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECCFBAD8D401233C460D13FC /* libPods-SampleProject-tvOS.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* SampleProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* SampleProjectTests.m */; };
-		67BB0DC76A3A0DA705EA1DA0 /* libPods-SampleProject-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85A84F35AAB095A02B28F09E /* libPods-SampleProject-tvOSTests.a */; };
-		87151EAB2F7B4DA9945E3485 /* libRazorpayCheckout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AF5583D4CD147BCB0D93BB6 /* libRazorpayCheckout.a */; };
+		6E5CAE5B89E5A4A5C452B758 /* libPods-SampleProjectTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4253BB4D969580FEACD7E14E /* libPods-SampleProjectTests.a */; };
+		7EF763A9616BE30545042255 /* libPods-SampleProject-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AC340A335B61D47C68A33F2 /* libPods-SampleProject-tvOSTests.a */; };
+		CD6C012F4598CD84C0990F4B /* libPods-SampleProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF13C6676B67E2B3B93B955B /* libPods-SampleProject.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,13 +30,6 @@
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = SampleProject;
 		};
-		0C1E81AC23D7034D006545B6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 86B9FFBE85074E998CD88B08 /* RazorpayCheckout.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = RazorpayCheckout;
-		};
 		2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
@@ -49,27 +39,12 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		0C1E81B323D70374006545B6 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				0C1E81B223D70374006545B6 /* Razorpay.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00E356EE1AD99517003FC87E /* SampleProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* SampleProjectTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SampleProjectTests.m; sourceTree = "<group>"; };
-		0AF5583D4CD147BCB0D93BB6 /* libRazorpayCheckout.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRazorpayCheckout.a; sourceTree = "<group>"; };
-		0C1E81AF23D70372006545B6 /* Razorpay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Razorpay.framework; sourceTree = "<group>"; };
+		0A8E17BC4D266734CB69045E /* Pods-SampleProject-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleProject-tvOS.release.xcconfig"; path = "Target Support Files/Pods-SampleProject-tvOS/Pods-SampleProject-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* SampleProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = SampleProject/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = SampleProject/AppDelegate.m; sourceTree = "<group>"; };
@@ -77,23 +52,21 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SampleProject/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = SampleProject/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = SampleProject/main.m; sourceTree = "<group>"; };
-		230EB532DB3E0DC90BFED332 /* Pods-SampleProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleProjectTests.release.xcconfig"; path = "Target Support Files/Pods-SampleProjectTests/Pods-SampleProjectTests.release.xcconfig"; sourceTree = "<group>"; };
-		263550A42BFB65182FEE304C /* Pods-SampleProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleProjectTests.debug.xcconfig"; path = "Target Support Files/Pods-SampleProjectTests/Pods-SampleProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
+		148E5C6038D14D9E9F44055B /* Pods-SampleProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleProject.debug.xcconfig"; path = "Target Support Files/Pods-SampleProject/Pods-SampleProject.debug.xcconfig"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* SampleProject-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SampleProject-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* SampleProject-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SampleProject-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		354C7AC7ADB5A00E583A5E26 /* Pods-SampleProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleProject.release.xcconfig"; path = "Target Support Files/Pods-SampleProject/Pods-SampleProject.release.xcconfig"; sourceTree = "<group>"; };
-		4233E5B94DD1F0F55D7133AF /* Pods-SampleProject-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleProject-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-SampleProject-tvOS/Pods-SampleProject-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		66AD36A8219EF768D52EA919 /* Pods-SampleProject-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleProject-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-SampleProject-tvOSTests/Pods-SampleProject-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
-		6EEF7CAC6073D206A4536DB2 /* Pods-SampleProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleProject.debug.xcconfig"; path = "Target Support Files/Pods-SampleProject/Pods-SampleProject.debug.xcconfig"; sourceTree = "<group>"; };
-		738B4F3ACD8B4FE3B13FA544 /* Pods-SampleProject-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleProject-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-SampleProject-tvOSTests/Pods-SampleProject-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		85A84F35AAB095A02B28F09E /* libPods-SampleProject-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SampleProject-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		86B9FFBE85074E998CD88B08 /* RazorpayCheckout.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RazorpayCheckout.xcodeproj; path = "../node_modules/react-native-razorpay/ios/RazorpayCheckout.xcodeproj"; sourceTree = "<group>"; };
-		9DAB723E6A3D56BEEBC05590 /* libPods-SampleProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SampleProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		BB698216BF4CC69CCEFF477F /* libPods-SampleProjectTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SampleProjectTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E4FACD5EBE6CD48ACF62CB65 /* libPods-SampleProject-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SampleProject-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		41E074E7A0802E5309715DC0 /* Pods-SampleProject-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleProject-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-SampleProject-tvOSTests/Pods-SampleProject-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		4253BB4D969580FEACD7E14E /* libPods-SampleProjectTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SampleProjectTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		670ECEF27626B82DFC5A3619 /* Pods-SampleProject-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleProject-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-SampleProject-tvOS/Pods-SampleProject-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		6862FED1C4EAFF65154776CD /* Pods-SampleProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleProjectTests.debug.xcconfig"; path = "Target Support Files/Pods-SampleProjectTests/Pods-SampleProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6AC340A335B61D47C68A33F2 /* libPods-SampleProject-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SampleProject-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9271C126F910A7F5756124EB /* Pods-SampleProject-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleProject-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-SampleProject-tvOSTests/Pods-SampleProject-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		BF13C6676B67E2B3B93B955B /* libPods-SampleProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SampleProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E0C033B82B4C69AB3EBD4238 /* Pods-SampleProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleProjectTests.release.xcconfig"; path = "Target Support Files/Pods-SampleProjectTests/Pods-SampleProjectTests.release.xcconfig"; sourceTree = "<group>"; };
+		E16BCD08C1B5C0AEA8384814 /* Pods-SampleProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleProject.release.xcconfig"; path = "Target Support Files/Pods-SampleProject/Pods-SampleProject.release.xcconfig"; sourceTree = "<group>"; };
+		ECCFBAD8D401233C460D13FC /* libPods-SampleProject-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SampleProject-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		F291A2CE761CE82FD6AC1D20 /* Pods-SampleProject-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleProject-tvOS.release.xcconfig"; path = "Target Support Files/Pods-SampleProject-tvOS/Pods-SampleProject-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				005C21433309473251548129 /* libPods-SampleProjectTests.a in Frameworks */,
+				6E5CAE5B89E5A4A5C452B758 /* libPods-SampleProjectTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,9 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1E7504CD979FFB27EF4CD4E8 /* libPods-SampleProject.a in Frameworks */,
-				0C1E81B123D70374006545B6 /* Razorpay.framework in Frameworks */,
-				87151EAB2F7B4DA9945E3485 /* libRazorpayCheckout.a in Frameworks */,
+				CD6C012F4598CD84C0990F4B /* libPods-SampleProject.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,7 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				16490E154062811A50F658BC /* libPods-SampleProject-tvOS.a in Frameworks */,
+				1CDA4C87DBE778DE16E051A9 /* libPods-SampleProject-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,7 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				67BB0DC76A3A0DA705EA1DA0 /* libPods-SampleProject-tvOSTests.a in Frameworks */,
+				7EF763A9616BE30545042255 /* libPods-SampleProject-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,22 +122,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		0C1E81A723D7034C006545B6 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				0AF5583D4CD147BCB0D93BB6 /* libRazorpayCheckout.a */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
-		0C1E81A823D7034D006545B6 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				0C1E81AD23D7034D006545B6 /* libRazorpayCheckout.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		13B07FAE1A68108700A75B9A /* SampleProject */ = {
 			isa = PBXGroup;
 			children = (
@@ -186,18 +141,33 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				9DAB723E6A3D56BEEBC05590 /* libPods-SampleProject.a */,
-				E4FACD5EBE6CD48ACF62CB65 /* libPods-SampleProject-tvOS.a */,
-				85A84F35AAB095A02B28F09E /* libPods-SampleProject-tvOSTests.a */,
-				BB698216BF4CC69CCEFF477F /* libPods-SampleProjectTests.a */,
+				BF13C6676B67E2B3B93B955B /* libPods-SampleProject.a */,
+				ECCFBAD8D401233C460D13FC /* libPods-SampleProject-tvOS.a */,
+				6AC340A335B61D47C68A33F2 /* libPods-SampleProject-tvOSTests.a */,
+				4253BB4D969580FEACD7E14E /* libPods-SampleProjectTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		461E1383D95D0E1CAFD46AA8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				148E5C6038D14D9E9F44055B /* Pods-SampleProject.debug.xcconfig */,
+				E16BCD08C1B5C0AEA8384814 /* Pods-SampleProject.release.xcconfig */,
+				670ECEF27626B82DFC5A3619 /* Pods-SampleProject-tvOS.debug.xcconfig */,
+				0A8E17BC4D266734CB69045E /* Pods-SampleProject-tvOS.release.xcconfig */,
+				9271C126F910A7F5756124EB /* Pods-SampleProject-tvOSTests.debug.xcconfig */,
+				41E074E7A0802E5309715DC0 /* Pods-SampleProject-tvOSTests.release.xcconfig */,
+				6862FED1C4EAFF65154776CD /* Pods-SampleProjectTests.debug.xcconfig */,
+				E0C033B82B4C69AB3EBD4238 /* Pods-SampleProjectTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				86B9FFBE85074E998CD88B08 /* RazorpayCheckout.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -205,14 +175,12 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				0C1E81AF23D70372006545B6 /* Razorpay.framework */,
 				13B07FAE1A68108700A75B9A /* SampleProject */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* SampleProjectTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				AF234353BAFE015200498A9C /* Pods */,
-				0C1E81A723D7034C006545B6 /* Recovered References */,
+				461E1383D95D0E1CAFD46AA8 /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -230,21 +198,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		AF234353BAFE015200498A9C /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				6EEF7CAC6073D206A4536DB2 /* Pods-SampleProject.debug.xcconfig */,
-				354C7AC7ADB5A00E583A5E26 /* Pods-SampleProject.release.xcconfig */,
-				4233E5B94DD1F0F55D7133AF /* Pods-SampleProject-tvOS.debug.xcconfig */,
-				F291A2CE761CE82FD6AC1D20 /* Pods-SampleProject-tvOS.release.xcconfig */,
-				738B4F3ACD8B4FE3B13FA544 /* Pods-SampleProject-tvOSTests.debug.xcconfig */,
-				66AD36A8219EF768D52EA919 /* Pods-SampleProject-tvOSTests.release.xcconfig */,
-				263550A42BFB65182FEE304C /* Pods-SampleProjectTests.debug.xcconfig */,
-				230EB532DB3E0DC90BFED332 /* Pods-SampleProjectTests.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -252,7 +205,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "SampleProjectTests" */;
 			buildPhases = (
-				368E6FEA8D234EDA0C3D5D1F /* [CP] Check Pods Manifest.lock */,
+				17D1460974259F9F73A1AD84 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
@@ -271,13 +224,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "SampleProject" */;
 			buildPhases = (
-				01AC1B0469ABBBA69B60C337 /* [CP] Check Pods Manifest.lock */,
+				5C98C7BB13BC2B194F85FC73 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				0C1E81B323D70374006545B6 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -292,7 +244,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "SampleProject-tvOS" */;
 			buildPhases = (
-				96BABA74A9C5F68A8D371E01 /* [CP] Check Pods Manifest.lock */,
+				4BCB2678FF6C77909CE39B89 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F122414F3F0027D42C /* Start Packager */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
@@ -312,7 +264,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "SampleProject-tvOSTests" */;
 			buildPhases = (
-				9FA4E77D1070C5AA6FF0CF92 /* [CP] Check Pods Manifest.lock */,
+				AAAD62B129ED6C184103357F /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
 				2D02E48E1E0B4A5D006451C7 /* Resources */,
@@ -333,7 +285,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 940;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -356,19 +308,12 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 0C1E81A823D7034D006545B6 /* Products */;
-					ProjectRef = 86B9FFBE85074E998CD88B08 /* RazorpayCheckout.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* SampleProject */,
@@ -378,16 +323,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		0C1E81AD23D7034D006545B6 /* libRazorpayCheckout.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRazorpayCheckout.a;
-			remoteRef = 0C1E81AC23D7034D006545B6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		00E356EC1AD99517003FC87E /* Resources */ = {
@@ -438,43 +373,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		01AC1B0469ABBBA69B60C337 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SampleProject-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Bundle React Native Code And Images";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
-		};
-		368E6FEA8D234EDA0C3D5D1F /* [CP] Check Pods Manifest.lock */ = {
+		17D1460974259F9F73A1AD84 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -496,7 +395,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		96BABA74A9C5F68A8D371E01 /* [CP] Check Pods Manifest.lock */ = {
+		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Bundle React Native Code And Images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		4BCB2678FF6C77909CE39B89 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -518,7 +431,29 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9FA4E77D1070C5AA6FF0CF92 /* [CP] Check Pods Manifest.lock */ = {
+		5C98C7BB13BC2B194F85FC73 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SampleProject-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AAAD62B129ED6C184103357F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -645,24 +580,16 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 263550A42BFB65182FEE304C /* Pods-SampleProjectTests.debug.xcconfig */;
+			baseConfigurationReference = 6862FED1C4EAFF65154776CD /* Pods-SampleProjectTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native-razorpay/ios/**",
-				);
 				INFOPLIST_FILE = SampleProjectTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -676,21 +603,13 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 230EB532DB3E0DC90BFED332 /* Pods-SampleProjectTests.release.xcconfig */;
+			baseConfigurationReference = E0C033B82B4C69AB3EBD4238 /* Pods-SampleProjectTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native-razorpay/ios/**",
-				);
 				INFOPLIST_FILE = SampleProjectTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -704,19 +623,11 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6EEF7CAC6073D206A4536DB2 /* Pods-SampleProject.debug.xcconfig */;
+			baseConfigurationReference = 148E5C6038D14D9E9F44055B /* Pods-SampleProject.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native-razorpay/ios/**",
-				);
 				INFOPLIST_FILE = SampleProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -732,18 +643,10 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 354C7AC7ADB5A00E583A5E26 /* Pods-SampleProject.release.xcconfig */;
+			baseConfigurationReference = E16BCD08C1B5C0AEA8384814 /* Pods-SampleProject.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native-razorpay/ios/**",
-				);
 				INFOPLIST_FILE = SampleProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -759,7 +662,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4233E5B94DD1F0F55D7133AF /* Pods-SampleProject-tvOS.debug.xcconfig */;
+			baseConfigurationReference = 670ECEF27626B82DFC5A3619 /* Pods-SampleProject-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -770,16 +673,8 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native-razorpay/ios/**",
-				);
 				INFOPLIST_FILE = "SampleProject-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -795,7 +690,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F291A2CE761CE82FD6AC1D20 /* Pods-SampleProject-tvOS.release.xcconfig */;
+			baseConfigurationReference = 0A8E17BC4D266734CB69045E /* Pods-SampleProject-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -806,16 +701,8 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native-razorpay/ios/**",
-				);
 				INFOPLIST_FILE = "SampleProject-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -831,7 +718,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 738B4F3ACD8B4FE3B13FA544 /* Pods-SampleProject-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = 9271C126F910A7F5756124EB /* Pods-SampleProject-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -841,16 +728,8 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native-razorpay/ios/**",
-				);
 				INFOPLIST_FILE = "SampleProject-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -866,7 +745,7 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 66AD36A8219EF768D52EA919 /* Pods-SampleProject-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = 41E074E7A0802E5309715DC0 /* Pods-SampleProject-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -876,16 +755,8 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native-razorpay/ios/**",
-				);
 				INFOPLIST_FILE = "SampleProject-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

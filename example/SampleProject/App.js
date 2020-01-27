@@ -1,15 +1,24 @@
-import React, { Component } from 'react';
-import { Button, StyleSheet, View } from 'react-native';
-import RazorpayCheckout from 'react-native-razorpay';
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ * @flow
+ */
 
+ import React, { Component } from 'react';
+ import { Button, StyleSheet, View, NativeModules, NativeEventEmitter } from 'react-native';
 
-export default class ButtonBasics extends Component {
+import RazorpayCheckout from 'react-native-razorpayt';
+ 
+
+ export default class ButtonBasics extends Component {
   _onPressButton() {
-  	var options = {
+var options = {
     description: 'Credits towards consultation',
     image: 'https://i.imgur.com/3g7nmJC.png',
     currency: 'INR',
-    key: 'rzp_test_1DP5mmOlF5G5ag',
+    key: 'Your razorpay key',
     amount: '5000',
     name: 'foo',
     prefill: {
@@ -19,25 +28,28 @@ export default class ButtonBasics extends Component {
     },
     theme: {color: '#F37254'}
   }
-  	  RazorpayCheckout.open(options).then((data) => {
+    RazorpayCheckout.open(options).then((data) => {
     // handle success
     alert(`Success: ${data.razorpay_payment_id}`);
   }).catch((error) => {
     // handle failure
     alert(`Error: ${error.code} | ${error.description}`);
-  });  }
+  });
+  }
 
-    render() {
+  render() {
+    console.log('Native Module', RazorpayCheckout);
     return (
+
       <View style={styles.container}>
-        <View style={styles.buttonContainer}>
-          <Button
-            onPress={this._onPressButton}
-            title="Checkout"
-          />
-        </View>
+      <View style={styles.buttonContainer}>
+      <Button
+      onPress={this._onPressButton}
+      title="Press Me"
+      />
       </View>
-    );
+      </View>
+      );
   }
 }
 
@@ -45,13 +57,14 @@ const styles = StyleSheet.create({
   container: {
    flex: 1,
    justifyContent: 'center',
-  },
-  buttonContainer: {
-    margin: 20
-  },
-  alternativeLayoutButtonContainer: {
-    margin: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  }
+ },
+ buttonContainer: {
+  margin: 20
+},
+alternativeLayoutButtonContainer: {
+  margin: 20,
+  flexDirection: 'row',
+  justifyContent: 'space-between'
+}
 });
+

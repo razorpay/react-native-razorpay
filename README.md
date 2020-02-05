@@ -95,7 +95,6 @@ In XCode, in the project navigator, select your project.
 * Mark both as recursive (should be OK by default).
 
 Run your project (Cmd+R)
-</details>
 
 <details>
     <summary>Android </summary>

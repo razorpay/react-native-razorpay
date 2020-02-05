@@ -183,6 +183,10 @@ If you are using proguard for your builds, you need to add following lines to pr
 
 - The react native plugin is wrapper around native SDK, so it doesn't work with the tools like expo which doesn't support native modules.
 
+## FAQ's:
+
+- Still having trouble with integrating our payment gateway? Follow [this link](https://github.com/razorpay/react-native-razorpay/wiki/FAQ's) for more info.
+
 ## Contributing
 
 See the [CONTRIBUTING] document. Thank you, [contributors]!

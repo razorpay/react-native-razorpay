@@ -193,7 +193,7 @@ See the [CONTRIBUTING] document. Thank you, [contributors]!
 
 ## License
 
-react-native-razorpay is Copyright (c) 2016 Razorpay Software Pvt. Ltd.
+react-native-razorpay is Copyright (c) 2020 Razorpay Software Pvt. Ltd.
 It is distributed under [the MIT License][LICENSE].
 
 We ♥ open source software!

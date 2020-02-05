@@ -4,47 +4,66 @@
  *
  * @format
  * @flow
- * @lint-ignore-every XPLATJSCOPYRIGHT1
  */
 
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+ import React, { Component } from 'react';
+ import { Button, StyleSheet, View, NativeModules, NativeEventEmitter } from 'react-native';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+import RazorpayCheckout from 'react-native-razorpay';
+ 
 
-type Props = {};
-export default class App extends Component<Props> {
+ export default class ButtonBasics extends Component {
+  _onPressButton() {
+var options = {
+    description: 'Credits towards consultation',
+    image: 'https://i.imgur.com/3g7nmJC.png',
+    currency: 'INR',
+    key: 'Your razorpay key',
+    amount: '5000',
+    name: 'foo',
+    prefill: {
+      email: 'void@razorpay.com',
+      contact: '9191919191',
+      name: 'Razorpay Software'
+    },
+    theme: {color: '#F37254'}
+  }
+    RazorpayCheckout.open(options).then((data) => {
+    // handle success
+    alert(`Success: ${data.razorpay_payment_id}`);
+  }).catch((error) => {
+    // handle failure
+    alert(`Error: ${error.code} | ${error.description}`);
+  });
+  }
+
   render() {
     return (
+
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+      <View style={styles.buttonContainer}>
+      <Button
+      onPress={this._onPressButton}
+      title="Press Me"
+      />
       </View>
-    );
+      </View>
+      );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+   flex: 1,
+   justifyContent: 'center',
+ },
+ buttonContainer: {
+  margin: 20
+},
+alternativeLayoutButtonContainer: {
+  margin: 20,
+  flexDirection: 'row',
+  justifyContent: 'space-between'
+}
 });
+

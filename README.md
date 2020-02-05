@@ -96,6 +96,8 @@ In XCode, in the project navigator, select your project.
 
 Run your project (Cmd+R)
 
+</details>
+
 <details>
     <summary>Android </summary>
 

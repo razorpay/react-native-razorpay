@@ -9,7 +9,7 @@
  import React, { Component } from 'react';
  import { Button, StyleSheet, View, NativeModules, NativeEventEmitter } from 'react-native';
 
-import RazorpayCheckout from 'react-native-razorpayt';
+import RazorpayCheckout from 'react-native-razorpay';
  
 
  export default class ButtonBasics extends Component {
@@ -38,7 +38,6 @@ var options = {
   }
 
   render() {
-    console.log('Native Module', RazorpayCheckout);
     return (
 
       <View style={styles.container}>

@@ -4,6 +4,8 @@
   - [ ] I have searched for a similar issue (https://github.com/razorpay/react-native-razorpay/issues)
   - [ ] I am using the latest version of our framework (https://github.com/razorpay/react-native-razorpay/releases)
   - [ ] I have cleaned my project.
+  - [ ] I have gone through FAQ's (https://github.com/razorpay/react-native-razorpay/wiki/FAQ's)
+
 
 * **Specific to iOS Users :-**
 

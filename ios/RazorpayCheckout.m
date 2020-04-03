@@ -9,8 +9,9 @@
 #import "RazorpayCheckout.h"
 #import "RazorpayEventEmitter.h"
 
-//#import <Razorpay/Razorpay.h>
 #import <Razorpay/Razorpay-Swift.h>
+
+typedef RazorpayCheckout Razorpay;
 
 @interface RazorpayCheckout () <RazorpayPaymentCompletionProtocolWithData,
 ExternalWalletSelectionProtocol>
@@ -29,9 +30,52 @@ RCT_EXPORT_METHOD(open : (NSDictionary *)options) {
                                andDelegateWithData:self];
         [razorpay setExternalWalletSelectionDelegate:self];
         
-        [razorpay open:options];
+  NSMutableDictionary * tempOptions = [[NSMutableDictionary alloc] initWithDictionary:options];
+//   tempOptions[@"integration_version"] = [self findReactNativeVersion];
+  tempOptions[@"integration"] = @"react-native";
+  tempOptions[@"FRAMEWORK"] = @"react-native";
+  [razorpay open:tempOptions];
     });
 }
+
+/*
+- (NSString *)findReactNativeVersion {
+    static dispatch_once_t onceToken;
+    static NSString *BSGReactNativeVersion = nil;
+    dispatch_once(&onceToken, ^{
+        #ifdef RCT_REACT_NATIVE_VERSION
+            // for react-native versions prior 0.55
+            // see https://github.com/react-native-community/releases/blob/451f8e7fa53f80daec9c2381c7984bee73efa51d/CHANGELOG.md#ios-specific-additions
+            NSDictionary *versionMap = RCT_REACT_NATIVE_VERSION;
+        #else
+            NSDictionary *versionMap = RCTGetReactNativeVersion();
+        #endif
+        NSNumber *major = versionMap[@"major"];
+        NSNumber *minor = versionMap[@"minor"];
+        NSNumber *patch = versionMap[@"patch"];
+        NSString *prerelease = versionMap[@"prerelease"];
+        NSMutableString *versionString = [NSMutableString new];
+
+        if (![major isEqual:[NSNull null]]) {
+            [versionString appendString:[major stringValue]];
+            [versionString appendString:@"."];
+        }
+        if (![minor isEqual:[NSNull null]]) {
+            [versionString appendString:[minor stringValue]];
+            [versionString appendString:@"."];
+        }
+        if (![patch isEqual:[NSNull null]]) {
+            [versionString appendString:[patch stringValue]];
+        }
+        if (![prerelease isEqual:[NSNull null]]) {
+            [versionString appendString:@"-"];
+            [versionString appendString:prerelease];
+        }
+        BSGReactNativeVersion = [NSString stringWithString:versionString];
+    });
+    return BSGReactNativeVersion;
+}
+*/
 
 - (void)onPaymentSuccess:(nonnull NSString *)payment_id
                  andData:(nullable NSDictionary *)response {

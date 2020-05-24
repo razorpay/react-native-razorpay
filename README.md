@@ -6,12 +6,15 @@
 React Native wrapper around our Android and iOS mobile SDKs
 
 * [Installation](#installation)
+* [Requirements](#requirements)
 * [Linking](#linking)
 * [Usage](#usage)
-* [API](#api)
-* [Troubleshooting](#troubleshooting)
-* [Release Notes](#release-notes)
-* [react-native-dom / react-native-web](#react-native-dom)
+* [Example App](https://github.com/razorpay/react-native-razorpay/tree/master/example/SampleProject)
+* [Proguard Rules](#proguard-rules)
+* [Notes](#things-to-be-taken-care)
+* [FAQ's](#faqs)
+* [Contributing](#contributing)
+* [License](#license)
 
 The following documentation is only focussed on the react-native wrapper around our Android and iOS sdks. To know more about our react-native SDK, refer to the following documentation - 
 
@@ -33,6 +36,12 @@ or using yarn:
 ```shell
 yarn add react-native-razorpay
 ```
+## Requirements
+
+- iOS 10.0+ / macOS 10.12+ / tvOS 10.0+ / watchOS 3.0+
+- Xcode 11+
+- Swift 5.1+
+
 ## Linking
 
 ### Automatic
@@ -167,7 +176,7 @@ and the `catch` part corresponds to payment failure.
 A descriptive [list of valid options for checkout][options] is available (under
 Manual Checkout column).
 
-## Proguard rules
+## Proguard Rules
 If you are using proguard for your builds, you need to add following lines to proguard files
 ```
 -keepattributes *Annotation*
@@ -179,11 +188,11 @@ If you are using proguard for your builds, you need to add following lines to pr
 }
 ```
 
-## Things to be taken care:
+## Things to be taken care
 
 - The react native plugin is wrapper around native SDK, so it doesn't work with the tools like expo which doesn't support native modules.
 
-## FAQ's:
+## FAQ's
 
 - Still having trouble with integrating our payment gateway? Follow [this link](https://github.com/razorpay/react-native-razorpay/wiki/FAQ's) for more info.
 

@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+    - name: 🤔 Need some help in Integrations
+      url: https://razorpay.com/integrations/
+      about: Looking for help with your app? Please refer to the integration documentation.

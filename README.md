@@ -1,10 +1,15 @@
 # react-native-razorpay
 [![npm](https://img.shields.io/npm/l/express.svg)]()
+[![NPM Version](http://img.shields.io/npm/v/react-native-razorpay.svg?style=flat)](https://www.npmjs.com/package/react-native-razorpay)
+[![NPM Downloads](https://img.shields.io/npm/dm/react-native-razorpay.svg?style=flat)](https://npmcharts.com/compare/react-native-razorpay?minimal=true)
+[![Install Size](https://packagephobia.now.sh/badge?p=react-native-razorpay)](https://packagephobia.now.sh/result?p=react-native-razorpay)
 
 [![NPM](https://nodei.co/npm/react-native-razorpay.png?downloads=true)](https://nodei.co/npm/react-native-razorpay/)
 
 React Native wrapper around our Android and iOS mobile SDKs
 
+
+* [Prerequisites](#prerequisites)
 * [Installation](#installation)
 * [Requirements](#requirements)
 * [Linking](#linking)
@@ -23,6 +28,11 @@ https://razorpay.com/docs/payment-gateway/react-native-integration/
 To know more about Razorpay payment flow and steps involved, read up here:
 <https://docs.razorpay.com/docs>
 
+## Prerequisites
+
+ - Learn about the <a href="/docs/payment-gateway/payment-flow/" target="_blank">Razorpay Payment Flow</a>.
+ - Sign up for a <a href="https://dashboard.razorpay.com/#/access/signin">Razorpay Account</a> and generate the <a href="https://razorpay.com/docs/payment-gateway/dashboard-guide/settings/#api-keys/" target="_blank">API Keys</a> from the Razorpay Dashboard. Using the Test keys helps simulate a sandbox environment. No actual monetary transaction happens when using the Test keys. Use Live keys once you have thoroughly tested the application and are ready to go live.
+ 
 ## Installation
 
 Using npm:
@@ -153,7 +163,7 @@ and the `catch` part corresponds to payment failure.
         description: 'Credits towards consultation',
         image: 'https://i.imgur.com/3g7nmJC.png',
         currency: 'INR',
-        key: 'rzp_test_1DP5mmOlF5G5ag',
+        key: '', // Your api key
         amount: '5000',
         name: 'foo',
         prefill: {

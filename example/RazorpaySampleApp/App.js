@@ -94,7 +94,7 @@ const App: () => React$Node = () =>{
         
       </View>
       <Text style={{
-          fontFamily:"lato_bold",
+          fontFamily:"./assets/fonts/lato_bold.ttf",
           fontSize:24,
           color:"#162F56",
           marginStart:16,
@@ -102,7 +102,7 @@ const App: () => React$Node = () =>{
       }}>Settings</Text>
 
       <Text style={{
-          fontFamily:"lato_normal",
+          fontFamily:"./assets/fonts/lato_normal.ttf",
           fontSize:14,
           color:"rgba(22, 47, 86, 0.54);",
           marginStart:16,
@@ -119,7 +119,7 @@ const App: () => React$Node = () =>{
       />
 
       <Text style={{
-        fontFamily:"lato_bold",
+        fontFamily:"./assets/fonts/lato_bold.ttf",
         fontSize:12,
         color:"rgba(22, 47, 86, 0.54);",
         marginStart:24,
@@ -127,23 +127,23 @@ const App: () => React$Node = () =>{
       }}>COMPANY LOGO</Text>
 
       <View style={{borderWidth:1,borderColor:"#EDF0F5", width:"100%",margin:16}}>
-        <Text style={{fontFamily:"lato_normal",fontSize:12,color:"rgba(22, 47, 86, 0.38);",marginStart:24,marginTop:20}}> 
+        <Text style={{fontFamily:"./assets/fonts/lato_normal.ttf",fontSize:12,color:"rgba(22, 47, 86, 0.38);",marginStart:24,marginTop:20}}> 
           Company Image URL
         </Text>
         <TextInput style={{
-          width:"100%",borderBottomWidth:2,borderBottomColor:"rgba(22, 47, 86, 0.24);",marginLeft:24,fontFamily:"lato_normal",fontSize:14,color:"rgba(22, 47, 86, 0.87)"
+          width:"100%",borderBottomWidth:2,borderBottomColor:"rgba(22, 47, 86, 0.24);",marginLeft:24,fontFamily:"./assets/fonts/lato_normal.ttf",fontSize:14,color:"rgba(22, 47, 86, 0.87)"
         }}
         value={imageUrl}
         onChangeText={text => onChangeText(text)}
         ></TextInput>
         <Text
-          style={{fontFamily:"lato_normal",fontSize:12, color:"rgba(22, 47, 86, 0.38);",marginLeft:24,marginTop:2,marginBottom:20}}
+          style={{fontFamily:"./assets/fonts/lato_normal.ttf",fontSize:12, color:"rgba(22, 47, 86, 0.38);",marginLeft:24,marginTop:2,marginBottom:20}}
         >A square image of minimum 256x256 px and public URL</Text>
       </View>
 
 
           <Text style={{
-            fontFamily:"lato_bold",
+            fontFamily:"./assets/fonts/lato_bold.ttf",
             fontSize:12,
             color:"rgba(22, 47, 86, 0.54);",
             marginStart:24,
@@ -151,17 +151,17 @@ const App: () => React$Node = () =>{
           }}>Brand Details</Text>
 
           <View style={{borderWidth:1,borderColor:"#EDF0F5", width:"100%",margin:16}}>
-            <Text style={{fontFamily:"lato_normal",fontSize:12,color:"rgba(22, 47, 86, 0.38);",marginStart:24,marginTop:20}}> 
+            <Text style={{fontFamily:"./assets/fonts/lato_normal.ttf",fontSize:12,color:"rgba(22, 47, 86, 0.38);",marginStart:24,marginTop:20}}> 
               Company Name
             </Text>
             <TextInput style={{
-              width:"100%",borderBottomWidth:2,borderBottomColor:"rgba(22, 47, 86, 0.24);",marginLeft:24,fontFamily:"lato_normal",fontSize:14,color:"rgba(22, 47, 86, 0.87)"
+              width:"100%",borderBottomWidth:2,borderBottomColor:"rgba(22, 47, 86, 0.24);",marginLeft:24,fontFamily:"./assets/fonts/lato_normal.ttf",fontSize:14,color:"rgba(22, 47, 86, 0.87)"
             }}
             value={companyName}
             onChangeText={text => onChangeCompName(text)}
             ></TextInput>
             <Text
-              style={{fontFamily:"lato_normal",fontSize:12, color:"rgba(22, 47, 86, 0.38);",marginEnd:24,marginLeft:24,marginTop:2,marginBottom:20}}
+              style={{fontFamily:"./assets/fonts/lato_normal.ttf",fontSize:12, color:"rgba(22, 47, 86, 0.38);",marginEnd:24,marginLeft:24,marginTop:2,marginBottom:20}}
             >This will be visible on checkout</Text>
             <View
               style={{
@@ -172,20 +172,20 @@ const App: () => React$Node = () =>{
             }}
             />
 
-          <Text style={{fontFamily:"lato_normal",fontSize:12,color:"rgba(22, 47, 86, 0.38);",marginStart:24,marginTop:20}}> 
+          <Text style={{fontFamily:"./assets/fonts/lato_normal.ttf",fontSize:12,color:"rgba(22, 47, 86, 0.38);",marginStart:24,marginTop:20}}> 
               Theme Color
             </Text>
             <View style={{flexDirection:"row"}}>
               <View style={{width:20, height:20, borderColor:color,backgroundColor:color, borderWidth:2,alignSelf:"center",marginStart:24}}/>
             <TextInput style={{
-              width:"100%",borderBottomWidth:2,borderBottomColor:"rgba(22, 47, 86, 0.24);",marginEnd:24,fontFamily:"lato_normal",fontSize:14,color:"rgba(22, 47, 86, 0.87)"
+              width:"100%",borderBottomWidth:2,borderBottomColor:"rgba(22, 47, 86, 0.24);",marginEnd:24,fontFamily:"./assets/fonts/lato_normal.ttf",fontSize:14,color:"rgba(22, 47, 86, 0.87)"
             }}
             value={color}
             onChangeText={text => onChangeColor(text)}
             ></TextInput>
             </View>
             <Text
-              style={{fontFamily:"lato_normal",fontSize:12, color:"rgba(22, 47, 86, 0.38);",marginLeft:24,marginTop:2,marginBottom:20}}
+              style={{fontFamily:"./assets/fonts/lato_normal.ttf",fontSize:12, color:"rgba(22, 47, 86, 0.38);",marginLeft:24,marginTop:2,marginBottom:20}}
             >This will be visible on checkout</Text>
 
           </View>
@@ -194,7 +194,7 @@ const App: () => React$Node = () =>{
                 backgroundColor:"rgba(209, 45, 45, 0.1)",
                 borderTopColor:"rgba(209, 45, 45, 0.54)",
                 borderTopWidth:1,
-                fontFamily:"lato_bold",
+                fontFamily:"./assets/fonts/lato_bold.ttf",
                 fontSize:14,
                 paddingTop:35,
                 paddingStart:20,
@@ -240,7 +240,7 @@ const App: () => React$Node = () =>{
           </View>
       </View>
       <Text style={{
-        fontFamily:"lato_bold",
+        fontFamily:"./assets/fonts/lato_bold.ttf",
         fontSize:24,
         margin:20,
         marginStart:16,
@@ -257,7 +257,7 @@ const App: () => React$Node = () =>{
           ></Image>
         </View>
         <View style={styles.card_content}>
-          <Text style={{fontFamily:"lato_bold",
+          <Text style={{fontFamily:"./assets/fonts/lato_bold.ttf",
                 fontSize:14,
                 marginStart:16,
                 marginTop:16,
@@ -270,14 +270,14 @@ const App: () => React$Node = () =>{
             flexDirection:"row",
             }}>
                 <Text style={{
-                    fontFamily:"lato_normal",
+                    fontFamily:"./assets/fonts/lato_normal.ttf",
                     fontSize:12,
                     color:"rgba(22, 47, 86, 0.54)"
                 }}>
                   Color :
                 </Text>
                 <Text style={{
-                    fontFamily:"lato_normal",
+                    fontFamily:"./assets/fonts/lato_normal.ttf",
                     fontSize:12,
                     color:"rgba(22, 47, 86, 0.87)"
                 }}>
@@ -285,14 +285,14 @@ const App: () => React$Node = () =>{
                 </Text>
                 <Text style={{
                     marginStart:20,
-                    fontFamily:"lato_normal",
+                    fontFamily:"./assets/fonts/lato_normal.ttf",
                     fontSize:12,
                     color:"rgba(22, 47, 86, 0.54)"
                 }}>
                   Size :
                 </Text>
                 <Text style={{
-                    fontFamily:"lato_normal",
+                    fontFamily:"./assets/fonts/lato_normal.ttf",
                     fontSize:12,
                     color:"rgba(22, 47, 86, 0.87)"
 
@@ -301,7 +301,7 @@ const App: () => React$Node = () =>{
                 </Text>
             </View>
             <Text style={{
-                fontFamily:"lato_bold",
+                fontFamily:"./assets/fonts/lato_bold.ttf",
                 fontSize:16,
                 color:"#162F56",
                 marginStart:16,
@@ -319,13 +319,13 @@ const App: () => React$Node = () =>{
           width: "100%",
           marginBottom:20
         }}>
-          <Text style={{ alignSelf:"flex-start",marginEnd:"40%", fontFamily:"lato_bold", fontSize:20,color:"rgba(22, 47, 86, 0.38)" }}>Total Amount:</Text> 
-          <Text style={{ alignSelf:"flex-end",fontFamily:"lato_bold", fontSize:20,color:"#162F56" }}>₹1.00</Text>          
+          <Text style={{ alignSelf:"flex-start",marginEnd:"40%", fontFamily:"./assets/fonts/lato_bold.ttf", fontSize:20,color:"rgba(22, 47, 86, 0.38)" }}>Total Amount:</Text> 
+          <Text style={{ alignSelf:"flex-end",fontFamily:"./assets/fonts/lato_bold.ttf", fontSize:20,color:"#162F56" }}>₹1.00</Text>          
 
         </View>
         <TouchableHighlight activeOpacity = { .5 } onPress={() => {startPayment()}}> 
         <Text  style={{alignSelf:"center",backgroundColor:"#2B83EA",marginBottom:32, marginStart:16,marginEnd:16,paddingTop:10,paddingBottom:10,width:"80%",textAlign:"center",
-            fontSize:14,fontFamily:"lato_bold",color:"#ffffff"}}>
+            fontSize:14,fontFamily:"./assets/fonts/lato_bold.ttf",color:"#ffffff"}}>
           Pay Now
         </Text>
         </TouchableHighlight>
@@ -333,7 +333,7 @@ const App: () => React$Node = () =>{
                 backgroundColor:"rgba(209, 45, 45, 0.1)",
                 borderTopColor:"rgba(209, 45, 45, 0.54)",
                 borderTopWidth:1,
-                fontFamily:"lato_bold",
+                fontFamily:"./assets/fonts/lato_bold.ttf",
                 fontSize:14,
                 paddingTop:35,
                 paddingStart:20,
@@ -387,7 +387,7 @@ const styles = StyleSheet.create({
       marginBottom:16,
       color:"#ffffff",
       fontSize:14,
-      fontFamily:"lato_bold",
+      fontFamily:"./assets/fonts/lato_bold.ttf",
   
     },card:{
       borderColor:"#EDF0F5",
@@ -451,7 +451,7 @@ function payWithRazorpay(){
 // }).catch((error) => {
 //     // handle failure
 //     alert(`Error: ${error.code} | ${error.description}`);
-//    });
+//    }); x
 }
 
 

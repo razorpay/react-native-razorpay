@@ -17,9 +17,11 @@ WILL LIKELY BE CLOSED.
 -->
 
 ## Description
-
 Please provide a clear and concise description of what the bug is. Include screenshots if needed.
 Please test using the latest React Native Razorpay plugin release to make sure your issue has not already been fixed. 
+
+* **Specific to iOS Users :-**
+- [ ] I have tried updating Razorpay pod to the latest version by using 'pod update'.
 
 ## Razorpay Package Version :
 Open `Package.json`. > Copy `react-native-razorpay` version here. 
@@ -27,6 +29,8 @@ Open `Package.json`. > Copy `react-native-razorpay` version here.
 ## Xcode Version (iOS) :
 Open Xcode > Go to `About Xcode` > copy the Xcode version here.
 
+## Razorpay-pod version (iOS) :
+Go to your project path > Go to folder named `ios`  > open 'podfile.lock' file > search for 'razorpay-pod' > copy the line here 
 
 ## Java and Gradle Version (android) :
 Specify your Java and Gradle version.

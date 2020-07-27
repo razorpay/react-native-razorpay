@@ -30,7 +30,7 @@ To know more about Razorpay payment flow and steps involved, read up here:
 
 ## Prerequisites
 
- - Learn about the <a href="/docs/payment-gateway/payment-flow/" target="_blank">Razorpay Payment Flow</a>.
+ - Learn about the <a href="https://razorpay.com/docs/payment-gateway/payment-flow/" target="_blank">Razorpay Payment Flow</a>.
  - Sign up for a <a href="https://dashboard.razorpay.com/#/access/signin">Razorpay Account</a> and generate the <a href="https://razorpay.com/docs/payment-gateway/dashboard-guide/settings/#api-keys/" target="_blank">API Keys</a> from the Razorpay Dashboard. Using the Test keys helps simulate a sandbox environment. No actual monetary transaction happens when using the Test keys. Use Live keys once you have thoroughly tested the application and are ready to go live.
  
 ## Installation
@@ -220,9 +220,9 @@ See [our other supported plugins / SDKs][integrations]
 or [contact us][contact] to help you with integrations.
 
 [contact]: mailto:integrations@razorpay.com?subject=Help%20with%20React%20Native "Send us a mail"
-[CONTRIBUTING]: SupportingFiles/CONTRIBUTING.md "Our contributings guidelines"
+[CONTRIBUTING]: CONTRIBUTING.md "Our contributing guidelines"
 [contributors]: https://github.com/razorpay/react-native-razorpay/graphs/contributors "List of contributors"
-[index.js]: example/index.js "index.js"
+[index.js]: example/SampleProject/index.js "index.js"
 [integrations]: https://razorpay.com/integrations "List of our integrations"
 [ios-docs]: https://docs.razorpay.com/v1/page/ios-integration "Documentation for the iOS Integration"
 [LICENSE]: /LICENSE "MIT License"

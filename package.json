@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/razorpay/react-native-razorpay.git"
+    "url": "git+https://github.com/vidhyadharan24/react-native-razorpay.git"
   },
   "peerDependencies": {
     "react": "^16.5.0",
@@ -22,5 +22,5 @@
   ],
   "author": "Razorpay Developers <developers@razorpay.com> (https://razorpay.com/)",
   "license": "MIT",
-  "homepage": "https://github.com/razorpay/react-native-razorpay#readme"
+  "homepage": "https://github.com/vidhyadharan24/react-native-razorpay#readme"
 }

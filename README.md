@@ -14,7 +14,7 @@ React Native wrapper around our Android and iOS mobile SDKs
 * [Requirements](#requirements)
 * [Linking](#linking)
 * [Usage](#usage)
-* [Example App](https://github.com/razorpay/react-native-razorpay/tree/master/example/SampleProject)
+* [Example App](https://github.com/vidhyadharan24/react-native-razorpay/tree/master/example/SampleProject)
 * [Proguard Rules](#proguard-rules)
 * [Notes](#things-to-be-taken-care)
 * [FAQ's](#faqs)
@@ -204,7 +204,7 @@ If you are using proguard for your builds, you need to add following lines to pr
 
 ## FAQ's
 
-- Still having trouble with integrating our payment gateway? Follow [this link](https://github.com/razorpay/react-native-razorpay/wiki/FAQ's) for more info.
+- Still having trouble with integrating our payment gateway? Follow [this link](https://github.com/vidhyadharan24/react-native-razorpay/wiki/FAQ's) for more info.
 
 ## Contributing
 
@@ -221,10 +221,10 @@ or [contact us][contact] to help you with integrations.
 
 [contact]: mailto:integrations@razorpay.com?subject=Help%20with%20React%20Native "Send us a mail"
 [CONTRIBUTING]: CONTRIBUTING.md "Our contributing guidelines"
-[contributors]: https://github.com/razorpay/react-native-razorpay/graphs/contributors "List of contributors"
+[contributors]: https://github.com/vidhyadharan24/react-native-razorpay/graphs/contributors "List of contributors"
 [index.js]: example/SampleProject/index.js "index.js"
 [integrations]: https://razorpay.com/integrations "List of our integrations"
 [ios-docs]: https://docs.razorpay.com/v1/page/ios-integration "Documentation for the iOS Integration"
 [LICENSE]: /LICENSE "MIT License"
 [options]: https://docs.razorpay.com/docs/checkout-form#checkout-fields "Checkout Options"
-[wiki]: https://github.com/razorpay/react-native-razorpay/wiki/Manual-Installation
+[wiki]: https://github.com/vidhyadharan24/react-native-razorpay/wiki/Manual-Installation

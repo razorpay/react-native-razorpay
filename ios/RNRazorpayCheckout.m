@@ -1,24 +1,22 @@
 //
-//  RazorpayCheckout.m
-//  RazorpayCheckout
+//  RNRazorpayCheckout.m
+//  RNRazorpayCheckout
 //
 //  Created by Akshay Bhalotia on 29/08/16.
 //  Copyright © 2016 Razorpay. All rights reserved.
 //
 
-#import "RazorpayCheckout.h"
+#import "RNRazorpayCheckout.h"
 #import "RazorpayEventEmitter.h"
 
 #import <Razorpay/Razorpay-Swift.h>
 
-typedef RazorpayCheckout Razorpay;
-
-@interface RazorpayCheckout () <RazorpayPaymentCompletionProtocolWithData,
+@interface RNRazorpayCheckout () <RazorpayPaymentCompletionProtocolWithData,
 ExternalWalletSelectionProtocol>
 
 @end
 
-@implementation RazorpayCheckout
+@implementation RNRazorpayCheckout
 
 RCT_EXPORT_MODULE()
 
@@ -26,15 +24,15 @@ RCT_EXPORT_METHOD(open : (NSDictionary *)options) {
     
     NSString *keyID = (NSString *)[options objectForKey:@"key"];
     dispatch_sync(dispatch_get_main_queue(), ^{
-        Razorpay *razorpay = [Razorpay initWithKey:keyID
+        RazorpayCheckout *razorpay = [RazorpayCheckout initWithKey:keyID
                                andDelegateWithData:self];
         [razorpay setExternalWalletSelectionDelegate:self];
         
-  NSMutableDictionary * tempOptions = [[NSMutableDictionary alloc] initWithDictionary:options];
-//   tempOptions[@"integration_version"] = [self findReactNativeVersion];
-  tempOptions[@"integration"] = @"react-native";
-  tempOptions[@"FRAMEWORK"] = @"react-native";
-  [razorpay open:tempOptions];
+        NSMutableDictionary * tempOptions = [[NSMutableDictionary alloc] initWithDictionary:options];
+//        tempOptions[@"integration_version"] = [self findReactNativeVersion];
+        tempOptions[@"integration"] = @"react-native";
+        tempOptions[@"FRAMEWORK"] = @"react-native";
+        [razorpay open:tempOptions];
     });
 }
 

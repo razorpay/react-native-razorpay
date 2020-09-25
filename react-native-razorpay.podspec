@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "10.0"
   s.ios.deployment_target = '10.0'
 
-  s.source       = { :git => "https://github.com/vidhyadharan24/react-native-razorpay.git", :tag => "v#{s.version}" }
+  s.source       = { :git => "https://github.com/vidhyadharan24/react-native-razorpay.git" }
   s.source_files  = "ios/**/*.{h,m}"
 
   s.dependency 'React'

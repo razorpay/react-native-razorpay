@@ -32,7 +32,9 @@ RCT_EXPORT_METHOD(open : (NSDictionary *)options) {
 //        tempOptions[@"integration_version"] = [self findReactNativeVersion];
         tempOptions[@"integration"] = @"react-native";
         tempOptions[@"FRAMEWORK"] = @"react-native";
-        [razorpay open:tempOptions];
+        UIViewController *rootViewController = UIApplication.sharedApplication.delegate.window.rootViewController;
+
+        [razorpay open:tempOptions displayController: [self visibleViewController:rootViewController]];
     });
 }
 
@@ -90,6 +92,28 @@ RCT_EXPORT_METHOD(open : (NSDictionary *)options) {
                  WithPaymentData:(nullable NSDictionary *)paymentData {
     [RazorpayEventEmitter onExternalWalletSelected:walletName
                                            andData:paymentData];
+}
+
+- (UIViewController *)visibleViewController:(UIViewController *)rootViewController {
+    if (rootViewController.presentedViewController == nil) {
+        return rootViewController;
+    }
+    if ([rootViewController.presentedViewController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *navigationController = (UINavigationController *)rootViewController.presentedViewController;
+        UIViewController *lastViewController = [[navigationController viewControllers] lastObject];
+
+        return [self visibleViewController:lastViewController];
+    }
+    if ([rootViewController.presentedViewController isKindOfClass:[UITabBarController class]]) {
+        UITabBarController *tabBarController = (UITabBarController *)rootViewController.presentedViewController;
+        UIViewController *selectedViewController = tabBarController.selectedViewController;
+
+        return [self visibleViewController:selectedViewController];
+    }
+
+    UIViewController *presentedViewController = (UIViewController *)rootViewController.presentedViewController;
+
+    return [self visibleViewController:presentedViewController];
 }
 
 @end

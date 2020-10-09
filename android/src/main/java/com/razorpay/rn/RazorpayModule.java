@@ -51,7 +51,7 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
 
   @Override
   public String getName() {
-    return "RazorpayCheckout";
+    return "RNRazorpayCheckout";
   }
 
   @ReactMethod
@@ -65,7 +65,7 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
       currentActivity.startActivityForResult(intent, Checkout.RZP_REQUEST_CODE);
     } catch (Exception e) {}
   }
- 
+
   public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
     onActivityResult(requestCode, resultCode, data);
   }
@@ -85,7 +85,7 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
 
    @Override
     public void onPaymentSuccess(String razorpayPaymentId, PaymentData paymentData) {
-      sendEvent("Razorpay::PAYMENT_SUCCESS", Utils.jsonToWritableMap(paymentData.getData())); 
+      sendEvent("Razorpay::PAYMENT_SUCCESS", Utils.jsonToWritableMap(paymentData.getData()));
     }
 
     @Override
@@ -100,7 +100,7 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
       sendEvent("Razorpay::PAYMENT_ERROR", Utils.jsonToWritableMap(paymentDataJson));
     }
 
-    @Override 
+    @Override
     public void onExternalWalletSelected(String walletName, PaymentData paymentData){
       sendEvent("Razorpay::EXTERNAL_WALLET_SELECTED", Utils.jsonToWritableMap(paymentData.getData()));
     }

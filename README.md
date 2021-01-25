@@ -21,7 +21,7 @@ React Native wrapper around our Android and iOS mobile SDKs
 * [Contributing](#contributing)
 * [License](#license)
 
-The following documentation is only focussed on the react-native wrapper around our Android and iOS sdks. To know more about our react-native SDK, refer to the following documentation - 
+The following documentation is only focussed on the react-native wrapper around our Android and iOS sdks. To know more about our react-native SDK, refer to the following documentation -
 
 https://razorpay.com/docs/payment-gateway/react-native-integration/
 
@@ -32,7 +32,7 @@ To know more about Razorpay payment flow and steps involved, read up here:
 
  - Learn about the <a href="https://razorpay.com/docs/payment-gateway/payment-flow/" target="_blank">Razorpay Payment Flow</a>.
  - Sign up for a <a href="https://dashboard.razorpay.com/#/access/signin">Razorpay Account</a> and generate the <a href="https://razorpay.com/docs/payment-gateway/dashboard-guide/settings/#api-keys/" target="_blank">API Keys</a> from the Razorpay Dashboard. Using the Test keys helps simulate a sandbox environment. No actual monetary transaction happens when using the Test keys. Use Live keys once you have thoroughly tested the application and are ready to go live.
- 
+
 ## Installation
 
 Using npm:
@@ -58,7 +58,7 @@ yarn add react-native-razorpay
 
 <details>
     <summary>iOS</summary>
-  
+
 ### For React Native 0.60+
 
 ```sh
@@ -77,9 +77,9 @@ yarn react-native run-ios
 2. `react-native link react-native-razorpay` // Link the SDK with React Native Project using Xcode.
 
 3. Drag the `Razorpay.framework` file from the Libraries folder and drop it under the root folder, for more info follow [this link](https://razorpay.com/docs/payment-gateway/react-native-integration/standard/#step-2---link-the-sdk-with-react),
-after this go to **Target** > **General Settings**> **Framework, Libraries and Embedded Content** section, set the **Embed** status of Razorpay.framework to **Embed & Sign**. 
+after this go to **Target** > **General Settings**> **Framework, Libraries and Embedded Content** section, set the **Embed** status of Razorpay.framework to **Embed & Sign**.
 
-6. Also make sure the razorpay framework is added in the embedded binaries section and you have Always Embed Swift 
+6. Also make sure the razorpay framework is added in the embedded binaries section and you have Always Embed Swift
    Standard Binaries set to yes in build settings.
 </details>
 

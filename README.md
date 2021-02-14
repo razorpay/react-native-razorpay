@@ -137,10 +137,10 @@ Run your project (Cmd+R)
     ```
 </details>
 
+<hr></hr>
 
 | :memo:        | Take note of this       |
 |---------------|:------------------------|
-
 
 If the following (or similar) error occurs, then skip the first step above in the android section.
 

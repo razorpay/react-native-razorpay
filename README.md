@@ -137,6 +137,20 @@ Run your project (Cmd+R)
     ```
 </details>
 
+
+| :memo:        | Take note of this       |
+|---------------|:------------------------|
+
+
+If the following (or similar) error occurs, then skip the first step above in the android section.
+
+```log
+Native Module RNRazorpayCheckout tried to override RazorpayCheckout.
+Check the getPackages() method in MainApplication.java, 
+it might be that module is being created twice.
+if this was your intention, set canOverrideExistingModule=true
+```
+
 ## Usage
 
 Sample code to integrate with Razorpay can be found in

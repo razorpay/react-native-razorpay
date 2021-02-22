@@ -20,6 +20,6 @@ android {
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
-    implementation 'com.razorpay:checkout:1.6.5'
+    implementation 'com.razorpay:checkout:1.6.6'
 }
 

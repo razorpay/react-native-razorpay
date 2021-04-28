@@ -8,6 +8,6 @@
 
 #import "RCTBridgeModule.h"
 
-@interface RazorpayCheckout : NSObject <RCTBridgeModule>
+@interface RNRazorpayCheckout : NSObject <RCTBridgeModule>
 
 @end

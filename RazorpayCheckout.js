@@ -23,7 +23,7 @@ class RazorpayCheckout {
         rejectFn(data);
         removeSubscriptions();
       });
-      NativeModules.RazorpayCheckout.open(options);
+      NativeModules.RNRazorpayCheckout.open(options);
     });
   }
   static onExternalWalletSelection(externalWalletCallback) {

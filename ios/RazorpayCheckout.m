@@ -13,23 +13,22 @@
 
 typedef RazorpayCheckout Razorpay;
 
-@interface RazorpayCheckout () <RazorpayPaymentCompletionProtocolWithData,
+@interface RNRazorpayCheckout () <RazorpayPaymentCompletionProtocolWithData,
 ExternalWalletSelectionProtocol>
 
 @end
 
-@implementation RazorpayCheckout
+@implementation RNRazorpayCheckout
 
 RCT_EXPORT_MODULE()
 
 RCT_EXPORT_METHOD(open : (NSDictionary *)options) {
-    
+
     NSString *keyID = (NSString *)[options objectForKey:@"key"];
     dispatch_sync(dispatch_get_main_queue(), ^{
         Razorpay *razorpay = [Razorpay initWithKey:keyID
                                andDelegateWithData:self];
-        [razorpay setExternalWalletSelectionDelegate:self];
-        
+        [razorpay setExternalWalletSelectionDelegate:self];        
         NSMutableDictionary * tempOptions = [[NSMutableDictionary alloc] initWithDictionary:options];
         //tempOptions[@"integration_version"] = [self findReactNativeVersion];
         tempOptions[@"integration"] = @"react-native";

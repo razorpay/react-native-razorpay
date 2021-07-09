@@ -18,8 +18,8 @@ var options = {
     description: 'Credits towards consultation',
     image: 'https://i.imgur.com/3g7nmJC.png',
     currency: 'INR',
-    key: 'Your razorpay key',
-    amount: '5000',
+    key: 'rzp_test_TgsFEggdZjTPWR',
+    amount: '100',
     name: 'foo',
     prefill: {
       email: 'void@razorpay.com',
@@ -31,9 +31,11 @@ var options = {
     RazorpayCheckout.open(options).then((data) => {
     // handle success
     alert(`Success: ${data.razorpay_payment_id}`);
+    console.log(data.razorpay_payment_id);
   }).catch((error) => {
     // handle failure
     alert(`Error: ${error.code} | ${error.description}`);
+    console.log(error.description);
   });
   }
 

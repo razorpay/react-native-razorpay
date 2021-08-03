@@ -34,18 +34,23 @@ RCT_EXPORT_METHOD(open : (NSDictionary *)options) {
         tempOptions[@"integration"] = @"react-native";
         tempOptions[@"FRAMEWORK"] = @"react-native";
         
-        //get root view to present razorpay vc
-        id<UIApplicationDelegate> app = [[UIApplication sharedApplication] delegate];
-        UINavigationController *rootViewController = ((UINavigationController*) app.window.rootViewController);
-        
-        if (rootViewController.presentedViewController) {
-            [razorpay open:tempOptions displayController:rootViewController.presentedViewController];
-            return;
-        }
-        
         //Use 'open' method with displayController parameter
-        [razorpay open:tempOptions displayController:rootViewController];
+        [razorpay open:tempOptions displayController:[self topPresentViewController]];
     });
+}
+
+- (UIViewController *)topPresentViewController {
+  UIViewController *topVC = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+  while (topVC.presentedViewController) {
+    topVC = topVC.presentedViewController;
+  }
+  if ([topVC isKindOfClass:[UITabBarController class]]) {
+    topVC = [(UITabBarController *)topVC selectedViewController];
+  }
+  if ([topVC isKindOfClass:[UINavigationController class]]) {
+    topVC = [(UINavigationController *)topVC topViewController];
+  }
+  return topVC;
 }
 
 /*

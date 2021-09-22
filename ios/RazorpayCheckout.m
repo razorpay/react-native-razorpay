@@ -36,12 +36,17 @@ RCT_EXPORT_METHOD(open : (NSDictionary *)options) {
         
         //get root view to present razorpay vc
         id<UIApplicationDelegate> app = [[UIApplication sharedApplication] delegate];
-        UINavigationController *rootViewController = ((UINavigationController*) app.window.rootViewController);
+        UIViewController *rootViewController = ((UIViewController*) app.window.rootViewController);
         
-        if (rootViewController.presentedViewController) {
-            [razorpay open:tempOptions displayController:rootViewController.presentedViewController];
-            return;
+        while (rootViewController.presentedViewController) {
+            rootViewController = rootViewController.presentedViewController;
         }
+      
+      
+//        if (rootViewController.presentedViewController) {
+//            [razorpay open:tempOptions displayController:rootViewController.presentedViewController];
+//            return;
+//        }
         
         //Use 'open' method with displayController parameter
         [razorpay open:tempOptions displayController:rootViewController];

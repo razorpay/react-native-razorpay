@@ -76,7 +76,7 @@ RCT_EXPORT_MODULE();
     NSDictionary *payload = @{
       @"code" : @(code),
       @"description" : str,
-      @"details" : response
+      @"error" : response
     };
     [[NSNotificationCenter defaultCenter] postNotificationName:kPaymentError
                                                         object:nil

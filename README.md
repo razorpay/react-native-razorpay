@@ -2,7 +2,7 @@
 [![npm](https://img.shields.io/npm/l/express.svg)]()
 [![NPM Version](http://img.shields.io/npm/v/react-native-razorpay.svg?style=flat)](https://www.npmjs.com/package/react-native-razorpay)
 [![NPM Downloads](https://img.shields.io/npm/dm/react-native-razorpay.svg?style=flat)](https://npmcharts.com/compare/react-native-razorpay?minimal=true)
-[![install size](https://packagephobia.com/badge?p=react-native-razorpay@2.1.35)](https://packagephobia.com/result?p=react-native-razorpay@2.1.35)
+[![install size](https://packagephobia.com/badge?p=react-native-razorpay@2.1.35)](https://packagephobia.com/result?p=react-native-razorpay@2.1.35) // nosemgrep : generic.secrets.security.detected-username-and-password-in-uri.detected-username-and-password-in-uri
 
 [![NPM](https://nodei.co/npm/react-native-razorpay.png?downloads=true)](https://nodei.co/npm/react-native-razorpay/)
 

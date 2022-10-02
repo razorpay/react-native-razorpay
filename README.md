@@ -198,9 +198,58 @@ If you are using proguard for your builds, you need to add following lines to pr
 }
 ```
 
+## For Expo user 
+
+- By following these procedures, the integration with Expo project (only supported in <a href="https://docs.expo.dev/workflow/prebuild/" target="_blank">Prebuild Application</a>.) is quite easy.
+
+### Steps
+
+1. Import RazorpayCheckout module to your component:
+
+    ```js
+    import RazorpayCheckout from 'react-native-razorpay';
+    ```
+2. Run the eas build command based on your build enviremont
+  
+  -- choose the profile as per the build enviroment
+  
+  ```js
+    eas build --profile='select profile from eas.json' 
+  ```
+  
+3. Since now you have prebuild application 
+   Call `RazorpayCheckout.open` method with the payment `options`. The method
+   returns a **JS Promise** where `then` part corresponds to a successful payment
+   and the `catch` part corresponds to payment failure.
+    ```js
+    <TouchableHighlight onPress={() => {
+      var options = {
+        description: 'Credits towards consultation',
+        image: 'https://i.imgur.com/3g7nmJC.png',
+        currency: 'INR',
+        key: '', // Your api key
+        amount: '5000',
+        name: 'foo',
+        prefill: {
+          email: 'void@razorpay.com',
+          contact: '9191919191',
+          name: 'Razorpay Software'
+        },
+        theme: {color: '#F37254'}
+      }
+      RazorpayCheckout.open(options).then((data) => {
+        // handle success
+        alert(`Success: ${data.razorpay_payment_id}`);
+      }).catch((error) => {
+        // handle failure
+        alert(`Error: ${error.code} | ${error.description}`);
+      });
+    }}>
+    ```
+
 ## Things to be taken care
 
-- The react native plugin is wrapper around native SDK, so it doesn't work with the tools like expo which doesn't support native modules.
+- While the orderId key is required in live mode, it should not be given in test mode.
 
 ## FAQ's
 

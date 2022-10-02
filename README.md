@@ -204,11 +204,13 @@ If you are using proguard for your builds, you need to add following lines to pr
 
 ### Steps
 
-1. Import RazorpayCheckout module to your component:
 
-    ```js
-    import RazorpayCheckout from 'react-native-razorpay';
-    ```
+1. Run the installation command
+  
+  ```js
+    yarn add react-native-razorpay or npm install --save react-native-razorpay
+  ```
+  
 2. Run the eas build command based on your build enviremont
   
   -- choose the profile as per the build enviroment
@@ -216,8 +218,14 @@ If you are using proguard for your builds, you need to add following lines to pr
   ```js
     eas build --profile='select profile from eas.json' 
   ```
-  
-3. Since now you have prebuild application 
+
+3. Import RazorpayCheckout module to your component:
+
+    ```js
+    import RazorpayCheckout from 'react-native-razorpay';
+    ```
+
+4. Since now you have prebuild application 
    Call `RazorpayCheckout.open` method with the payment `options`. The method
    returns a **JS Promise** where `then` part corresponds to a successful payment
    and the `catch` part corresponds to payment failure.

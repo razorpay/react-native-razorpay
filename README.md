@@ -213,7 +213,7 @@ If you are using proguard for your builds, you need to add following lines to pr
   
 2. Run the eas build command based on your build enviremont
   
-  - choose the profile as per the build enviroment
+  - choose the profile from <a href="https://docs.expo.dev/workflow/prebuild/" target="_blank">eas.json</a> as per the build enviroment
   
   ```js
     eas build --profile='select profile from eas.json' 

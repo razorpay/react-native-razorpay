@@ -257,7 +257,7 @@ If you are using proguard for your builds, you need to add following lines to pr
 
 ## Things to be taken care
 
-- While the orderId key is required in live mode, it should not be given in test mode.
+- While the orderId key is required in live mode, it should not be passed in test mode.
 
 ## FAQ's
 

@@ -46,6 +46,12 @@ or using yarn:
 ```shell
 yarn add react-native-razorpay
 ```
+
+For Expo Users:
+```shell
+npx expo install react-native-razorpay
+```
+
 ## Requirements
 
 - iOS 10.0+ / macOS 10.12+ / tvOS 10.0+ / watchOS 3.0+
@@ -137,6 +143,18 @@ Run your project (Cmd+R)
     ```
 </details>
 
+### Note for Expo Applications:
+
+After adding the react-native-razorpay package,the option to `prebuild` the app must be used(this generates the android/ios platform folders in the project to use native-modules). Command for which,
+```shell
+npx expo prebuild
+```
+After which the application will be installed on the device/emulator.
+```shell
+npx expo run:[ios|android] --device
+```
+
+
 ## Usage
 
 Sample code to integrate with Razorpay can be found in
@@ -204,6 +222,23 @@ If you are using proguard for your builds, you need to add following lines to pr
 
 ## FAQ's
 
+- For UPI Intent in iOS, the info.plist in iOS should be modified to include `LSApplicationQueriesSchemes`
+  - For Bare React-Native Apps:
+    - info.plist can directly be modified from the xcode project. LSApplicationQueriesSchemes takes as array value and can currently include only ["tez","phonepe","paytmmp"]
+  - For Expo Apps:
+    - Directly modifying info.plist is discouraged, and hence this should be added in app.json
+    ```shell
+      "ios": {
+        "infoPlist": {
+          "LSApplicationQueriesSchemes": [
+             "tez",
+             "phonepe",
+             "paytmmp"
+          ]
+        }
+      }
+      ```
+    - P.S: The apps won't be visible if the application is run with metro builder. The info.plist is generated successfully and integrated only when the app is built as standalone app.  
 - Still having trouble with integrating our payment gateway? Follow [this link](https://github.com/razorpay/react-native-razorpay/wiki/FAQ's) for more info.
 
 ## Contributing

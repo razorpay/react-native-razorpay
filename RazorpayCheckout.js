@@ -26,7 +26,7 @@ class RazorpayCheckout {
       if (Platform.OS == 'ios') {
         setTimeout(function() {
           NativeModules.RNRazorpayCheckout.open(options);
-        }, 3000); 
+        }, 500); 
       } else {
         NativeModules.RNRazorpayCheckout.open(options);
       }

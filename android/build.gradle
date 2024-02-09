@@ -20,6 +20,10 @@ android {
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
-    implementation 'com.razorpay:checkout:1.6.+'
+//    implementation 'com.razorpay:checkout:1.6.+'
+    implementation fileTree(include: ['*.aar'], dir: 'libs')
+    implementation 'com.google.android.gms:play-services-auth:20.6.0'
+    implementation 'com.google.android.gms:play-services-auth-api-phone:18.0.1'
+
 }
 

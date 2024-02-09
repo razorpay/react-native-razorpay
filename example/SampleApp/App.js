@@ -80,7 +80,7 @@ const App: () => Node = () => {
                 description: 'Credits towards consultation',
                 image: 'https://i.imgur.com/3g7nmJC.png',
                 currency: 'INR',
-                key: 'rzp_test_1DP5mmOlF5G5ag', // Your api key
+                key: 'rzp_test_40wczKfWHMAymy', // Your api key
                 amount: '5000',
                 name: 'foo',
                 prefill: {

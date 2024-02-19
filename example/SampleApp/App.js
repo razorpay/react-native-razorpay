@@ -76,19 +76,21 @@ const App: () => Node = () => {
           <Button
             title={'Pay with Razorpay'}
             onPress={() => {
+
               var options = {
-                description: 'Credits towards consultation',
-                image: 'https://i.imgur.com/3g7nmJC.png',
-                currency: 'INR',
-                key: 'rzp_test_40wczKfWHMAymy', // Your api key
-                amount: '5000',
-                name: 'foo',
-                prefill: {
-                  email: 'void@razorpay.com',
-                  contact: '9191919191',
-                  name: 'Razorpay Software',
+                  key: 'rzp_test_xdw1idaxNNcenU',
+                "one_click_checkout": true,
+                "name": "Boat",
+                "order_id": "order_Ncg9E9uyJcS1Wt",
+                "prefill": {
+                  "email": "test@test.com",
+                  "contact": "8073945686"
                 },
-                theme: {color: '#F37254'},
+                "notes": {
+                  "address": "Razorpay Corporate Office"
+                },
+                "theme": {"color": "#3399cc"},
+                  "ep":"https://api.razorpay.com/test/checkout.html?branch=fix/test-sdk"
               };
               RazorpayCheckout.open(options)
                 .then(data => {

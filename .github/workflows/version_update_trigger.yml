@@ -35,7 +35,7 @@ jobs:
       with:
         script: |
           const pr_number = ${GITHUB_REF.split('/')[2]};
-          const message = "$version_line\nSDK: React-Native Standard Checkout SDK";
+          const message = "pg-core-sdk-version-update\n$version_line\nSDK: React-Native Standard Checkout SDK";
           
           await github.rest.issues.createComment({
             owner: context.repo.owner,

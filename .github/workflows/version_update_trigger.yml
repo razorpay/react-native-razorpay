@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    runs-on: [self-hosted, k8s-runner]
+    runs-on: macos-latest
 
     steps:
     - name: Checkout code

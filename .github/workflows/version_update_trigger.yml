@@ -1,0 +1,45 @@
+name: Version trigger workflow
+
+on: 
+  pull_request:
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Fetch the pull request diff
+      run: git fetch origin ${{ github.event.pull_request.base.sha }} ${{ github.sha }}
+
+    - name: Check if a particular file has changed
+      id: check_file
+      run: |
+        # Check if 'package.json' has changed in the PR
+        if git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep -q 'package.json'; then
+          echo "file_changed=true" >> $GITHUB_ENV
+        else
+          echo "file_changed=false" >> $GITHUB_ENV
+        fi
+
+    - name: Take action based on file change
+      if: env.file_changed == 'true'
+      run: |
+        echo "version_line=$(grep -m 1 "\"version\":" ${GITHUB_WORKSPACE}/package.json)" >> $GITHUB_ENV
+        
+    - name: Post a comment on the PR
+      if: env.file_changed == 'true'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const pr_number = ${GITHUB_REF.split('/')[2]};
+          const message = "$version_line\nSDK: React-Native Standard Checkout SDK";
+          
+          await github.rest.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: pr_number,
+            body: message,
+          })

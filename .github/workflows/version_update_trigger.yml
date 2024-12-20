@@ -24,22 +24,21 @@ jobs:
           echo "file_changed=false" >> $GITHUB_ENV
         fi
 
-    - name: Take action based on file change
+    - name: Post message to Slack
       if: env.file_changed == 'true'
       run: |
-        echo "version_line=$(grep -m 1 "\"version\":" ${GITHUB_WORKSPACE}/package.json)" >> $GITHUB_ENV
-        
-    - name: Post a comment on the PR
-      if: env.file_changed == 'true'
-      uses: actions/github-script@v6
-      with:
-        script: |
-          
-          const message = `pg-core-sdk-version-update\n$version_line\nSDK: React-Native Standard Checkout SDK";`
-          
-          await github.rest.issues.createComment({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            issue_number: context.issue.number,
-            body: message,
-          })
+        #get version_line from package.json
+        version_line=$(grep -m 1 "\"version\":" ${GITHUB_WORKSPACE}/package.json)
+        #versionName substring generation
+        pattern1="\"version\": \""
+        pattern2="\","
+        versionName=${version_line/$pattern1/}
+        versionName=${versionName/$pattern2/}
+        prBody=${{ github.event.pull_request.body }}
+        curl -X POST -H 'Content-type: application/json; charset=UTF-8' \
+              -H "Authorization: Bearer ${{ secrets.CHECKOUT_SLACK_BOT_TOKEN }}" \
+              --data '{
+                "channel": "C02GTS30HUN",
+                "text": "Version update found for Checkout PG Core SDK. Please find the version update details below:\nSDK Variant: React Native Standard Checkout SDK\nNew Version:${versionName}\nChangelog:${prBody}\n cc: <!subteam^S086N4NN8SU>"
+              }' \
+              https://slack.com/api/chat.postMessage

@@ -34,7 +34,7 @@ jobs:
         pattern2="\","
         versionName=${version_line/$pattern1/}
         versionName=${versionName/$pattern2/}
-        prBody=${{ github.event.pull_request.body }}
+        prBody="${{ github.event.pull_request.body }}"
         curl -X POST -H 'Content-type: application/json; charset=UTF-8' \
               -H "Authorization: Bearer ${{ secrets.CHECKOUT_SLACK_BOT_TOKEN }}" \
               --data '{

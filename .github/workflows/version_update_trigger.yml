@@ -40,5 +40,5 @@ jobs:
         echo "$versionName"
         curl -X POST -H 'Content-type: application/json; charset=UTF-8' \
               -H "Authorization: Bearer ${{ secrets.CHECKOUT_SLACK_BOT_TOKEN }}" \
-              --data "{\"channel\":\"C02GTS30HUN\",\"text\":\"Version update found for Checkout PG Core SDK. Please find the version update details below:\\nSDK Variant: React Native Standard Checkout SDK\\nNew Version:${versionName}\\nChangelog:${prBody}\\ncc:<!subteam^S086N4NN8SU>\"}" \
+              --data '{\"channel\":\"C02GTS30HUN\",\"text\":\"Version update found for Checkout PG Core SDK. Please find the version update details below:\\nSDK Variant: React Native Standard Checkout SDK\\nNew Version:${versionName}\\nChangelog:${prBody}\\ncc:<!subteam^S086N4NN8SU>\"}' \
               https://slack.com/api/chat.postMessage

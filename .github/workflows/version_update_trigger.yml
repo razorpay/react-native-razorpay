@@ -44,6 +44,6 @@ jobs:
               -H "Authorization: Bearer ${{ secrets.CHECKOUT_SLACK_BOT_TOKEN }}" \
               --data '{
                  "channel": "C02GTS30HUN",
-                 "text": "Hey, looks like one of the Checkout PG Core SDKs is being released.\nVariant: React Native Standard Checkout SDK\nVersion: `${{ env.new_version }}`\nChangelog:\n`${{ env.pr_changelog }}`\n cc: <!subteam^S086N4NN8SU>"
+                 "text": "Hey,<!subteam^S6R84Q3J6>, looks like one of the Checkout PG Core SDKs will being released. A PR was found here: https://github.com/razorpay/react-native-razorpay/pull/${{ github.event.number }} \nVariant: React Native Standard Checkout SDK\nVersion: `${{ env.new_version }}`\nChangelog:\n`${{ env.pr_changelog }}`\n cc: <!subteam^S086N4NN8SU>"
                }' \
                https://slack.com/api/chat.postMessage

@@ -35,8 +35,8 @@ jobs:
         versionName=${versionName/$pattern2/}
         prBody="${{ github.event.pull_request.body }}"
         finalVersionName="${versionName}"
-        echo "new_version=$finalVersionName" >> GITHUB_ENV
-        echo "pr_changelog=$prBody" >> GITHUB_ENV
+        echo "new_version=$finalVersionName" >> $GITHUB_ENV
+        echo "pr_changelog=$prBody" >> $GITHUB_ENV
     - name: Post message to Slack
       if: env.file_changed == 'true'
       run: |

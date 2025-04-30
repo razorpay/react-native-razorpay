@@ -1,6 +1,6 @@
 'use strict';
 
-import { NativeModules, NativeEventEmitter } from 'react-native';
+import { NativeModules, NativeEventEmitter, Platform } from 'react-native';
 
 const razorpayEvents = new NativeEventEmitter(NativeModules.RazorpayEventEmitter);
 
@@ -23,7 +23,13 @@ class RazorpayCheckout {
         rejectFn(data);
         removeSubscriptions();
       });
-      NativeModules.RNRazorpayCheckout.open(options);
+      if (Platform.OS == 'ios') {
+        setTimeout(function() {
+          NativeModules.RNRazorpayCheckout.open(options);
+        }, 500); 
+      } else {
+        NativeModules.RNRazorpayCheckout.open(options);
+      }
     });
   }
   static onExternalWalletSelection(externalWalletCallback) {

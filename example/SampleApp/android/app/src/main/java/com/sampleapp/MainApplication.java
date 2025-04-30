@@ -78,13 +78,13 @@ public class MainApplication extends Application implements ReactApplication {
             .getMethod("initializeFlipper", Context.class, ReactInstanceManager.class)
             .invoke(null, context, reactInstanceManager);
       } catch (ClassNotFoundException e) {
-        e.printStackTrace();
+        
       } catch (NoSuchMethodException e) {
-        e.printStackTrace();
+        
       } catch (IllegalAccessException e) {
-        e.printStackTrace();
+        
       } catch (InvocationTargetException e) {
-        e.printStackTrace();
+        
       }
     }
   }

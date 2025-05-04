@@ -1,0 +1,49 @@
+name: Version trigger workflow
+
+on: 
+  pull_request:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Fetch the pull request diff
+      run: git fetch origin ${{ github.event.pull_request.base.sha }} ${{ github.sha }}
+
+    - name: Check if a particular file has changed
+      id: check_file
+      run: |
+        # Check if 'package.json' has changed in the PR
+        if git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep -q 'package.json'; then
+          echo "file_changed=true" >> $GITHUB_ENV
+        else
+          echo "file_changed=false" >> $GITHUB_ENV
+        fi
+    - name: Gather necessary data for the Slack notification
+      id: data_for_notif
+      run: |
+        #get version_line from package.json
+        version_line=$(grep -m 1 "\"version\":" ${GITHUB_WORKSPACE}/package.json)
+        #versionName substring generation
+        pattern1="\"version\": \""
+        pattern2="\","
+        versionName=${version_line/$pattern1/}
+        versionName=${versionName/$pattern2/}
+        prBody="${{ github.event.pull_request.body }}"
+        finalVersionName="${versionName}"
+        echo "new_version=$finalVersionName" >> $GITHUB_ENV
+        echo "pr_changelog=$prBody" >> $GITHUB_ENV
+    - name: Post message to Slack
+      if: env.file_changed == 'true'
+      run: |
+        curl -X POST -H 'Content-type: application/json; charset=UTF-8' \
+              -H "Authorization: Bearer ${{ secrets.CHECKOUT_SLACK_BOT_TOKEN }}" \
+              --data '{
+                 "channel": "C1GMWKRF1",
+                 "text": "Hey,<!subteam^S6R84Q3J6>, looks like one of the Checkout PG Core SDKs will being released. A PR was found here: https://github.com/razorpay/react-native-razorpay/pull/${{ github.event.number }} \nVariant: React Native Standard Checkout SDK\nVersion: `${{ env.new_version }}`\nChangelog:\n`${{ env.pr_changelog }}`\n cc: <!subteam^S086N4NN8SU>"
+               }' \
+               https://slack.com/api/chat.postMessage

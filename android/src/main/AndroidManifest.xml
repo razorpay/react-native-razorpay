@@ -1,10 +1,12 @@
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="com.razorpay.rn">
 
 	<application>
 		<activity android:name="com.razorpay.CheckoutActivity" 
-				  android:configChanges="keyboard|keyboardHidden|orientation|screenSize"/>
+				  android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+				  android:theme="@style/RazorpayCheckoutTheme"
+				  tools:replace="android:theme"/>
 	</application>
 	
 </manifest>

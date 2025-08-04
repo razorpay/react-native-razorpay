@@ -2,18 +2,19 @@ def use_razorpay_react_native!(turbo: false)
   # Always include the base Razorpay pod
   pod 'razorpay-pod'
   
-  # Conditionally include Turbo pod
+  # Conditionally include Turbo pod and choose appropriate subspec
   if turbo
     pod 'razorpay-turbo/standard'
-    puts "✅ Razorpay Turbo enabled in Podfile"
+    # Use TurboBridge subspec - gets RAZORPAY_TURBO_ENABLED=1 automatically
+    pod 'react-native-razorpay/TurboBridge', :path => '../node_modules/react-native-razorpay'
+    puts "✅ Razorpay Turbo enabled - using TurboBridge subspec"
   else
-    puts "ℹ️  Razorpay Turbo disabled in Podfile"
+    # Use StandardBridge subspec - clean build without Turbo dependencies
+    pod 'react-native-razorpay/StandardBridge', :path => '../node_modules/react-native-razorpay'
+    puts "ℹ️  Razorpay Standard mode - using StandardBridge subspec"
   end
   
-  # Include the React Native wrapper
-  pod 'react-native-razorpay', :path => '../node_modules/react-native-razorpay'
-  
-  # Store turbo setting for post_install configuration
+  # Store turbo setting for any additional post_install needs
   $razorpay_turbo_enabled = turbo
 end
 
@@ -42,52 +43,20 @@ def use_razorpay_react_native_auto!()
   use_razorpay_react_native!(turbo: turbo_enabled)
 end
 
-# Post-install hook to configure preprocessor definitions and framework search paths
+# Simplified post-install hook - subspecs handle most configuration automatically
 def configure_razorpay_preprocessor_flags(installer)
   # Only run if Razorpay was configured
   return unless defined?($razorpay_turbo_enabled)
   
-  puts "🔧 Configuring Razorpay preprocessor flags..."
+  puts "🔧 Razorpay configuration complete via subspecs!"
+  puts "   └─ #{$razorpay_turbo_enabled ? 'TurboBridge' : 'StandardBridge'} subspec is handling flags automatically"
+  
+  # Optional: Add any additional custom configuration here if needed
+  # Most configuration is now handled by the subspec's pod_target_xcconfig
   
   installer.pods_project.targets.each do |target|
-    # Apply to react-native-razorpay target
-    if target.name == 'react-native-razorpay'
-      target.build_configurations.each do |config|
-        # Add framework search paths for Turbo
-        if $razorpay_turbo_enabled
-          frameworks = config.build_settings['FRAMEWORK_SEARCH_PATHS'] ||= ['$(inherited)']
-          
-          # Add both core and ui paths (matching razorpay-turbo target config)
-          turbo_core_path = '"${PODS_ROOT}/razorpay-turbo/Pod/core"'
-          turbo_ui_path = '"${PODS_ROOT}/razorpay-turbo/Pod/ui"'
-          
-          unless frameworks.include?(turbo_core_path)
-            frameworks << turbo_core_path
-            puts "  ✅ Added Turbo CORE framework path to #{target.name}"
-          end
-          
-          unless frameworks.include?(turbo_ui_path)  
-            frameworks << turbo_ui_path
-            puts "  ✅ Added Turbo UI framework path to #{target.name}"
-          end
-        end
-        
-        # Add/remove preprocessor definitions
-        definitions = config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)']
-        
-        if $razorpay_turbo_enabled
-          unless definitions.include?('RAZORPAY_TURBO_ENABLED=1')
-            definitions << 'RAZORPAY_TURBO_ENABLED=1'
-            puts "  ✅ Added RAZORPAY_TURBO_ENABLED=1 to #{target.name}"
-          end
-        else
-          # Remove the flag if it exists and turbo is disabled
-          definitions.delete('RAZORPAY_TURBO_ENABLED=1')
-          puts "  ❌ Removed RAZORPAY_TURBO_ENABLED flag from #{target.name}"
-        end
-        
-        config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] = definitions
-      end
+    if target.name.include?('react-native-razorpay')
+      puts "   └─ Found target: #{target.name} (configured by subspec)"
     end
   end
 end 

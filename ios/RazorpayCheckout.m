@@ -11,10 +11,10 @@
 
 #import <Razorpay/Razorpay-Swift.h>
 
-// Import Turbo if header is available
-#if __has_include(<TurboUpiPluginUI/TurboUpiPluginUI-Swift.h>)
+// Import Turbo based on subspec configuration
+#ifdef RAZORPAY_TURBO_ENABLED
     #define HAS_TURBO_UPI_PLUGIN 1
-    #import <TurboUpiPluginUI/TurboUpiPluginUI-Swift.h>
+    @import TurboUpiPluginUI;  // Module import - cleaner than header import
 #else
     #define HAS_TURBO_UPI_PLUGIN 0
 #endif
@@ -248,6 +248,37 @@ RCT_EXPORT_METHOD(testTokenBridge:(RCTPromiseResolveBlock)resolve
             reject(@"TOKEN_BRIDGE_ERROR", error ? error.localizedDescription : @"Unknown error", error);
         }
     }];
+}
+#else
+// Stub implementations for Standard Bridge - ensures same JS API surface
+RCT_EXPORT_METHOD(manageUpiAccounts:(NSString *)mobileNumber
+                  color:(NSString *)color
+                  razorpayKey:(NSString *)razorpayKey
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+    reject(@"TURBO_UNAVAILABLE", @"Turbo functionality not available in Standard Bridge", nil);
+}
+
+RCT_EXPORT_METHOD(initializeTurbo:(NSString *)razorpayKey
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+    reject(@"TURBO_UNAVAILABLE", @"Turbo functionality not available in Standard Bridge", nil);
+}
+
+RCT_EXPORT_METHOD(setTurboSessionCallback:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+    reject(@"TURBO_UNAVAILABLE", @"Turbo functionality not available in Standard Bridge", nil);
+}
+
+RCT_EXPORT_METHOD(testTokenBridge:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+    reject(@"TURBO_UNAVAILABLE", @"Turbo functionality not available in Standard Bridge", nil);
+}
+
+RCT_EXPORT_METHOD(provideSessionToken:(NSString *)token
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+    reject(@"TURBO_UNAVAILABLE", @"Turbo functionality not available in Standard Bridge", nil);
 }
 #endif
 

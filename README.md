@@ -52,6 +52,35 @@ For Expo Users:
 npx expo install react-native-razorpay
 ```
 
+## ⚡ Turbo UPI (Optional)
+
+Razorpay Turbo UPI provides enhanced UPI payment features including faster processing, account management, and prefetch capabilities.
+
+### Quick Setup
+
+```bash
+# Enable Turbo UPI (optional)
+npx razorpay-turbo on
+
+# Check status
+npx razorpay-turbo status
+```
+
+### Usage
+
+```javascript
+// Check if Turbo is available
+const isTurboAvailable = await RazorpayCheckout.isTurboAvailable();
+
+// Manage UPI accounts (Turbo feature)
+await RazorpayCheckout.manageUpiAccounts('+919876543210', '#3395ff');
+
+// Standard payment (automatically uses Turbo if enabled)
+RazorpayCheckout.open(options);
+```
+
+📚 **[Complete Turbo Integration Guide](./TURBO_INTEGRATION.md)**
+
 ## Requirements
 
 - iOS 10.0+ / macOS 10.12+ / tvOS 10.0+ / watchOS 3.0+

@@ -18,7 +18,6 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.razorpay.CheckoutActivity;
 import com.razorpay.PaymentData;
 import com.razorpay.PaymentResultWithDataListener;
-import com.razorpay.ExternalWalletListener;
 import com.razorpay.Checkout;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,7 +31,7 @@ import android.os.Bundle;
 
 
 
-public class RazorpayModule extends ReactContextBaseJavaModule implements ActivityEventListener, PaymentResultWithDataListener , ExternalWalletListener {
+public class RazorpayModule extends ReactContextBaseJavaModule implements ActivityEventListener, PaymentResultWithDataListener {
 
 
   public static final int RZP_REQUEST_CODE = 72967729;
@@ -41,7 +40,6 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
   public static final String MAP_KEY_ERROR_CODE = "code";
   public static final String MAP_KEY_ERROR_DESC = "description";
   public static final String MAP_KEY_PAYMENT_DETAILS = "details";
-  public static final String MAP_KEY_WALLET_NAME="name";
   ReactApplicationContext reactContext;
   public RazorpayModule(ReactApplicationContext reactContext) {
     super(reactContext);
@@ -74,7 +72,7 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
 
 
   public void onActivityResult(int requestCode, int resultCode, Intent data){
-     Checkout.handleActivityResult(getCurrentActivity(), requestCode, resultCode, data, this, this);
+     Checkout.handleActivityResult(getCurrentActivity(), requestCode, resultCode, data, this, null);
   }
 
   private void sendEvent(String eventName, WritableMap params) {
@@ -100,9 +98,6 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
       sendEvent("Razorpay::PAYMENT_ERROR", Utils.jsonToWritableMap(paymentDataJson));
     }
 
-    @Override
-    public void onExternalWalletSelected(String walletName, PaymentData paymentData){
-      sendEvent("Razorpay::EXTERNAL_WALLET_SELECTED", Utils.jsonToWritableMap(paymentData.getData()));
-    }
+
 
 }

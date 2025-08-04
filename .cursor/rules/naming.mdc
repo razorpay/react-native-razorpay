@@ -1,0 +1,7 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+- MerchantApp means in this path: /Users/nirman.kalia/Documents/org/public/experiment/rn-turbo-sample-app/MerchantSample,
+- npm package, react-native-razorpay repo is this path: /Users/nirman.kalia/Documents/org/public/react-native-razorpay

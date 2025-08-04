@@ -13,7 +13,7 @@
 
 NSString *const kPaymentError = @"PAYMENT_ERROR";
 NSString *const kPaymentSuccess = @"PAYMENT_SUCCESS";
-NSString *const kExternalWalletSelected = @"EXTERNAL_WALLET_SELECTED";
+NSString *const kTurboSessionTokenRequested = @"TURBO_SESSION_TOKEN_REQUESTED";
 
 @implementation RazorpayEventEmitter
 
@@ -23,7 +23,7 @@ RCT_EXPORT_MODULE();
     return @[
      @"Razorpay::PAYMENT_SUCCESS",
      @"Razorpay::PAYMENT_ERROR",
-     @"Razorpay::EXTERNAL_WALLET_SELECTED"
+     @"Razorpay::TURBO_SESSION_TOKEN_REQUESTED"
     ];
 }
 
@@ -38,8 +38,8 @@ RCT_EXPORT_MODULE();
                                                object:nil];
     [[NSNotificationCenter defaultCenter]
      addObserver:self
-     selector:@selector(externalWalletSelected:)
-     name:kExternalWalletSelected
+     selector:@selector(turboSessionTokenRequested:)
+     name:kTurboSessionTokenRequested
      object:nil];
 }
 
@@ -57,8 +57,8 @@ RCT_EXPORT_MODULE();
                        body:notification.userInfo];
 }
 
-- (void)externalWalletSelected:(NSNotification *)notification {
-    [self sendEventWithName:@"Razorpay::EXTERNAL_WALLET_SELECTED"
+- (void)turboSessionTokenRequested:(NSNotification *)notification {
+    [self sendEventWithName:@"Razorpay::TURBO_SESSION_TOKEN_REQUESTED"
                        body:notification.userInfo];
 }
 
@@ -83,15 +83,13 @@ RCT_EXPORT_MODULE();
                                                       userInfo:payload];
 }
 
-+ (void)onExternalWalletSelected:(NSString *)walletName
-                         andData:(NSDictionary *)paymentData {
-    
-    NSMutableDictionary *payload = [[NSMutableDictionary alloc] init];
-    [payload addEntriesFromDictionary: paymentData];
-    [payload setValue:walletName forKey:@"external_wallet"];
++ (void)onTurboSessionTokenRequested {
+    NSDictionary *payload = @{
+        @"timestamp": @([[NSDate date] timeIntervalSince1970])
+    };
     
     [[NSNotificationCenter defaultCenter]
-     postNotificationName:kExternalWalletSelected
+     postNotificationName:kTurboSessionTokenRequested
      object:nil
      userInfo:payload];
 }

@@ -1,0 +1,54 @@
+require_relative '../node_modules/react-native/scripts/react_native_pods'
+require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+
+platform :ios, '15.1'
+install! 'cocoapods', :deterministic_uuids => false
+
+target 'SampleApp' do
+  config = use_native_modules!
+
+  # Flags change depending on the env values.
+  flags = get_default_flags()
+
+  use_react_native!(
+    :path => config[:reactNativePath],
+    # Hermes is now the default. Disable by setting this flag to false.
+    :hermes_enabled => flags[:hermes_enabled],
+    :fabric_enabled => flags[:fabric_enabled],
+    # An absolute path to your application root.
+    :app_path => "#{Pod::Config.instance.installation_root}/.."
+  )
+
+  target 'SampleAppTests' do
+    inherit! :complete
+    # Pods for testing
+  end
+
+  post_install do |installer|
+    # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
+    react_native_post_install(
+      installer,
+      config[:reactNativePath],
+      :mac_catalyst_enabled => false,
+      # :ccache_enabled => true
+    )
+    
+    # Add framework search paths for Turbo UPI frameworks
+    installer.pods_project.targets.each do |target|
+      if target.name == 'react-native-razorpay'
+        target.build_configurations.each do |config|
+          # Add the Turbo frameworks directory to framework search paths
+          turbo_framework_path = "$(PODS_ROOT)/razorpay-turbo/Pod/ui"
+          framework_search_paths = config.build_settings['FRAMEWORK_SEARCH_PATHS'] || ['$(inherited)']
+          framework_search_paths << turbo_framework_path
+          framework_search_paths << "$(PODS_ROOT)/razorpay-turbo/Pod/core"
+          config.build_settings['FRAMEWORK_SEARCH_PATHS'] = framework_search_paths.uniq
+          
+          puts "✅ Added Turbo framework search paths to #{target.name}"
+          puts "   - #{turbo_framework_path}"
+          puts "   - $(PODS_ROOT)/razorpay-turbo/Pod/core"
+        end
+      end
+    end
+  end
+end 

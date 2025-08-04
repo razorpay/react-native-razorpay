@@ -19,4 +19,14 @@
                andData:(NSDictionary *)response;
 + (void)onExternalWalletSelected:(NSString *)walletName
                          andData:(NSDictionary *)paymentData;
++ (void)onTurboSessionTokenRequested;
+
+// Turbo UPI Account methods
++ (void)onTurboLinkedAccountsSuccess:(NSArray *)accounts;
++ (void)onTurboLinkedAccountsError:(NSDictionary *)error;
+
+// Turbo Bank Account methods
++ (void)onTurboBankAccountsSuccess:(NSArray *)accounts;
++ (void)onTurboBankAccountsError:(NSDictionary *)error;
+
 @end

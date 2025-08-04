@@ -1,2 +1,8 @@
 example/*
 DeploymentScripts/
+
+# Include Turbo integration files
+!scripts/
+!ios/razorpay_react_native.rb
+!.razorpay.env
+!TURBO_INTEGRATION.md

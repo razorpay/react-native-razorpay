@@ -34,7 +34,7 @@ typedef RazorpayCheckout Razorpay;
 
 @interface RNRazorpayCheckout () <RazorpayPaymentCompletionProtocolWithData
 #if HAS_TURBO_UPI_PLUGIN
-, UPITurboResultDelegate
+, UPITurboResultDelegate, TurboSessionDelegate
 #endif
 >
 

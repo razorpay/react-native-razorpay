@@ -31,9 +31,9 @@ Pod::Spec.new do |s|
       'ios/RazorpayEventEmitter.m'
     ]
     
-    # Standard bridge specific configuration
+    # Only set flags that are actually used - no unused flags!
     ss.pod_target_xcconfig = {
-      'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) RAZORPAY_STANDARD_BRIDGE=1'
+      'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited)'  # No Turbo flag = Standard mode
     }
   end
 
@@ -41,7 +41,7 @@ Pod::Spec.new do |s|
   s.subspec 'TurboBridge' do |ss|
     ss.source_files = [
       'ios/RazorpayCheckout.h',
-      'ios/RazorpayCheckout.m',       # Same file, different compile flags!
+      'ios/RazorpayCheckout.m',
       'ios/RazorpayEventEmitter.h',
       'ios/RazorpayEventEmitter.m'
     ]
@@ -49,9 +49,9 @@ Pod::Spec.new do |s|
     # Turbo-specific dependencies
     ss.dependency 'razorpay-turbo'
     
-    # Turbo bridge specific configuration
+    # Only set the flag that's actually used in code
     ss.pod_target_xcconfig = {
-      'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) RAZORPAY_TURBO_ENABLED=1 RAZORPAY_TURBO_BRIDGE=1',
+      'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) RAZORPAY_TURBO_ENABLED=1',
       'OTHER_SWIFT_FLAGS' => '$(inherited) -DRAZORPAY_TURBO_ENABLED'
     }
   end

@@ -5,19 +5,16 @@ def use_razorpay_react_native!(turbo: false)
   # Conditionally include Turbo pod and choose appropriate subspec
   if turbo
     pod 'razorpay-turbo/standard'
-    # Use TurboBridge subspec - gets RAZORPAY_TURBO_ENABLED=1 automatically
-    pod 'react-native-razorpay/TurboBridge', :path => '../node_modules/react-native-razorpay'
-    puts "✅ Razorpay Turbo enabled - using TurboBridge subspec"
+    pod 'react-native-razorpay/Turbo', :path => '../node_modules/react-native-razorpay'
+    puts "✅ Razorpay Turbo enabled"
   else
-    # Use StandardBridge subspec - clean build without Turbo dependencies
-    pod 'react-native-razorpay/StandardBridge', :path => '../node_modules/react-native-razorpay'
-    puts "ℹ️  Razorpay Standard mode - using StandardBridge subspec"
+    pod 'react-native-razorpay/Standard', :path => '../node_modules/react-native-razorpay'
   end
 end
 
 # Convenience function for auto-detection
 def use_razorpay_react_native_auto!()
-  # Read RAZORPAY_TURBO from .razorpay.env file (inlined for simplicity)
+  # Read RAZORPAY_TURBO from .razorpay.env file
   env_path = File.join(__dir__, '..', '..', '..', '.razorpay.env')
   turbo_enabled = false
   
@@ -34,20 +31,6 @@ def use_razorpay_react_native_auto!()
     end
   end
   
-  puts "🔍 Auto-detected Turbo setting: #{turbo_enabled}"
   use_razorpay_react_native!(turbo: turbo_enabled)
 end
 
-# Backward-compatible stub for existing Podfiles
-def configure_razorpay_preprocessor_flags(installer)
-  puts "ℹ️  configure_razorpay_preprocessor_flags is deprecated."
-  puts "   └─ Subspecs now handle all configuration automatically!"
-  puts "   └─ You can safely remove this post_install call from your Podfile."
-  
-  # Show which targets are being configured by subspecs
-  installer.pods_project.targets.each do |target|
-    if target.name.include?('react-native-razorpay')
-      puts "   └─ Found target: #{target.name} (auto-configured by subspec)"
-    end
-  end
-end 

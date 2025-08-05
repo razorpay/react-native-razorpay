@@ -41,7 +41,6 @@ target 'SampleApp' do
     )
     
     # Configure Razorpay preprocessor flags
-    configure_razorpay_preprocessor_flags(installer)
     
     # Set deployment target for all pods
     installer.pods_project.targets.each do |target|

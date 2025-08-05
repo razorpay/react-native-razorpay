@@ -20,10 +20,10 @@ Pod::Spec.new do |s|
   s.dependency 'razorpay-pod'
 
   # Default subspec (Standard)
-  s.default_subspec = 'StandardBridge'
+  s.default_subspec = 'Standard'
 
   # Standard Bridge - No Turbo functionality
-  s.subspec 'StandardBridge' do |ss|
+  s.subspec 'Standard' do |ss|
     ss.source_files = [
       'ios/RazorpayCheckout.h',
       'ios/RazorpayCheckout.m',
@@ -38,7 +38,7 @@ Pod::Spec.new do |s|
   end
 
   # Turbo Bridge - Full Turbo functionality
-  s.subspec 'TurboBridge' do |ss|
+  s.subspec 'Turbo' do |ss|
     ss.source_files = [
       'ios/RazorpayCheckout.h',
       'ios/RazorpayCheckout.m',

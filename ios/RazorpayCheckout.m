@@ -11,399 +11,132 @@
 
 #import <Razorpay/Razorpay-Swift.h>
 
-// Import Turbo based on subspec configuration
+// Import the automatically generated Swift bridging header for Turbo builds
 #ifdef RAZORPAY_TURBO_ENABLED
-    #define HAS_TURBO_UPI_PLUGIN 1
-    @import TurboUpiPluginUI;  // Module import - cleaner than header import
-#else
-    #define HAS_TURBO_UPI_PLUGIN 0
+    #if __has_include("react_native_razorpay-Swift.h")
+        #import "react_native_razorpay-Swift.h"
+    #elif __has_include("react-native-razorpay-Swift.h")
+        #import "react-native-razorpay-Swift.h"
+    #elif __has_include("RazorpayCheckout-Swift.h")
+        #import "RazorpayCheckout-Swift.h"
+    #endif
 #endif
 
 typedef RazorpayCheckout Razorpay;
 
-#if HAS_TURBO_UPI_PLUGIN
-@class RNRazorpayCheckout;
+// Forward declarations for Swift interop (fallback if bridging header not found)
+#ifdef RAZORPAY_TURBO_ENABLED
+@class RazorpayTurboManager;
+@protocol RazorpayTurboManagerDelegate;
 
-// Internal TurboSessionDelegate implementation
-@interface RNTurboSessionBridge : NSObject
-@property (nonatomic, weak) RNRazorpayCheckout *razorpayInstance;
-- (instancetype)initWithRazorpayInstance:(RNRazorpayCheckout *)instance;
-- (void)requestSessionToken:(void (^)(NSString *token, NSError *error))completion;
-@end
-#endif
+@interface RNRazorpayCheckout () <RazorpayPaymentCompletionProtocolWithData, RazorpayTurboManagerDelegate>
 
-@interface RNRazorpayCheckout () <RazorpayPaymentCompletionProtocolWithData
-#if HAS_TURBO_UPI_PLUGIN
-, UPITurboResultDelegate, TurboSessionDelegate
-#endif
->
-
-#if HAS_TURBO_UPI_PLUGIN
-@property (nonatomic, strong) void (^sessionTokenCallback)(void (^completion)(NSString * _Nonnull));
-@property (nonatomic, strong) RNTurboSessionBridge *sessionBridge;
-@property (nonatomic, copy) void (^currentTokenCompletion)(NSString *token, NSError *error);
-
-// Internal bridge methods
-- (void)triggerTokenRequestFromJS:(void (^)(NSString *token, NSError *error))completion;
-#endif
+// Turbo manager for handling Turbo-specific functionality
+@property (nonatomic, strong) RazorpayTurboManager *turboManager;
 
 @end
+#else
+@interface RNRazorpayCheckout () <RazorpayPaymentCompletionProtocolWithData>
+
+@end
+#endif
 
 @implementation RNRazorpayCheckout
 
 RCT_EXPORT_MODULE()
 
-#if HAS_TURBO_UPI_PLUGIN
-// Initialize the session bridge on first access
-- (RNTurboSessionBridge *)sessionBridge {
-    if (!_sessionBridge) {
-        _sessionBridge = [[RNTurboSessionBridge alloc] initWithRazorpayInstance:self];
-    }
-    return _sessionBridge;
-}
+#pragma mark - Initialization
 
-// Method called by internal bridge to trigger JS event
-- (void)triggerTokenRequestFromJS:(void (^)(NSString *token, NSError *error))completion {
-    NSLog(@"🔄 Triggering token request event to JS layer...");
-    
-    // Store the completion handler
-    self.currentTokenCompletion = completion;
-    
-    // Emit event to JS
-    [RazorpayEventEmitter onTurboSessionTokenRequested];
-}
-
-// Method for JS to provide the token back to native
-RCT_EXPORT_METHOD(provideSessionToken:(NSString *)token
-                  resolver:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject) {
-    
-    NSLog(@"✅ Received session token from JS: %@", token);
-    
-    if (self.currentTokenCompletion) {
-        if (token && token.length > 0) {
-            NSLog(@"✅ Providing token to Turbo SDK: %@", token);
-            self.currentTokenCompletion(token, nil);
-        } else {
-            NSLog(@"❌ Invalid token received from JS");
-            NSError *error = [NSError errorWithDomain:@"TurboSessionError" 
-                                                code:2002 
-                                            userInfo:@{NSLocalizedDescriptionKey: @"Invalid token received"}];
-            self.currentTokenCompletion(nil, error);
-        }
-        
-        // Clear the completion handler
-        self.currentTokenCompletion = nil;
-        resolve(@YES);
-    } else {
-        NSLog(@"❌ No pending token request found");
-        reject(@"NO_PENDING_REQUEST", @"No pending token request found", nil);
-    }
-}
-#endif
-
-// Check for Turbo UPI Plugin availability based on header file
-RCT_EXPORT_METHOD(isTurboAvailable:(RCTPromiseResolveBlock)resolve
-                 rejecter:(RCTPromiseRejectBlock)reject) {
-    BOOL available = [self isTurboUpiPluginAvailable];
-    NSLog(@"📤 [TURBO] isTurboAvailable returning: %@", available ? @"YES" : @"NO");
-    resolve(@(available));
-}
-
-#if HAS_TURBO_UPI_PLUGIN
-RCT_EXPORT_METHOD(manageUpiAccounts:(NSString *)mobileNumber
-                  color:(NSString *)color
-                  razorpayKey:(NSString *)razorpayKey
-                  resolver:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject) {
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        Class turboUPIClass = [self getTurboUpiClass];
-        if (!turboUPIClass) {
-            reject(@"TURBO_ERROR", @"No suitable Turbo UPI class found", nil);
-            return;
-        }
-        
-        id<UPITurboUIPlugin> turboPlugin = [turboUPIClass UIPluginInstance];
-        if (!turboPlugin) {
-            reject(@"TURBO_ERROR", @"Failed to get turbo plugin instance", nil);
-            return;
-        }
-        
-        Razorpay *razorpay = [Razorpay initWithKey:razorpayKey
-                                andDelegateWithData:self
-                                             plugin:turboPlugin];
-        
-        [razorpay.upiTurbo initialize:self];
-        
-        [razorpay.upiTurbo manageUpiAccountWithMobileNumber:mobileNumber
-                                                      color:color
-                                          completionHandler:^(id result, id error) {
-            if (error) {
-                reject(@"TURBO_ERROR", @"Manage UPI accounts failed", error);
-            } else {
-                resolve(result);
-            }
-        }];
-    });
-}
-
-RCT_EXPORT_METHOD(initializeTurbo:(NSString *)razorpayKey
-                  resolver:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject) {
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        @try {
-            NSLog(@"🔄 Starting Turbo initialization...");
-            
-            // Step 1: Get Turbo UPI class
-            Class turboUPIClass = [self getTurboUpiClass];
-            if (!turboUPIClass) {
-                NSLog(@"❌ No suitable Turbo UPI class found");
-                reject(@"TURBO_INIT_ERROR", @"No suitable Turbo UPI class found", nil);
-                return;
-            }
-            NSLog(@"✅ Turbo UPI class found: %@", NSStringFromClass(turboUPIClass));
-            
-            // Step 2: Get UIPluginInstance
-            if (![turboUPIClass respondsToSelector:@selector(UIPluginInstance)]) {
-                NSLog(@"❌ UIPluginInstance method not found on %@", NSStringFromClass(turboUPIClass));
-                reject(@"TURBO_INIT_ERROR", @"UIPluginInstance method not found", nil);
-                return;
-            }
-            NSLog(@"✅ UIPluginInstance method found");
-            
-            id<UPITurboUIPlugin> turboPlugin = [turboUPIClass UIPluginInstance];
-            if (!turboPlugin) {
-                NSLog(@"❌ Failed to get turbo plugin instance");
-                reject(@"TURBO_INIT_ERROR", @"Failed to get turbo plugin instance", nil);
-                return;
-            }
-            NSLog(@"✅ Turbo plugin instance created");
-            
-            // Step 3: Initialize Razorpay with plugin
-            Razorpay *razorpay = [Razorpay initWithKey:razorpayKey
-                                    andDelegateWithData:self
-                                                 plugin:turboPlugin];
-            if (!razorpay) {
-                NSLog(@"❌ Failed to initialize Razorpay with turbo plugin");
-                reject(@"TURBO_INIT_ERROR", @"Failed to initialize Razorpay with turbo plugin", nil);
-                return;
-            }
-            NSLog(@"✅ Razorpay initialized with turbo plugin");
-            
-            // Step 4: Initialize upiTurbo
-            if (!razorpay.upiTurbo) {
-                NSLog(@"❌ razorpay.upiTurbo is nil");
-                reject(@"TURBO_INIT_ERROR", @"razorpay.upiTurbo is nil", nil);
-                return;
-            }
-            NSLog(@"✅ razorpay.upiTurbo is available");
-            
-            [razorpay.upiTurbo initialize:self];
-            NSLog(@"✅ Turbo initialization completed successfully");
-            
-            resolve(@YES);
-        } @catch (NSException *exception) {
-            NSLog(@"❌ Exception during turbo initialization: %@", exception.reason);
-            reject(@"TURBO_INIT_ERROR", exception.reason, nil);
-        }
-    });
-}
-
-RCT_EXPORT_METHOD(setTurboSessionCallback:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject) {
-    
-    // Store a callback that will be triggered when token is needed
-    self.sessionTokenCallback = ^(void (^completion)(NSString * _Nonnull)) {
-        NSLog(@"🔄 Token requested by Turbo - bridging to JS...");
-        
-        // Use internal bridge to request token from JS
-        [self.sessionBridge requestSessionToken:^(NSString *token, NSError *error) {
-            if (token && !error) {
-                NSLog(@"✅ Token received from JS bridge, passing to Turbo: %@", token);
-                completion(token);
-            } else {
-                NSLog(@"❌ Failed to get token from JS bridge: %@", error.localizedDescription);
-                // Still call completion with nil to avoid hanging
-                completion(nil);
-            }
-        }];
-    };
-    
-    resolve(@YES);
-}
-
-RCT_EXPORT_METHOD(testTokenBridge:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject) {
-    
-    NSLog(@"🧪 Testing internal token bridge to JS...");
-    
-    [self.sessionBridge requestSessionToken:^(NSString *token, NSError *error) {
-        if (token && !error) {
-            NSLog(@"✅ Token bridge test successful: %@", token);
-            resolve(@{@"success": @YES, @"token": token});
-        } else {
-            NSLog(@"❌ Token bridge test failed: %@", error ? error.localizedDescription : @"Unknown error");
-            reject(@"TOKEN_BRIDGE_ERROR", error ? error.localizedDescription : @"Unknown error", error);
-        }
-    }];
-}
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+#ifdef RAZORPAY_TURBO_ENABLED
+        // Initialize Turbo manager and set delegate only for Turbo builds
+        self.turboManager = [[RazorpayTurboManager alloc] init];
+        self.turboManager.delegate = self;
+        NSLog(@"🔄 Turbo manager initialized");
 #else
-// Stub implementations for Standard Bridge - ensures same JS API surface
-RCT_EXPORT_METHOD(manageUpiAccounts:(NSString *)mobileNumber
-                  color:(NSString *)color
-                  razorpayKey:(NSString *)razorpayKey
-                  resolver:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject) {
-    reject(@"TURBO_UNAVAILABLE", @"Turbo functionality not available in Standard Bridge", nil);
-}
-
-RCT_EXPORT_METHOD(initializeTurbo:(NSString *)razorpayKey
-                  resolver:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject) {
-    reject(@"TURBO_UNAVAILABLE", @"Turbo functionality not available in Standard Bridge", nil);
-}
-
-RCT_EXPORT_METHOD(setTurboSessionCallback:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject) {
-    reject(@"TURBO_UNAVAILABLE", @"Turbo functionality not available in Standard Bridge", nil);
-}
-
-RCT_EXPORT_METHOD(testTokenBridge:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject) {
-    reject(@"TURBO_UNAVAILABLE", @"Turbo functionality not available in Standard Bridge", nil);
-}
-
-RCT_EXPORT_METHOD(provideSessionToken:(NSString *)token
-                  resolver:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject) {
-    reject(@"TURBO_UNAVAILABLE", @"Turbo functionality not available in Standard Bridge", nil);
-}
+        NSLog(@"🔄 Standard build - no Turbo manager");
 #endif
+    }
+    return self;
+}
+
+#pragma mark - Core Payment Method
 
 RCT_EXPORT_METHOD(open : (NSDictionary *)options) {
-
     NSString *keyID = (NSString *)[options objectForKey:@"key"];
+    
     dispatch_sync(dispatch_get_main_queue(), ^{
-        
-#if HAS_TURBO_UPI_PLUGIN
-        // Check if Turbo should be enabled
-        BOOL turboEnabled = [self isTurboUpiPluginAvailable];
-        
-        Razorpay *razorpay;
-        if (turboEnabled) {
-            NSLog(@"🔄 Initializing Razorpay with Turbo plugin for payment...");
-            
-            // Initialize with Turbo plugin
-            Class turboUPIClass = [self getTurboUpiClass];
-            if (!turboUPIClass) {
-                NSLog(@"❌ No suitable Turbo UPI class found in open method");
-                // Fallback to regular initialization
-                razorpay = [Razorpay initWithKey:keyID andDelegateWithData:self];
-            } else {
-                id<UPITurboUIPlugin> turboPlugin = [turboUPIClass UIPluginInstance];
-                if (!turboPlugin) {
-                    NSLog(@"❌ Failed to get turbo plugin instance in open method");
-                    // Fallback to regular initialization
-                    razorpay = [Razorpay initWithKey:keyID andDelegateWithData:self];
-                } else {
-                    NSLog(@"✅ Turbo plugin instance obtained for payment");
-                    razorpay = [Razorpay initWithKey:keyID
-                                 andDelegateWithData:self
-                                              plugin:turboPlugin];
-                    
-                    // Initialize Turbo plugin
-                    if (razorpay.upiTurbo) {
-                        [razorpay.upiTurbo initialize:self];
-                        NSLog(@"✅ Turbo plugin initialized for payment");
-                    } else {
-                        NSLog(@"❌ razorpay.upiTurbo is nil in open method");
-                    }
-                }
-            }
-        } else {
-            NSLog(@"🔄 Initializing Razorpay without Turbo plugin");
-            razorpay = [Razorpay initWithKey:keyID
-                         andDelegateWithData:self];
-        }
-#else
-        Razorpay *razorpay = [Razorpay initWithKey:keyID
-                               andDelegateWithData:self];
-#endif
-        
-        NSMutableDictionary * tempOptions = [[NSMutableDictionary alloc] initWithDictionary:options];
-        tempOptions[@"integration"] = @"react_native";
-        tempOptions[@"FRAMEWORK"] = @"react_native";
-
-        //get root view to present razorpay vc
-        id<UIApplicationDelegate> app = [[UIApplication sharedApplication] delegate];
-        UINavigationController *rootViewController = ((UINavigationController*) app.window.rootViewController);
-
-#if HAS_TURBO_UPI_PLUGIN
-        if (turboEnabled) {
-            // Use Turbo payment plugin
-            NSLog(@"🔄 Getting turbo UI payment plugin...");
-            
-            Class turboUPIClass = [self getTurboUpiClass];
-            if (!turboUPIClass) {
-                NSLog(@"❌ No suitable Turbo UPI class found for payment plugin");
-                // Fallback to regular payment
-                if (rootViewController.presentedViewController) {
-                    [razorpay open:tempOptions displayController:rootViewController.presentedViewController];
-                    return;
-                }
-                [razorpay open:tempOptions displayController:rootViewController];
-                return;
-            }
-            
-            if (![turboUPIClass respondsToSelector:@selector(turboUIPaymentPlugin)]) {
-                NSLog(@"❌ turboUIPaymentPlugin method not found on %@", NSStringFromClass(turboUPIClass));
-                // Fallback to regular payment
-                if (rootViewController.presentedViewController) {
-                    [razorpay open:tempOptions displayController:rootViewController.presentedViewController];
-                    return;
-                }
-                [razorpay open:tempOptions displayController:rootViewController];
-                return;
-            }
-            
-            id turboUIPlugin = [turboUPIClass turboUIPaymentPlugin];
-            if (!turboUIPlugin) {
-                NSLog(@"❌ Failed to get turboUIPaymentPlugin instance");
-                // Fallback to regular payment
-                if (rootViewController.presentedViewController) {
-                    [razorpay open:tempOptions displayController:rootViewController.presentedViewController];
-                    return;
-                }
-                [razorpay open:tempOptions displayController:rootViewController];
-                return;
-            }
-            
-            NSLog(@"✅ Turbo UI payment plugin obtained");
-            NSArray *externalPaymentEntities = @[turboUIPlugin];
-            
-            if (rootViewController.presentedViewController) {
-                [razorpay open:tempOptions displayController:rootViewController.presentedViewController arrExternalPaymentEntities:externalPaymentEntities];
-                return;
-            }
-            
-            [razorpay open:tempOptions arrExternalPaymentEntities:externalPaymentEntities];
-        } else {
-#endif
-            if (rootViewController.presentedViewController) {
-                [razorpay open:tempOptions displayController:rootViewController.presentedViewController];
-                return;
-            }
-
-            [razorpay open:tempOptions displayController:rootViewController];
-#if HAS_TURBO_UPI_PLUGIN
-        }
-#endif
+        [self openPaymentWithOptions:options keyID:keyID];
     });
 }
 
+- (void)openPaymentWithOptions:(NSDictionary *)options keyID:(NSString *)keyID {
+    NSMutableDictionary *tempOptions = [[NSMutableDictionary alloc] initWithDictionary:options];
+    tempOptions[@"integration"] = @"react_native";
+    tempOptions[@"FRAMEWORK"] = @"react_native";
+    
+    // Get root view controller
+    id<UIApplicationDelegate> app = [[UIApplication sharedApplication] delegate];
+    UINavigationController *rootViewController = ((UINavigationController*) app.window.rootViewController);
+    
+    Razorpay *razorpay;
+    
+#ifdef RAZORPAY_TURBO_ENABLED
+    // Check Turbo availability through Swift manager
+    BOOL turboAvailable = [self.turboManager isTurboAvailable];
+    
+    if (turboAvailable) {
+        NSLog(@"🔄 Initializing Razorpay with Turbo plugin");
+        // Use Swift manager to initialize Razorpay directly
+        razorpay = (Razorpay *)[self.turboManager initializeRazorpayWithKey:keyID];
+        
+        if (razorpay) {
+            // Get Turbo payment plugin from Swift manager
+            id turboUIPlugin = [self.turboManager getTurboPaymentPlugin];
+            
+            if (turboUIPlugin) {
+                NSLog(@"✅ Using Turbo UI payment plugin");
+                NSArray *externalPaymentEntities = @[turboUIPlugin];
+                
+                if (rootViewController.presentedViewController) {
+                    [razorpay open:tempOptions
+                   displayController:rootViewController.presentedViewController
+         arrExternalPaymentEntities:externalPaymentEntities];
+                } else {
+                    [razorpay open:tempOptions arrExternalPaymentEntities:externalPaymentEntities];
+                }
+                return;
+            } else {
+                NSLog(@"❌ Failed to get Turbo UI payment plugin, falling back to standard");
+            }
+        } else {
+            NSLog(@"❌ Failed to initialize Razorpay with Turbo, falling back to standard");
+        }
+    } else {
+        NSLog(@"🔄 Turbo not available, using standard initialization");
+    }
+    
+    // Fallback to standard initialization
+    if (!razorpay) {
+        razorpay = [Razorpay initWithKey:keyID andDelegateWithData:self];
+    }
+#else
+    // Standard build - always use standard initialization
+    NSLog(@"🔄 Standard build - initializing Razorpay without Turbo");
+    razorpay = [Razorpay initWithKey:keyID andDelegateWithData:self];
+#endif
+    
+    // Standard payment flow
+    if (rootViewController.presentedViewController) {
+        [razorpay open:tempOptions displayController:rootViewController.presentedViewController];
+    } else {
+        [razorpay open:tempOptions displayController:rootViewController];
+    }
+}
 
+#pragma mark - Core Payment Delegates
 
 - (void)onPaymentSuccess:(nonnull NSString *)payment_id
                  andData:(nullable NSDictionary *)response {
@@ -416,85 +149,131 @@ RCT_EXPORT_METHOD(open : (NSDictionary *)options) {
     [RazorpayEventEmitter onPaymentError:code description:str andData:response];
 }
 
-#pragma mark - Turbo Support
+#ifdef RAZORPAY_TURBO_ENABLED
 
-// Helper method to get the correct Turbo UPI class
-- (Class)getTurboUpiClass {
-    Class rzpTurboUPIClass = NSClassFromString(@"RZPTurboUPI");
-    Class turboUPIClass = NSClassFromString(@"TurboUpiPluginUI.RZPTurboUPI");
-    Class turboUIClass = NSClassFromString(@"TurboUpiPluginUI.TurboUPI");
-    
-    return rzpTurboUPIClass ?: turboUPIClass ?: turboUIClass;
+#pragma mark - Turbo Methods (Only available in Turbo builds)
+
+// Check for Turbo UPI Plugin availability - delegates to Swift manager
+RCT_EXPORT_METHOD(isTurboAvailable:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject) {
+    BOOL available = [self.turboManager isTurboAvailable];
+    NSLog(@"📤 [TURBO] isTurboAvailable returning: %@", available ? @"YES" : @"NO");
+    resolve(@(available));
 }
 
-// Check for Turbo UPI Plugin availability using runtime class check
-- (BOOL)isTurboUpiPluginAvailable {
-    // Check for essential classes
-    Class upiAccountClass = NSClassFromString(@"TurboUpiPluginUI.UpiAccount");
-    Class targetClass = [self getTurboUpiClass];
+RCT_EXPORT_METHOD(manageUpiAccounts:(NSString *)mobileNumber
+                  color:(NSString *)color
+                  razorpayKey:(NSString *)razorpayKey
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
     
-    BOOL upiAccountAvailable = (upiAccountClass != nil);
-    NSLog(@"⚡ TurboUpiPluginUI.UpiAccount class: %@", upiAccountAvailable ? @"✅ Found" : @"❌ Not found");
+    NSLog(@"🔄 Managing UPI accounts via Swift Turbo manager");
     
-    if (targetClass) {
-        NSLog(@"⚡ Using Turbo class: %@", NSStringFromClass(targetClass));
-        
-        BOOL hasUIPluginInstance = [targetClass respondsToSelector:@selector(UIPluginInstance)];
-        BOOL hasTurboUIPaymentPlugin = [targetClass respondsToSelector:@selector(turboUIPaymentPlugin)];
-        
-        NSLog(@"⚡ %@.UIPluginInstance method: %@", NSStringFromClass(targetClass), hasUIPluginInstance ? @"✅ Available" : @"❌ Not available");
-        NSLog(@"⚡ %@.turboUIPaymentPlugin method: %@", NSStringFromClass(targetClass), hasTurboUIPaymentPlugin ? @"✅ Available" : @"❌ Not available");
-        
-        BOOL available = upiAccountAvailable && hasUIPluginInstance && hasTurboUIPaymentPlugin;
-        
-        if (available) {
-            NSLog(@"⚡ All Turbo components verified - Turbo fully available");
+    [self.turboManager manageUpiAccountsWithMobileNumber:mobileNumber
+                                                   color:color
+                                              completion:^(BOOL success, NSError *error) {
+        if (success) {
+            resolve(@YES);
         } else {
-            NSLog(@"⚡ Some Turbo components missing - Turbo unavailable");
+            reject(@"TURBO_ERROR", error.localizedDescription, error);
         }
-        
-        return available;
+    }];
+}
+
+RCT_EXPORT_METHOD(initializeTurbo:(NSString *)razorpayKey
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+    
+    NSLog(@"🔄 Initializing Turbo via Swift manager");
+    
+    // Use the simplified Swift manager to initialize Razorpay directly
+    id razorpayInstance = [self.turboManager initializeRazorpayWithKey:razorpayKey];
+    
+    if (razorpayInstance) {
+        resolve(@YES);
     } else {
-        NSLog(@"⚡ No suitable Turbo UPI class found - Turbo unavailable");
-        return NO;
+        reject(@"TURBO_INIT_ERROR", @"Failed to initialize Razorpay with Turbo", nil);
     }
 }
 
+RCT_EXPORT_METHOD(setTurboSessionCallback:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+    
+    NSLog(@"🔄 Session callback setup - Swift manager handles this automatically");
+    
+    // The Swift manager automatically handles session callbacks via TurboSessionDelegate
+    // No explicit setup needed - just return success
+    resolve(@YES);
+}
 
+RCT_EXPORT_METHOD(provideSessionToken:(NSString *)token
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+    
+    NSLog(@"✅ Received session token from JS: %@", token);
+    
+    if (token && token.length > 0) {
+        // Provide the token directly to the Swift manager
+        [self.turboManager provideSessionToken:token];
+        resolve(@YES);
+    } else {
+        NSLog(@"❌ Invalid token received from JS");
+        reject(@"INVALID_TOKEN", @"Invalid token received", nil);
+    }
+}
 
-#if HAS_TURBO_UPI_PLUGIN
-// UPITurboResultDelegate methods can be added here if needed
-#endif
+#pragma mark - RazorpayTurboManagerDelegate
+
+- (void)onPaymentSuccess:(NSString *)paymentId data:(NSDictionary *)data {
+    [RazorpayEventEmitter onPaymentSuccess:paymentId andData:data];
+}
+
+- (void)onPaymentError:(int)code description:(NSString *)description data:(NSDictionary *)data {
+    [RazorpayEventEmitter onPaymentError:code description:description andData:data];
+}
+
+- (void)onTurboSessionTokenRequested {
+    NSLog(@"🔄 Token requested by Swift Turbo manager - emitting event to JS layer...");
+    
+    // Emit event to JS - the provideSessionToken method will handle the response
+    [RazorpayEventEmitter onTurboSessionTokenRequested];
+}
+
+#else
+
+#pragma mark - Turbo Stubs (Standard builds return unavailable)
+
+RCT_EXPORT_METHOD(isTurboAvailable:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject) {
+    NSLog(@"📤 [STANDARD] isTurboAvailable returning: NO (Standard build)");
+    resolve(@NO);
+}
+
+RCT_EXPORT_METHOD(manageUpiAccounts:(NSString *)mobileNumber
+                  color:(NSString *)color
+                  razorpayKey:(NSString *)razorpayKey
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+    reject(@"TURBO_UNAVAILABLE", @"Turbo functionality not available in Standard Bridge", nil);
+}
+
+RCT_EXPORT_METHOD(initializeTurbo:(NSString *)razorpayKey
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+    reject(@"TURBO_UNAVAILABLE", @"Turbo functionality not available in Standard Bridge", nil);
+}
+
+RCT_EXPORT_METHOD(setTurboSessionCallback:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+    reject(@"TURBO_UNAVAILABLE", @"Turbo functionality not available in Standard Bridge", nil);
+}
+
+RCT_EXPORT_METHOD(provideSessionToken:(NSString *)token
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+    reject(@"TURBO_UNAVAILABLE", @"Turbo functionality not available in Standard Bridge", nil);
+}
+
+#endif // RAZORPAY_TURBO_ENABLED
 
 @end
-
-#if HAS_TURBO_UPI_PLUGIN
-// Implementation of the internal bridge
-@implementation RNTurboSessionBridge
-
-- (instancetype)initWithRazorpayInstance:(RNRazorpayCheckout *)instance {
-    self = [super init];
-    if (self) {
-        self.razorpayInstance = instance;
-    }
-    return self;
-}
-
-- (void)requestSessionToken:(void (^)(NSString *token, NSError *error))completion {
-    NSLog(@"🔄 Internal bridge requesting session token from JS...");
-    
-    if (!self.razorpayInstance) {
-        NSLog(@"❌ RazorpayCheckout instance is nil");
-        NSError *error = [NSError errorWithDomain:@"TurboSessionError" 
-                                            code:2001 
-                                        userInfo:@{NSLocalizedDescriptionKey: @"RazorpayCheckout instance is nil"}];
-        completion(nil, error);
-        return;
-    }
-    
-    // Trigger JS event to request token from merchant
-    [self.razorpayInstance triggerTokenRequestFromJS:completion];
-}
-
-@end
-#endif

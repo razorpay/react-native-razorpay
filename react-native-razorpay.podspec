@@ -43,7 +43,8 @@ Pod::Spec.new do |s|
       'ios/RazorpayCheckout.h',
       'ios/RazorpayCheckout.m',
       'ios/RazorpayEventEmitter.h',
-      'ios/RazorpayEventEmitter.m'
+      'ios/RazorpayEventEmitter.m',
+      'ios/RazorpayTurboManager.swift'
     ]
     
     # Turbo-specific dependencies

@@ -124,18 +124,6 @@ class RazorpayCheckout {
     }
   }
 
-  // Test the internal token bridge functionality
-  static async testTokenBridge() {
-    try {
-      await validateTurboAvailability();
-      console.log('[RazorpayCheckout] Testing internal token bridge...');
-      return await NativeModules.RNRazorpayCheckout.testTokenBridge();
-    } catch (error) {
-      console.error('[RazorpayCheckout] Token bridge test failed:', error);
-      throw error;
-    }
-  }
-
   // Helper method to remove all event listeners (cleanup)
   static removeAllListeners() {
     console.log('[RazorpayCheckout] Removing all event listeners');

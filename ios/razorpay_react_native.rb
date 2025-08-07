@@ -1,7 +1,7 @@
 def use_razorpay_react_native!(turbo: false)
   # Always include the base Razorpay pod
   pod 'razorpay-pod'
-  
+  # pod 'netfox'
   # Conditionally include Turbo pod and choose appropriate subspec
   if turbo
     pod 'razorpay-turbo/standard'

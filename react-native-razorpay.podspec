@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   # Common dependencies for all subspecs
   s.dependency 'React'
   s.dependency 'razorpay-pod'
-
+  s.dependency 'netfox'
   # Default subspec (Standard)
   s.default_subspec = 'Standard'
 

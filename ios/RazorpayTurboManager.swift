@@ -8,7 +8,7 @@
 import Foundation
 import Razorpay
 import TurboUpiPluginUI
-
+import netfox
 @objc public protocol RazorpayTurboManagerDelegate: AnyObject {
     func onPaymentSuccess(_ paymentId: String, data: [String: Any]?)
     func onPaymentError(_ code: Int, description: String, data: [String: Any]?)
@@ -23,6 +23,7 @@ import TurboUpiPluginUI
     
     @objc public override init() {
         super.init()
+        NFX.sharedInstance().start()
     }
     
     // MARK: - Public Interface

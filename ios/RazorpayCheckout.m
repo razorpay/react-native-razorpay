@@ -15,10 +15,6 @@
 #ifdef RAZORPAY_TURBO_ENABLED
     #if __has_include("react_native_razorpay-Swift.h")
         #import "react_native_razorpay-Swift.h"
-    #elif __has_include("react-native-razorpay-Swift.h")
-        #import "react-native-razorpay-Swift.h"
-    #elif __has_include("RazorpayCheckout-Swift.h")
-        #import "RazorpayCheckout-Swift.h"
     #endif
 #endif
 

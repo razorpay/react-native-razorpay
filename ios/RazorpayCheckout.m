@@ -48,6 +48,15 @@ RCT_EXPORT_METHOD(open : (NSDictionary *)options) {
     });
 }
 
+RCT_EXPORT_METHOD(callNativeIntentUrl : (NSString *)intentUrl) {
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        NSURL *url = [NSURL URLWithString:intentUrl];
+        if (url && [[UIApplication sharedApplication] canOpenURL:url]) {
+            [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+        }
+    });
+}
+
 /*
 - (NSString *)findReactNativeVersion {
     static dispatch_once_t onceToken;

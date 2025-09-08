@@ -26,6 +26,11 @@ class RazorpayCheckout {
       NativeModules.RNRazorpayCheckout.open(options);
     });
   }
+
+  static callNativeIntentUrl(intentUrl){
+    NativeModules.RNRazorpayCheckout.callNativeIntentUrl(intentUrl);
+  }
+
   static onExternalWalletSelection(externalWalletCallback) {
     razorpayEvents.addListener('Razorpay::EXTERNAL_WALLET_SELECTED', (data) => {
       externalWalletCallback(data);

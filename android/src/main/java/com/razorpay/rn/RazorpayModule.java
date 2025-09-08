@@ -26,6 +26,7 @@ import org.json.JSONObject;
 import java.util.Iterator;
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 
@@ -42,6 +43,7 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
   public static final String MAP_KEY_ERROR_DESC = "description";
   public static final String MAP_KEY_PAYMENT_DETAILS = "details";
   public static final String MAP_KEY_WALLET_NAME="name";
+  public static final int UPI_INTENT_REQUEST_CODE = 1001;
   ReactApplicationContext reactContext;
   public RazorpayModule(ReactApplicationContext reactContext) {
     super(reactContext);
@@ -66,8 +68,17 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
     } catch (Exception e) {}
   }
 
+  @ReactMethod
+  public void callNativeIntentUrl(String intentUrl) {
+    Intent intent = new Intent(Intent.ACTION_VIEW);
+    intent.setData(Uri.parse(intentUrl));
+    getCurrentActivity().startActivityForResult(intent, UPI_INTENT_REQUEST_CODE);
+  }
+
   public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
-    onActivityResult(requestCode, resultCode, data);
+    if(requestCode != UPI_INTENT_REQUEST_CODE){
+      onActivityResult(requestCode, resultCode, data);
+    }
   }
 
   public void onNewIntent(Intent intent) {}

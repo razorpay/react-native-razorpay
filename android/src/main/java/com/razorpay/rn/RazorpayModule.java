@@ -54,6 +54,7 @@ import android.webkit.WebViewClient;
 
 import androidx.annotation.Nullable;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,7 +84,16 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
 
   private WebViewClient originalWebViewClient = null;
 
-  private WebViewClient proxyWebViewClient = new WebViewClient(){
+  // Static inner class to avoid implicit reference to outer class
+  private static class ProxyWebViewClient extends WebViewClient {
+    private final WebViewClient originalWebViewClient;
+    private final WeakReference<RazorpayModule> razorpayModuleRef;
+    
+    ProxyWebViewClient(WebViewClient originalWebViewClient, RazorpayModule razorpayModule) {
+      this.originalWebViewClient = originalWebViewClient;
+      this.razorpayModuleRef = new WeakReference<>(razorpayModule);
+    }
+    
     @Override
     public void onPageStarted(WebView view, String url, Bitmap favicon) {
       if(originalWebViewClient != null){
@@ -91,34 +101,49 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
       }else{
         super.onPageStarted(view, url, favicon);
       }
-
     }
 
     @Override
     public void onPageFinished(WebView view, String url) {
-      insertOtpelf(view);
+      RazorpayModule module = razorpayModuleRef.get();
+      if(module != null) {
+        module.insertOtpelf(view);
+      }
       if(originalWebViewClient != null){
         originalWebViewClient.onPageFinished(view, url);
       }else{
         super.onPageFinished(view, url);
       }
-
     }
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-      if(!request.getUrl().toString().startsWith("https") || !request.getUrl().toString().startsWith("http")){
-        getCurrentActivity().startActivityForResult(new Intent(Intent.ACTION_VIEW, request.getUrl()), UPI_INTENT_REQUEST_CODE);
-        return true;
-      }else {
-        if(originalWebViewClient != null){
-          return originalWebViewClient.shouldOverrideUrlLoading(view, request);
-        }else{
-          return super.shouldOverrideUrlLoading(view, request);
+      try{
+        Log.d("RazorpayModule", "shouldOverrideUrlLoading called");
+        if(!request.getUrl().toString().startsWith("https") && !request.getUrl().toString().startsWith("http")){
+          Log.d("RazorpayModule", "shouldOverrideUrlLoading : inside if condition");
+          RazorpayModule module = razorpayModuleRef.get();
+          if(module != null && module.getCurrentActivity() != null) {
+            module.getCurrentActivity().startActivityForResult(new Intent(Intent.ACTION_VIEW, request.getUrl()), UPI_INTENT_REQUEST_CODE);
+          }
+          return true;
+        }else {
+          Log.d("RazorpayModule", "shouldOverrideUrlLoading : inside else condition");
+          if(originalWebViewClient != null){
+            Log.d("RazorpayModule", "shouldOverrideUrlLoading: Originial WebViewClient is not null");
+            return originalWebViewClient.shouldOverrideUrlLoading(view, request);
+          }else{
+            Log.d("RazorpayModule", "shouldOverrideUrlLoading: Originial WebViewClient is null");
+            return super.shouldOverrideUrlLoading(view, request);
+          }
         }
+      }catch(Exception e){
+        //ActivityNotFoundException
+        Log.d("RazorpayModule", "shouldOverrideUrlLoading called with exception");
+        return super.shouldOverrideUrlLoading(view, request);
       }
     }
-  };
+  }
 
 
 
@@ -251,6 +276,44 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
 
 
   @ReactMethod
+  public void shopifyCheckoutClosed(){
+    cleanupShopifyWebView();
+  }
+  
+  private void cleanupShopifyWebView() {
+    if(shopifyWebView != null) {
+      // Restore original WebViewClient back to Shopify - this is their WebView, not ours
+      if(originalWebViewClient != null) {
+        shopifyWebView.setWebViewClient(originalWebViewClient);
+      }
+      
+      // Clear our references to prevent memory leaks, but don't touch the WebView itself
+      originalWebViewClient = null;
+      shopifyWebView = null;
+    }
+  }
+
+  @ReactMethod
+  public void shopifyCheckoutCompleted(){
+    // Also cleanup when checkout is completed
+    cleanupShopifyWebView();
+  }
+  
+  @Override
+  public void onCatalystInstanceDestroy() {
+    // Cleanup when React context is destroyed
+    cleanupShopifyWebView();
+    
+    // Remove activity event listener
+    if(reactContext != null) {
+      reactContext.removeActivityEventListener(this);
+      reactContext = null;
+    }
+    
+    super.onCatalystInstanceDestroy();
+  }
+
+  @ReactMethod
   public void shopifyCheckoutStarted(){
     Activity activity = getCurrentActivity();
     if(activity == null){
@@ -268,7 +331,8 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
                     &&  (wv.getParent()!=null?wv.getParent().getClass().getName():"null").equalsIgnoreCase("com.shopify.checkoutsheetkit.CheckoutWebViewContainer")){
               shopifyWebView = wv;
               originalWebViewClient = shopifyWebView.getWebViewClient();
-              shopifyWebView.setWebViewClient(proxyWebViewClient);
+              ProxyWebViewClient proxyClient = new ProxyWebViewClient(originalWebViewClient, RazorpayModule.this);
+              shopifyWebView.setWebViewClient(proxyClient);
             }
           }
         });

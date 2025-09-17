@@ -11,6 +11,8 @@
 
 #import <Razorpay/Razorpay-Swift.h>
 
+#import <UIKit/UIKit.h>
+
 typedef RazorpayCheckout Razorpay;
 
 @interface RNRazorpayCheckout () <RazorpayPaymentCompletionProtocolWithData,
@@ -55,6 +57,92 @@ RCT_EXPORT_METHOD(callNativeIntentUrl : (NSString *)intentUrl) {
             [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
         }
     });
+}
+
+RCT_EXPORT_METHOD(shopifyCheckoutStarted) {
+    NSString *viewControllerName = @"CheckoutWebViewController";
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        NSLog(@"Hook triggered: %@ is now visible.", viewControllerName);
+
+        // Use the helper function to get the actual instance
+        UIViewController *targetVC = [RNRazorpayCheckout findVisibleViewControllerOfClass:viewControllerName];
+
+        if (targetVC) {
+            NSLog(@"Successfully got reference to %@.", targetVC);
+
+            // Now you can traverse its subviews
+            NSLog(@"Traversing subviews of %@'s view:", viewControllerName);
+            for (UIView *subview in targetVC.view.subviews) {
+                NSLog(@" - Found subview: %@", NSStringFromClass([subview class]));
+                // You can add more logic here, like finding a specific button or label
+            }
+        } else {
+            NSLog(@"Could not find an active view controller named %@.", viewControllerName);
+        }
+    });
+}
+
+/**
+ Finds the currently visible view controller that matches the given class name.
+ @param className The name of the view controller class to find.
+ @return The view controller instance if found and visible, otherwise nil.
+*/
++ (UIViewController *)findVisibleViewControllerOfClass:(NSString *)className {
+    // 1. Get the top-most view controller using the standard traversal logic
+    UIViewController *topController = [self topMostViewController]; // Assumes you have the method from the previous answer
+
+    // 2. Check if the found controller's class name matches
+    if ([NSStringFromClass([topController class]) isEqualToString:className]) {
+        return topController;
+    }
+
+    return nil;
+}
+
+// NOTE: This requires the `topMostViewController` method from the previous answer.
+// Make sure it is also included in the same class or category.
++ (UIViewController *)topMostViewController {
+    // ... implementation from the previous answer
+    UIWindow *keyWindow = nil;
+    for (UIWindowScene *scene in [UIApplication sharedApplication].connectedScenes) {
+        if (scene.activationState == UISceneActivationStateForegroundActive) {
+            for (UIWindow *window in scene.windows) {
+                if (window.isKeyWindow) {
+                    keyWindow = window;
+                    break;
+                }
+            }
+        }
+        if (keyWindow) break;
+    }
+
+    UIViewController *topController = keyWindow.rootViewController;
+    
+    while (topController.presentedViewController) {
+        topController = topController.presentedViewController;
+    }
+    
+    return [self findTopViewController:topController];
+}
+
++ (UIViewController *)findTopViewController:(UIViewController *)controller {
+    if ([controller isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *navController = (UINavigationController *)controller;
+        return [self findTopViewController:navController.topViewController];
+    } else if ([controller isKindOfClass:[UITabBarController class]]) {
+        UITabBarController *tabController = (UITabBarController *)controller;
+        return [self findTopViewController:tabController.selectedViewController];
+    } else {
+        return controller;
+    }
+}
+
+RCT_EXPORT_METHOD(shopifyCheckoutClosed){
+
+}
+
+RCT_EXPORT_METHOD(shopifyCheckoutCompleted){
+    
 }
 
 /*

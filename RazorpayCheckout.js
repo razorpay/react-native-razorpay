@@ -61,6 +61,7 @@ class RazorpayCheckout {
         console.log("Shopify Checkout Sheet Kit closed");
         // Emit custom Razorpay event if needed
         // razorpayEvents.emit('Razorpay::SHOPIFY_CHECKOUT_CLOSED', {});
+        NativeModules.RNRazorpayCheckout.shopifyCheckoutClosed();
       });
 
       const completed = this.shopifyCheckoutInstance.addEventListener('completed', (event) => {
@@ -71,6 +72,7 @@ class RazorpayCheckout {
         //   orderId,
         //   orderDetails: event.orderDetails
         // });
+        NativeModules.RNRazorpayCheckout.shopifyCheckoutCompleted();
       });
 
       const error = this.shopifyCheckoutInstance.addEventListener('error', (error) => {

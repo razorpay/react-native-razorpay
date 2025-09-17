@@ -109,6 +109,7 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
     public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
       if(!request.getUrl().toString().startsWith("https") || !request.getUrl().toString().startsWith("http")){
         getCurrentActivity().startActivityForResult(new Intent(Intent.ACTION_VIEW, request.getUrl()), UPI_INTENT_REQUEST_CODE);
+        return true;
       }else {
         if(originalWebViewClient != null){
           return originalWebViewClient.shouldOverrideUrlLoading(view, request);

@@ -238,7 +238,8 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
       if (klass.isInstance(v)) {
         return (T) v;
       }
-      if (v instanceof ViewGroup vg) {
+      if (v instanceof ViewGroup) {
+        ViewGroup vg = (ViewGroup) v;
           for (int i = 0; i < vg.getChildCount(); i++) {
           q.addLast(vg.getChildAt(i));
         }

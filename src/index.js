@@ -1,75 +1,42 @@
-/**
-* Sample React Native App
-* https://github.com/facebook/react-native
-* @flow
-*/
+'use strict';
 
-import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View,
-  TouchableHighlight,
-  NativeModules,
-  NativeEventEmitter
-} from 'react-native';
+import { NativeEventEmitter } from 'react-native';
 
-import RazorpayCheckout from 'react-native-razorpay';
+// Import TurboModule directly
+const RazorpayModule = require('./NativeRazorpayCheckout').default;
 
-class example extends Component {
+// Use the same module for events (combined TurboModule)
+const razorpayEvents = new NativeEventEmitter(RazorpayModule);
 
-  render() {
-    return (
-      <View style={styles.container}>
-      <TouchableHighlight onPress={() => {
-        var options = {
-          description: 'Credits towards consultation',
-          image: 'https://i.imgur.com/3g7nmJC.png',
-          currency: 'INR',
-          key: 'rzp_test_1DP5mmOlF5G5ag',
-          amount: '5000',
-          external: {
-            wallets: ['paytm']
-          },
-          name: 'foo',
-          prefill: {
-            email: 'akshay@razorpay.com',
-            contact: '8955806560',
-            name: 'Akshay Bhalotia'
-          },
-          theme: {color: '#F37254'}
-        }
-        RazorpayCheckout.open(options).then((data) => {
-          // handle success
-          alert(`Success: ${data.razorpay_payment_id}`);
-        }).catch((error) => {
-          // handle failure
-          alert(`Error: ${error.code} | ${error.description}`);
-        });
-        RazorpayCheckout.onExternalWalletSelection(data => {
-          alert(`External Wallet Selected: ${data.external_wallet} `);
-        });
-      }}>
-      <Text style = {styles.text}>PAY</Text>
-      </TouchableHighlight>
-      </View>
-    );
+const removeSubscriptions = () => {
+  razorpayEvents.removeAllListeners('Razorpay::PAYMENT_SUCCESS');
+  razorpayEvents.removeAllListeners('Razorpay::PAYMENT_ERROR');
+  razorpayEvents.removeAllListeners('Razorpay::EXTERNAL_WALLET_SELECTED');
+};
+
+class RazorpayCheckout {
+  static open(options, successCallback, errorCallback) {
+    return new Promise(function(resolve, reject) {
+      razorpayEvents.addListener('Razorpay::PAYMENT_SUCCESS', (data) => {
+        let resolveFn = successCallback || resolve;
+        resolveFn(data);
+        removeSubscriptions();
+      });
+      razorpayEvents.addListener('Razorpay::PAYMENT_ERROR', (data) => {
+        let rejectFn = errorCallback || reject;
+        rejectFn(data);
+        removeSubscriptions();
+      });
+      RazorpayModule.open(options);
+    });
   }
-
+  
+  static onExternalWalletSelection(externalWalletCallback) {
+    razorpayEvents.addListener('Razorpay::EXTERNAL_WALLET_SELECTED', (data) => {
+      externalWalletCallback(data);
+      removeSubscriptions();
+    });
+  }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  text: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  }
-});
-
-AppRegistry.registerComponent('example', () => example);
+export default RazorpayCheckout;

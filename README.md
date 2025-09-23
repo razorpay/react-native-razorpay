@@ -35,21 +35,36 @@ To know more about Razorpay payment flow and steps involved, read up here:
 
 ## Installation
 
+### Razorpay React Native 3.0.0
+
+#### Requirements
+- React Native ≥ 0.74.0
+- React ≥ 18.0.0
+- New Architecture support (TurboModules)
+
+#### Breaking Changes
+- **Minimum React Native version**: 0.66.0 → 0.74.0
+- **Minimum React version**: 16.8.0 → 18.0.0
+- **Full TurboModule implementation** (old bridge support removed)
+
+#### Migration Path
+For projects using older React Native versions, continue using `react-native-razorpay@2.3.0`
+
 Using npm:
 
 ```shell
-npm install --save react-native-razorpay
+npm install --save react-native-razorpay@3.0.0
 ```
 
 or using yarn:
 
 ```shell
-yarn add react-native-razorpay
+yarn add react-native-razorpay@3.0.0
 ```
 
 For Expo Users:
 ```shell
-npx expo install react-native-razorpay
+npx expo install react-native-razorpay@3.0.0
 ```
 
 ## Requirements

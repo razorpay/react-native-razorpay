@@ -1,8 +1,9 @@
 {
   "name": "react-native-razorpay",
-  "version": "2.3.0",
+  "version": "3.0.0",
   "description": "React Native wrapper for Razorpay",
-  "main": "RazorpayCheckout.js",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,14 +13,27 @@
     "url": "git+https://github.com/razorpay/react-native-razorpay.git"
   },
   "peerDependencies": {
-    "react": ">=16.8.0",
-    "react-native": ">=0.66.0"
+    "react": ">=18.0.0",
+    "react-native": ">=0.74.0"
   },
   "keywords": [
     "react-native",
-    "razorpay",
-    "payments"
+    "razorpay", 
+    "payments",
+    "turbomodule",
+    "new-architecture"
   ],
+  "codegenConfig": {
+    "name": "RNRazorpaySpec",
+    "type": "modules",
+    "jsSrcsDir": "src",
+    "android":{
+      "javaPackageName":"com.razorpay.rn"
+    },
+    "ios":{
+      "swiftModuleName":"RazorpayTurboModule"
+    }
+  },
   "author": "Razorpay Developers <developers@razorpay.com> (https://razorpay.com/)",
   "license": "MIT",
   "homepage": "https://github.com/razorpay/react-native-razorpay#readme"

@@ -1,25 +1,49 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
 repositories {
     mavenCentral()
 }
+
 def safeExtGet(prop, fallback) {
     rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
 }
 
 android {
-    compileSdkVersion safeExtGet('compileSdkVersion', 28)
-
+    compileSdkVersion safeExtGet('compileSdkVersion', 33)
 
     defaultConfig {
-        minSdkVersion safeExtGet('minSdkVersion', 16)
-        targetSdkVersion safeExtGet('targetSdkVersion', 28)
+        minSdkVersion safeExtGet('minSdkVersion', 21)
+        targetSdkVersion safeExtGet('targetSdkVersion', 33)
         versionCode 1
         versionName "1.0"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs += 'src/main/kotlin'
+        }
     }
 }
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
     implementation 'com.razorpay:checkout:1.6.+'
+    
+    // Kotlin support
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    
+    // For new architecture
+    if (project.ext.react.enableNewArchitecture) {
+        implementation project(':ReactAndroid')
+    }
 }
-

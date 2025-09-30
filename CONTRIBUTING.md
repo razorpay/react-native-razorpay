@@ -1,40 +1,132 @@
 # Contributing
 
-We love contributions from everyone.
-By participating in this project,
-you agree to abide by our [code_of_conduct].
+Contributions are always welcome, no matter how large or small!
 
-We expect everyone to follow the code of conduct
-anywhere in Razorpay's project codebases,
-issue trackers, chatrooms, and mailing lists.
+We want this community to be friendly and respectful to each other. Please follow it in all your interactions with the project. Before contributing, please read the [code of conduct](./CODE_OF_CONDUCT.md).
 
-## Contributing Code
+## Development workflow
 
-Checkout the latest master to make sure the feature hasn't been implemented or
-the bug hasn't been fixed yet.
+This project is a monorepo managed using [Yarn workspaces](https://yarnpkg.com/features/workspaces). It contains the following packages:
 
-Check the issue tracker to make sure someone already hasn't requested it and/or
-contributed to it.
+- The library package in the root directory.
+- An example app in the `example/` directory.
 
-Fork the repo.
+To get started with the project, make sure you have the correct version of [Node.js](https://nodejs.org/) installed. See the [`.nvmrc`](./.nvmrc) file for the version used in this project.
 
-1. Use the example project to test the module.
-2. Delete the `postinstall` step from `package.json`. Remember to revert this
-change when commiting.
-3. Edit example/reload.sh to configure your path.
-4. Follow instructions to link your project with the iOS SDK, as given in the [README].
-5. Run example/reload.sh every time you make a change to the module.
+Run `yarn` in the root directory to install the required dependencies for each package:
 
-Make your change. Follow this [style guide][style].
+```sh
+yarn
+```
 
-Push to your fork. Write a [good commit message][commit]. Submit a pull request.
+> Since the project relies on Yarn workspaces, you cannot use [`npm`](https://github.com/npm/cli) for development without manually migrating.
 
-Others will give constructive feedback.
-This is a time for discussion and improvements,
-and making the necessary changes will be required before we can
-merge the contribution.
+The [example app](/example/) demonstrates usage of the library. You need to run it to test any changes you make.
 
-[code_of_conduct]: code_of_conduct.md "Code of Conduct"
-[commit]: http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html "A short guide on how to write good commit messages"
-[README]: README.md#linking-ios-sdk "Linking to the iOS SDK"
-[style]: https://github.com/thoughtbot/guides/tree/master/style "Styleguides by Thoughtbot"
+It is configured to use the local version of the library, so any changes you make to the library's source code will be reflected in the example app. Changes to the library's JavaScript code will be reflected in the example app without a rebuild, but native code changes will require a rebuild of the example app.
+
+If you want to use Android Studio or XCode to edit the native code, you can open the `example/android` or `example/ios` directories respectively in those editors. To edit the Objective-C or Swift files, open `example/ios/RazorpayExample.xcworkspace` in XCode and find the source files at `Pods > Development Pods > react-native-razorpay`.
+
+To edit the Java or Kotlin files, open `example/android` in Android studio and find the source files at `react-native-razorpay` under `Android`.
+
+You can use various commands from the root directory to work with the project.
+
+To start the packager:
+
+```sh
+yarn example start
+```
+
+To run the example app on Android:
+
+```sh
+yarn example android
+```
+
+To run the example app on iOS:
+
+```sh
+yarn example ios
+```
+
+To confirm that the app is running with the new architecture, you can check the Metro logs for a message like this:
+
+```sh
+Running "RazorpayExample" with {"fabric":true,"initialProps":{"concurrentRoot":true},"rootTag":1}
+```
+
+Note the `"fabric":true` and `"concurrentRoot":true` properties.
+
+Make sure your code passes TypeScript and ESLint. Run the following to verify:
+
+```sh
+yarn typecheck
+yarn lint
+```
+
+To fix formatting errors, run the following:
+
+```sh
+yarn lint --fix
+```
+
+Remember to add tests for your change if possible. Run the unit tests by:
+
+```sh
+yarn test
+```
+
+### Commit message convention
+
+We follow the [conventional commits specification](https://www.conventionalcommits.org/en) for our commit messages:
+
+- `fix`: bug fixes, e.g. fix crash due to deprecated method.
+- `feat`: new features, e.g. add new method to the module.
+- `refactor`: code refactor, e.g. migrate from class components to hooks.
+- `docs`: changes into documentation, e.g. add usage example for the module.
+- `test`: adding or updating tests, e.g. add integration tests using detox.
+- `chore`: tooling changes, e.g. change CI config.
+
+Our pre-commit hooks verify that your commit message matches this format when committing.
+
+### Linting and tests
+
+[ESLint](https://eslint.org/), [Prettier](https://prettier.io/), [TypeScript](https://www.typescriptlang.org/)
+
+We use [TypeScript](https://www.typescriptlang.org/) for type checking, [ESLint](https://eslint.org/) with [Prettier](https://prettier.io/) for linting and formatting the code, and [Jest](https://jestjs.io/) for testing.
+
+Our pre-commit hooks verify that the linter and tests pass when committing.
+
+### Publishing to npm
+
+We use [release-it](https://github.com/release-it/release-it) to make it easier to publish new versions. It handles common tasks like bumping version based on semver, creating tags and releases etc.
+
+To publish new versions, run the following:
+
+```sh
+yarn release
+```
+
+### Scripts
+
+The `package.json` file contains various scripts for common tasks:
+
+- `yarn`: setup project by installing dependencies.
+- `yarn typecheck`: type-check files with TypeScript.
+- `yarn lint`: lint files with ESLint.
+- `yarn test`: run unit tests with Jest.
+- `yarn example start`: start the Metro server for the example app.
+- `yarn example android`: run the example app on Android.
+- `yarn example ios`: run the example app on iOS.
+
+### Sending a pull request
+
+> **Working on your first pull request?** You can learn how from this _free_ series: [How to Contribute to an Open Source Project on GitHub](https://app.egghead.io/playlists/how-to-contribute-to-an-open-source-project-on-github).
+
+When you're sending a pull request:
+
+- Prefer small pull requests focused on one change.
+- Verify that linters and tests are passing.
+- Review the documentation to make sure it looks good.
+- Follow the pull request template when opening a pull request.
+- For pull requests that change the API or implementation, discuss with maintainers first by opening an issue.

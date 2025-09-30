@@ -1,33 +1,33 @@
 package com.razorpay.rn
 
-import com.facebook.react.TurboReactPackage
-import com.facebook.react.bridge.ReactApplicationContext
+import com.facebook.react.BaseReactPackage
 import com.facebook.react.bridge.NativeModule
+import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.module.model.ReactModuleInfo
 import com.facebook.react.module.model.ReactModuleInfoProvider
+import java.util.HashMap
 
-class RazorpayPackage : TurboReactPackage() {
-
-    override fun getModule(name: String, reactContext: ReactApplicationContext): NativeModule? {
-        return when (name) {
-            RazorpayTurboModule.NAME -> RazorpayTurboModule(reactContext)
-            else -> null
-        }
+class RazorpayPackage : BaseReactPackage() {
+  override fun getModule(name: String, reactContext: ReactApplicationContext): NativeModule? {
+    return if (name == RazorpayModule.NAME) {
+      RazorpayModule(reactContext)
+    } else {
+      null
     }
+  }
 
-    override fun getReactModuleInfoProvider(): ReactModuleInfoProvider {
-        return ReactModuleInfoProvider {
-            mapOf(
-                RazorpayTurboModule.NAME to ReactModuleInfo(
-                    _name = RazorpayTurboModule.NAME,
-                    _className = RazorpayTurboModule.NAME,
-                    _canOverrideExistingModule = false,
-                    _needsEagerInit = false,
-                    _hasConstants = true,
-                    _isCxxModule = false,
-                    _isTurboModule = true  // Always true for 3.0.0
-                )
-            )
-        }
+  override fun getReactModuleInfoProvider(): ReactModuleInfoProvider {
+    return ReactModuleInfoProvider {
+      val moduleInfos: MutableMap<String, ReactModuleInfo> = HashMap()
+      moduleInfos[RazorpayModule.NAME] = ReactModuleInfo(
+        RazorpayModule.NAME,
+        RazorpayModule.NAME,
+        false,  // canOverrideExistingModule
+        false,  // needsEagerInit
+        false,  // isCxxModule
+        true // isTurboModule
+      )
+      moduleInfos
     }
+  }
 }

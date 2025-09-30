@@ -1,49 +1,78 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+buildscript {
+  ext.getExtOrDefault = {name ->
+    return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties['Razorpay_' + name]
+  }
 
-repositories {
+  repositories {
+    google()
     mavenCentral()
+  }
+
+  dependencies {
+    classpath "com.android.tools.build:gradle:8.7.2"
+    // noinspection DifferentKotlinGradleVersion
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${getExtOrDefault('kotlinVersion')}"
+  }
 }
 
-def safeExtGet(prop, fallback) {
-    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+
+apply plugin: "com.facebook.react"
+
+def getExtOrIntegerDefault(name) {
+  return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties["Razorpay_" + name]).toInteger()
 }
 
 android {
-    compileSdkVersion safeExtGet('compileSdkVersion', 33)
+  namespace "com.razorpay.rn"
 
-    defaultConfig {
-        minSdkVersion safeExtGet('minSdkVersion', 21)
-        targetSdkVersion safeExtGet('targetSdkVersion', 33)
-        versionCode 1
-        versionName "1.0"
-    }
+  compileSdkVersion getExtOrIntegerDefault("compileSdkVersion")
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+  defaultConfig {
+    minSdkVersion getExtOrIntegerDefault("minSdkVersion")
+    targetSdkVersion getExtOrIntegerDefault("targetSdkVersion")
+  }
 
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
+  buildFeatures {
+    buildConfig true
+  }
 
-    sourceSets {
-        main {
-            java.srcDirs += 'src/main/kotlin'
-        }
+  buildTypes {
+    release {
+      minifyEnabled false
     }
+  }
+
+  lintOptions {
+    disable "GradleCompatible"
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+
+  sourceSets {
+    main {
+      java.srcDirs += [
+        "generated/java",
+        "generated/jni"
+      ]
+    }
+  }
 }
 
+repositories {
+  mavenCentral()
+  google()
+}
+
+def kotlin_version = getExtOrDefault("kotlinVersion")
+
 dependencies {
-    implementation 'com.facebook.react:react-native:+'
-    implementation 'com.razorpay:checkout:1.6.+'
-    
-    // Kotlin support
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    
-    // For new architecture
-    if (project.ext.react.enableNewArchitecture) {
-        implementation project(':ReactAndroid')
-    }
+  implementation "com.facebook.react:react-android"
+  implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  implementation "com.razorpay:checkout:1.6.41"
 }

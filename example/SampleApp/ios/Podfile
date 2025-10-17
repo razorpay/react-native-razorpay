@@ -6,7 +6,7 @@ install! 'cocoapods', :deterministic_uuids => false
 
 target 'SampleApp' do
   config = use_native_modules!
-
+  # pod 'boost', '1.76.0', :modular_headers => true
   # Flags change depending on the env values.
   flags = get_default_flags()
 

@@ -40,3 +40,5 @@ buck-out/
 android/app/libs
 android/keystores/debug.keystore
 node_modules
+.yarn
+.cursorignore

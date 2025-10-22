@@ -16,10 +16,13 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    buildFeatures {
+        buildConfig false
+    }
 }
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
-    implementation 'com.internal-razorpay:standard-core:1.6.58-SNAPSHOT'
+    implementation 'com.internal-razorpay:standard-core:1.6.59-SNAPSHOT'
 }
 

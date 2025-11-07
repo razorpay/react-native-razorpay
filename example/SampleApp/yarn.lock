@@ -5463,8 +5463,8 @@ react-native-gradle-plugin@^0.0.5:
   dependencies:
     react-native-codegen "*"
 
-react-native-razorpay@/Users/vivek.shindhe/RazorpayProjects/react-native/react-native-razorpay:
-  version "2.2.9"
+react-native-razorpay@../../:
+  version "2.3.0"
 
 react-native@0.68.0:
   version "0.68.0"

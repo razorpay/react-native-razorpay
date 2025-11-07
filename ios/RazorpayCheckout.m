@@ -10,7 +10,7 @@
 #import "RazorpayEventEmitter.h"
 
 #import <Razorpay/Razorpay-Swift.h>
-
+@import RazorpayCore;
 typedef RazorpayCheckout Razorpay;
 
 @interface RNRazorpayCheckout () <RazorpayPaymentCompletionProtocolWithData,
@@ -98,8 +98,13 @@ RCT_EXPORT_METHOD(open : (NSDictionary *)options) {
     [RazorpayEventEmitter onPaymentError:code description:str andData:response];
 }
 
-- (void)onExternalWalletSelected:(nonnull NSString *)walletName
-                 WithPaymentData:(nullable NSDictionary *)paymentData {
+// - (void)onExternalWalletSelected:(nonnull NSString *)walletName
+//                  WithPaymentData:(nullable NSDictionary *)paymentData {
+//     [RazorpayEventEmitter onExternalWalletSelected:walletName
+//                                            andData:paymentData];
+// }
+
+- (void)onExternalWalletSelected:(NSString * _Nonnull)walletName withPaymentData:(NSDictionary * _Nullable)paymentData { 
     [RazorpayEventEmitter onExternalWalletSelected:walletName
                                            andData:paymentData];
 }

@@ -23,6 +23,6 @@ android {
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
-    implementation 'com.internal-razorpay:standard-core:1.6.59-SNAPSHOT'
+    implementation 'com.razorpay:standard-core:1.7.1'
 }
 

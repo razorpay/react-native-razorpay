@@ -13,7 +13,7 @@
 
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
-
+@import RazorpayCore;
 typedef RazorpayCheckout Razorpay;
 
 @interface RNRazorpayCheckout () <RazorpayPaymentCompletionProtocolWithData,
@@ -659,8 +659,7 @@ RCT_EXPORT_METHOD(shopifyCheckoutCompleted){
     });
 }
 
-- (void)onExternalWalletSelected:(nonnull NSString *)walletName
-                 WithPaymentData:(nullable NSDictionary *)paymentData {
+- (void)onExternalWalletSelected:(NSString * _Nonnull)walletName withPaymentData:(NSDictionary * _Nullable)paymentData { 
     [RazorpayEventEmitter onExternalWalletSelected:walletName
                                            andData:paymentData];
 }

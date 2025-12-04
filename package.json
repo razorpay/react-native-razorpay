@@ -22,5 +22,13 @@
   ],
   "author": "Razorpay Developers <developers@razorpay.com> (https://razorpay.com/)",
   "license": "MIT",
-  "homepage": "https://github.com/razorpay/react-native-razorpay#readme"
+  "homepage": "https://github.com/razorpay/react-native-razorpay#readme",
+  "resolutions": {
+    "babel-plugin-polyfill-corejs2": "^0.4.14",
+    "babel-plugin-polyfill-corejs3": "^0.13.0",
+    "babel-plugin-polyfill-regenerator": "^0.6.5",
+    "@babel/helper-define-polyfill-provider": "^0.6.5",
+    "@babel/plugin-transform-runtime": "^7.28.5",
+    "@babel/traverse": "^7.28.5"
+  }
 }

@@ -6,6 +6,16 @@
 		<activity android:name="com.razorpay.CheckoutActivity" 
 				  android:configChanges="keyboard|keyboardHidden|orientation|screenSize"/>
 	</application>
-	
+	<queries>
+		<intent>
+			<action android:name="android.intent.action.VIEW" />
+			<data android:scheme="gpay" />
+			<data android:scheme="phonepe" />
+			<data android:scheme="credpay" />
+			<data android:scheme="paytm" />
+			<data android:scheme="bhim" />
+			<data android:scheme="postpe" />
+		</intent>
+	</queries>
 </manifest>
   

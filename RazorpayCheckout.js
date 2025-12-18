@@ -1,6 +1,7 @@
 'use strict';
 
-import { NativeModules, NativeEventEmitter } from 'react-native';
+import { NativeModules, NativeEventEmitter, Linking } from 'react-native';
+
 
 const razorpayEvents = new NativeEventEmitter(NativeModules.RazorpayEventEmitter);
 
@@ -11,6 +12,17 @@ const removeSubscriptions = () => {
 };
 
 class RazorpayCheckout {
+
+  appShortCodesWhichSupportUpi = [];
+  
+  static setAppShortCodesWhichSupportUpi(appShortCodesWhichSupportUpi){
+    this.appShortCodesWhichSupportUpi = appShortCodesWhichSupportUpi;
+  }
+
+  static getAppShortCodesWhichSupportUpi(){
+    return this.appShortCodesWhichSupportUpi;
+  }
+
   static open(options, successCallback, errorCallback) {
     return new Promise(function(resolve, reject) {
       razorpayEvents.addListener('Razorpay::PAYMENT_SUCCESS', (data) => {
@@ -32,6 +44,37 @@ class RazorpayCheckout {
       removeSubscriptions();
     });
   }
+
+  static async getAppsWhichSupportUpi(){
+    const appsListToVerifyAgainst = {
+      "gpay":"gpay://upi/pay",
+      "phonepe":"phonepe://pay",
+      "credpay":"credpay://upi/pay",
+      "paytm":"paytmmp://upi/pay",
+      "bhim":"bhim://upi/pay",
+      "postpe":"postpe://upi/pay"
+    }
+    const appShortCodesWhichSupportUpi = [];
+    for (const appShortCode in appsListToVerifyAgainst) {
+      const canOpen = await Linking.canOpenURL(appsListToVerifyAgainst[appShortCode]);
+      if (canOpen) {
+        appShortCodesWhichSupportUpi.push(appShortCode);
+      }
+    }
+    return appShortCodesWhichSupportUpi;
+  }
+
+  static injectJavascriptIntoWebview(){
+    const script = `
+     (function() {
+      alert("Hello from injectJavascriptIntoWebview");
+      alert(${this.getAppShortCodesWhichSupportUpi()});
+     })();
+    `;
+    NativeModules.RNRazorpayCheckout.injectJavascriptIntoWebview(script);
+
+  }
+
 }
 
 export default RazorpayCheckout;

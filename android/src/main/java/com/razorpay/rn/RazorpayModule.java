@@ -24,12 +24,22 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.Iterator;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
-
-
+import androidx.webkit.WebViewCompat;
+import androidx.webkit.WebViewFeature;
 
 
 public class RazorpayModule extends ReactContextBaseJavaModule implements ActivityEventListener, PaymentResultWithDataListener , ExternalWalletListener {
@@ -103,6 +113,63 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
     @Override
     public void onExternalWalletSelected(String walletName, PaymentData paymentData){
       sendEvent("Razorpay::EXTERNAL_WALLET_SELECTED", Utils.jsonToWritableMap(paymentData.getData()));
+    }
+
+    @ReactMethod
+    public void injectJavascriptIntoWebView(String javascript){
+      Activity currentActivity = getCurrentActivity();
+      if(currentActivity == null || currentActivity.isFinishing()){
+          return;
+      }
+
+      currentActivity.runOnUiThread(() -> {
+          View rootView = currentActivity.getWindow().getDecorView().getRootView();
+          WebView webView = findFirstWebView(rootView);
+          if(webView == null){
+              return;
+          }
+
+          proxyWebViewClientAndInjectJavascript(webView, javascript, currentActivity);
+
+      });
+    }
+
+    @SuppressLint("WebViewApiAvailability")
+    private void proxyWebViewClientAndInjectJavascript(WebView webView, String javascript, Activity currentActivity){
+        final WebViewClient oldClient =
+                WebViewFeature.isFeatureSupported(WebViewFeature.GET_WEB_VIEW_CLIENT) ?
+                        WebViewCompat.getWebViewClient(webView) : (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) ?
+                        webView.getWebViewClient() : null;
+
+        WebViewClient newClient = new RazorpayWebViewClient(currentActivity, oldClient, javascript);
+
+
+        webView.setWebViewClient(newClient);
+    }
+
+
+
+    private WebView findFirstWebView(View rootView){
+      if (rootView == null){
+          return null;
+      }
+
+      if (rootView instanceof WebView){
+          return (WebView) rootView;
+      }
+
+      if (rootView instanceof ViewGroup){
+          ViewGroup viewGroup = (ViewGroup) rootView;
+          for (int i = 0; i < viewGroup.getChildCount(); i++) {
+              WebView childView = findFirstWebView(viewGroup.getChildAt(i));
+              if(childView != null){
+                  return childView;
+              }
+          }
+
+      }
+
+      return null;
     }
 
 }

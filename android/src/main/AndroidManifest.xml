@@ -10,12 +10,31 @@
 		<intent>
 			<action android:name="android.intent.action.VIEW" />
 			<data android:scheme="gpay" />
-			<data android:scheme="phonepe" />
-			<data android:scheme="credpay" />
-			<data android:scheme="paytm" />
-			<data android:scheme="bhim" />
-			<data android:scheme="postpe" />
 		</intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW"/>
+            <data android:scheme="phonepe" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW"/>
+            <data android:scheme="credpay" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW"/>
+            <data android:scheme="paytm" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW"/>
+            <data android:scheme="bhim" />
+
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW"/>
+            <data android:scheme="postpe" />
+
+        </intent>
 	</queries>
+
+
 </manifest>
   

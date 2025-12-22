@@ -28,6 +28,7 @@ public class RazorpayWebViewClient extends WebViewClient {
     private final String javascript;
 
     public RazorpayWebViewClient(Activity activity, WebViewClient oldWebViewClient, String javascript){
+        System.out.println("RazorpayWebViewClient");
         this.activity = activity;
         this.oldClient = oldWebViewClient;
         this.javascript = javascript;
@@ -35,6 +36,7 @@ public class RazorpayWebViewClient extends WebViewClient {
 
     @Override
     public void onPageStarted(WebView view, String url, Bitmap favicon) {
+        System.out.println("onPageStarted");
         view.evaluateJavascript(javascript, null);
         if(oldClient!=null){
             oldClient.onPageStarted(view, url, favicon);
@@ -45,6 +47,7 @@ public class RazorpayWebViewClient extends WebViewClient {
 
     @Override
     public void onPageFinished(WebView view, String url) {
+        System.out.println("onPageFinished");
         if(oldClient!=null){
             oldClient.onPageFinished(view, url);
             return;
@@ -54,6 +57,7 @@ public class RazorpayWebViewClient extends WebViewClient {
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
+        System.out.println("shouldOverrideUrlLoading: "+url);
         if(!url.startsWith("https") && !url.startsWith("http")){
             redirectToUrl(url, activity);
             return true;
@@ -66,8 +70,9 @@ public class RazorpayWebViewClient extends WebViewClient {
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+        System.out.println("shouldOverrideUrlLoading: "+request.getUrl().toString());
         if(!request.getUrl().toString().startsWith("https") && !request.getUrl().toString().startsWith("http")){
-            redirectToUrl(view.getUrl(), activity);
+            redirectToUrl(request.getUrl().toString(), activity);
             return true;
         }
         if(oldClient != null){

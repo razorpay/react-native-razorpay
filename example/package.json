@@ -6,13 +6,15 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "lint": "eslint .",
-    "start": "react-native start",
+    "start": "npx react-native start",
     "test": "jest"
   },
   "dependencies": {
+    "@shopify/checkout-sheet-kit": "^3.4.0",
     "react": "18.3.1",
     "react-native": "0.77.3",
-    "react-native-razorpay": "file:.."
+    "react-native-razorpay": "file:..",
+    "react-native-webview": "^13.16.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

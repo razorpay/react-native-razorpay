@@ -41,6 +41,12 @@ import android.webkit.WebViewClient;
 import androidx.webkit.WebViewCompat;
 import androidx.webkit.WebViewFeature;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.List;
+
+import androidx.annotation.Nullable;
+
 
 public class RazorpayModule extends ReactContextBaseJavaModule implements ActivityEventListener, PaymentResultWithDataListener , ExternalWalletListener {
 
@@ -116,26 +122,102 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
     }
 
     @ReactMethod
-    public void injectJavascriptIntoWebView(String javascript){
+    public void injectJavascriptIntoWebView(String javascript, @Nullable Boolean isCheckoutSheetKit){
+      System.out.println("injectJavascriptIntoWebView");
       Activity currentActivity = getCurrentActivity();
       if(currentActivity == null || currentActivity.isFinishing()){
+        System.out.println("currentActivity is null or finishing");
           return;
       }
 
       currentActivity.runOnUiThread(() -> {
-          View rootView = currentActivity.getWindow().getDecorView().getRootView();
-          WebView webView = findFirstWebView(rootView);
-          if(webView == null){
-              return;
-          }
+        boolean useCheckoutSheetKit = isCheckoutSheetKit != null && isCheckoutSheetKit;
+        WebView webView = useCheckoutSheetKit
+                ? resolveCheckoutKitWebView(currentActivity)
+                : resolveReactNativeWebView(currentActivity);
+        if(webView == null){
+          System.out.println("webView is null");
+            return;
+        }
+
+        System.out.println("webView source is checkout-sheet-kit: " + useCheckoutSheetKit);
 
           proxyWebViewClientAndInjectJavascript(webView, javascript, currentActivity);
 
       });
     }
 
+  private WebView resolveCheckoutKitWebView(Activity currentActivity){
+    // Prefer the checkout-sheet-kit cache entry if available.
+    WebView cached = getCheckoutKitCachedWebView();
+    if (cached != null){
+      return cached;
+    }
+
+    // Last resort: inspect global windows (dialogs).
+    WebView dialogWebView = findFirstWebViewInGlobalWindows();
+    if (dialogWebView != null){
+      return dialogWebView;
+    }
+
+    return null;
+  }
+
+  private WebView resolveReactNativeWebView(Activity currentActivity){
+    View rootView = currentActivity.getWindow().getDecorView().getRootView();
+    return findFirstWebView(rootView);
+  }
+
+  private WebView getCheckoutKitCachedWebView(){
+    try{
+      Class<?> checkoutWebViewClass = Class.forName("com.shopify.checkoutsheetkit.CheckoutWebView");
+      Field companionField = checkoutWebViewClass.getField("Companion");
+      Object companion = companionField.get(null);
+      Method getCacheEntry = companion.getClass().getMethod("getCacheEntry");
+      Object cacheEntry = getCacheEntry.invoke(companion);
+      if (cacheEntry != null){
+        Method getView = cacheEntry.getClass().getMethod("getView");
+        Object viewObj = getView.invoke(cacheEntry);
+        if (viewObj instanceof WebView){
+          System.out.println("Found checkout-sheet-kit webview from cacheEntry");
+          return (WebView) viewObj;
+        }
+      }
+    } catch (Throwable t){
+      System.out.println("CheckoutWebView cacheEntry access failed");
+    }
+    return null;
+  }
+
+  private WebView findFirstWebViewInGlobalWindows(){
+    try{
+      Class<?> wmgClass = Class.forName("android.view.WindowManagerGlobal");
+      Method getInstanceMethod = wmgClass.getMethod("getInstance");
+      Object wmgInstance = getInstanceMethod.invoke(null);
+      Field viewsField = wmgClass.getDeclaredField("mViews");
+      viewsField.setAccessible(true);
+      Object viewsObj = viewsField.get(wmgInstance);
+      if (viewsObj instanceof List){
+        List<?> views = (List<?>) viewsObj;
+        for (Object viewObj : views){
+          if (viewObj instanceof View){
+            WebView webView = findFirstWebView((View) viewObj);
+            if (webView != null){
+              System.out.println("Found WebView in global windows");
+              return webView;
+            }
+          }
+        }
+      }
+    } catch (Throwable t){
+      System.out.println("findFirstWebViewInGlobalWindows failed");
+    }
+    return null;
+  }
+
     @SuppressLint("WebViewApiAvailability")
     private void proxyWebViewClientAndInjectJavascript(WebView webView, String javascript, Activity currentActivity){
+        System.out.println("proxyWebViewClientAndInjectJavascript");
         final WebViewClient oldClient =
                 WebViewFeature.isFeatureSupported(WebViewFeature.GET_WEB_VIEW_CLIENT) ?
                         WebViewCompat.getWebViewClient(webView) : (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) ?
@@ -145,24 +227,30 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
 
 
         webView.setWebViewClient(newClient);
+        // Ensure script runs even if the page is already loaded.
+        webView.evaluateJavascript(javascript, null);
     }
 
 
 
     private WebView findFirstWebView(View rootView){
+      System.out.println("findFirstWebView");
       if (rootView == null){
+        System.out.println("rootView is null");
           return null;
       }
 
       if (rootView instanceof WebView){
+        System.out.println("rootView is instance of WebView");
           return (WebView) rootView;
       }
-
+      System.out.println("rootView is instance of ViewGroup");
       if (rootView instanceof ViewGroup){
           ViewGroup viewGroup = (ViewGroup) rootView;
           for (int i = 0; i < viewGroup.getChildCount(); i++) {
               WebView childView = findFirstWebView(viewGroup.getChildAt(i));
               if(childView != null){
+                System.out.println("childView is not null");
                   return childView;
               }
           }

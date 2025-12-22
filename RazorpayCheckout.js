@@ -46,32 +46,114 @@ class RazorpayCheckout {
   }
 
   static async getAppsWhichSupportUpi(){
+    console.log("getAppsWhichSupportUpi");
     const appsListToVerifyAgainst = {
-      "gpay":"gpay://upi/pay",
+      "google_pay":"gpay://upi/pay",
+      "tez":"tez://upi/pay",
       "phonepe":"phonepe://pay",
-      "credpay":"credpay://upi/pay",
+      "cred":"credpay://upi/pay",
       "paytm":"paytmmp://upi/pay",
       "bhim":"bhim://upi/pay",
       "postpe":"postpe://upi/pay"
     }
     const appShortCodesWhichSupportUpi = [];
     for (const appShortCode in appsListToVerifyAgainst) {
+      console.log("appShortCode", appShortCode);
       const canOpen = await Linking.canOpenURL(appsListToVerifyAgainst[appShortCode]);
+      console.log("canOpen", canOpen);
       if (canOpen) {
         appShortCodesWhichSupportUpi.push(appShortCode);
       }
     }
+    console.log("appShortCodesWhichSupportUpi", appShortCodesWhichSupportUpi);
     return appShortCodesWhichSupportUpi;
   }
 
-  static injectJavascriptIntoWebview(){
+  static async injectJavascriptIntoWebview(isCheckoutSheetKit = false){
+    console.log("injectJavascriptIntoWebview");
+    const appShortCodes = await this.getAppsWhichSupportUpi();
+    // Inject a script that augments window.options before the page's onload runs.
+    // const script = `
+    //  (function() {
+    //     alert(${JSON.stringify(appShortCodes)});
+    //     if (typeof window === 'undefined') {
+    //       return;
+    //     }
+
+    //     console.log('getWebViewOnScreen');
+
+    //     var forcedKey = 'rzp_live_ILgsfZCZoFIKMb';
+    //     var intentApps = ${JSON.stringify(appShortCodes)};
+
+    //     function applyOptions() {
+    //       var options = window.options || {};
+
+    //       options.key = forcedKey;
+    //       if (options.order_id) {
+    //         delete options.order_id;
+    //       }
+
+    //       options.method = options.method || {};
+    //       options.method.upi = options.method.upi || {};
+    //       options.method.upi.intent = options.method.upi.intent || { apps: [] };
+    //       options.method.upi.intent.apps = intentApps;
+
+    //       // options.webview_intent = true;
+    //       window.options = options;
+
+    //       if (typeof window.Razorpay === 'function') {
+    //         try {
+    //           window.razorpay = window.Razorpay(window.options);
+    //           console.log('razorpay: ', window.Razorpay);
+    //         } catch (e) {
+    //           console.log('error: ', e);
+    //         }
+    //       }
+    //     }
+
+    //     var originalOnload = window.onload;
+
+    //     window.addEventListener(
+    //       'load',
+    //       function(evt) {
+    //         alert('onload hijacked with options: ' + JSON.stringify(window.razorpay));
+
+    //         applyOptions();
+
+    //         if (typeof originalOnload === 'function') {
+    //           try {
+    //             originalOnload.call(window, evt);
+    //           } catch (e) {}
+    //         }
+
+    //         if (typeof window.showCheckout === 'function') {
+    //           try {
+    //             window.showCheckout();
+    //           } catch (e) {}
+    //         }
+    //       },
+    //       true
+    //     );
+    //   })();
+    // `;
     const script = `
-     (function() {
-      alert("Hello from injectJavascriptIntoWebview");
-      alert(${this.getAppShortCodesWhichSupportUpi()});
-     })();
+      (function() {
+        console.log("injecting apps again");
+        if (typeof window === 'undefined') {
+          return;
+        }
+
+        window.Razorpay = window.Razorpay || {};
+        window.Razorpay.method = {
+          upi: {
+            intent: {
+              apps: ${JSON.stringify(appShortCodes)}
+            }
+          }
+        }
+      })();
     `;
-    NativeModules.RNRazorpayCheckout.injectJavascriptIntoWebview(script);
+    NativeModules.RNRazorpayCheckout.injectJavascriptIntoWebView(script, isCheckoutSheetKit);
 
   }
 

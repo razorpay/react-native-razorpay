@@ -1,117 +1,269 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import React from 'react';
-import type {PropsWithChildren} from 'react';
+import React, {useMemo, useState} from 'react';
 import {
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
   SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
-  useColorScheme,
+  TextInput,
   View,
 } from 'react-native';
+import {WebView} from 'react-native-webview';
+import RazorpayCheckout from 'react-native-razorpay';
+import {shopifyCheckout} from './shopify.ts';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+const defaultJson = JSON.stringify(
+  {
+    amount: 50000,
+    currency: 'INR',
+    description: 'Test payment',
+    order_id: 'order_DBJOWzybf0sJbb',
+    prefill: {email: 'customer@example.com', contact: '+911234567890'},
+  },
+  null,
+  2,
+);
 
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  const [jsonText, setJsonText] = useState<string>(defaultJson);
+  const [parsedJson, setParsedJson] = useState<Record<string, unknown> | null>(
+    () => {
+      try {
+        return JSON.parse(defaultJson);
+      } catch (err) {
+        return null;
+      }
+    },
+  );
+  const [url, setUrl] = useState<string>('https://example.com');
+  const [showWebView, setShowWebView] = useState(false);
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  const isJsonValid = useMemo(() => parsedJson !== null, [parsedJson]);
+
+  const handleJsonChange = (text: string) => {
+    setJsonText(text);
+    try {
+      const parsed = JSON.parse(text);
+      setParsedJson(parsed);
+    } catch (err) {
+      setParsedJson(null);
+    }
+  };
+
+  
+
+  const handlePayPress = () => {
+    if (!isJsonValid || !parsedJson) {
+      Alert.alert('Invalid JSON', 'Please enter a valid JSON object.');
+      return;
+    }
+
+    // The parsed JSON is stored in `parsedJson` for further use with Razorpay.
+    Alert.alert(
+      'Pay with Razorpay',
+      'JSON payload saved. Wire this to RazorpayCheckout.open when ready.',
+    );
+  };
+
+  const handleOpenWebView = () => {
+    // RazorpayCheckout.getAppsWhichSupportUpi();
+    
+    if (!url.trim()) {
+      Alert.alert('Missing URL', 'Please enter a URL to load.');
+      return;
+    }
+    setShowWebView(true);
+    setTimeout(() => {
+      RazorpayCheckout.injectJavascriptIntoWebview();
+    }, 50);
+  };
+
+  const handleOpenCheckoutSheet = () => {
+    // RazorpayCheckout.getAppsWhichSupportUpi();
+    
+    if (!url.trim()) {
+      Alert.alert('Missing URL', 'Please enter a URL to load.');
+      return;
+    }
+    shopifyCheckout.present(url);
+    setTimeout(() => {
+      RazorpayCheckout.injectJavascriptIntoWebview(true);
+    }, 500);
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+    
+    <SafeAreaView style={styles.safeArea}>
+      <StatusBar barStyle="dark-content" />
+      <KeyboardAvoidingView
+        style={styles.flex}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+        <ScrollView
+          style={styles.flex}
+          contentContainerStyle={styles.content}
+          keyboardShouldPersistTaps="handled">
+          <Text style={styles.title}>Razorpay Demo</Text>
+
+          <View style={styles.card}>
+            <Text style={styles.label}>Payment JSON (10 lines)</Text>
+            <TextInput
+              value={jsonText}
+              onChangeText={handleJsonChange}
+              multiline
+              numberOfLines={10}
+              style={styles.jsonInput}
+              textAlignVertical="top"
+              placeholder="Enter payment options JSON"
+              autoCorrect={false}
+              autoCapitalize="none"
+            />
+            <Text
+              style={[
+                styles.helperText,
+                {color: isJsonValid ? '#0a7b34' : '#b00020'},
+              ]}>
+              {isJsonValid
+                ? 'Valid JSON saved for further use.'
+                : 'Invalid JSON. Please fix formatting.'}
+            </Text>
+            <Pressable style={styles.primaryButton} onPress={handlePayPress}>
+              <Text style={styles.primaryButtonText}>Pay with Razorpay</Text>
+            </Pressable>
+          </View>
+
+          <View style={styles.card}>
+            <Text style={styles.label}>WebView URL</Text>
+            <TextInput
+              value={url}
+              onChangeText={setUrl}
+              placeholder="https://example.com"
+              style={styles.urlInput}
+              autoCapitalize="none"
+              autoCorrect={false}
+              keyboardType="url"
+            />
+            <Pressable style={styles.secondaryButton} onPress={handleOpenWebView}>
+              <Text style={styles.secondaryButtonText}>Use WebView</Text>
+            </Pressable>
+
+            <Pressable style={styles.secondaryButton} onPress={handleOpenCheckoutSheet}>
+              <Text style={styles.secondaryButtonText}>Use Checkout Sheet</Text>
+            </Pressable>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
+
+      {showWebView && (
+        <View style={styles.webviewOverlay}>
+          <Pressable
+            style={styles.closeButton}
+            onPress={() => setShowWebView(false)}>
+            <Text style={styles.closeButtonText}>Close WebView</Text>
+          </Pressable>
+          <WebView source={{uri: url}} startInLoadingState style={styles.flex} />
         </View>
-      </ScrollView>
+      )}
     </SafeAreaView>
+    
   );
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#f5f6fa',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  flex: {
+    flex: 1,
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  content: {
+    padding: 16,
+    gap: 16,
   },
-  highlight: {
+  title: {
+    fontSize: 22,
     fontWeight: '700',
+    color: '#111827',
+    textAlign: 'center',
+  },
+  card: {
+    backgroundColor: '#ffffff',
+    borderRadius: 12,
+    padding: 16,
+    shadowColor: '#000',
+    shadowOpacity: 0.05,
+    shadowRadius: 8,
+    shadowOffset: {width: 0, height: 2},
+    elevation: 2,
+    gap: 12,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#111827',
+  },
+  jsonInput: {
+    borderWidth: 1,
+    borderColor: '#d1d5db',
+    borderRadius: 10,
+    padding: 12,
+    minHeight: 200,
+    fontFamily: Platform.select({ios: 'Menlo', android: 'monospace'}),
+    backgroundColor: '#f9fafb',
+  },
+  helperText: {
+    fontSize: 13,
+  },
+  primaryButton: {
+    backgroundColor: '#0b8cf0',
+    paddingVertical: 14,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  primaryButtonText: {
+    color: '#ffffff',
+    fontWeight: '700',
+    fontSize: 16,
+  },
+  urlInput: {
+    borderWidth: 1,
+    borderColor: '#d1d5db',
+    borderRadius: 10,
+    padding: 12,
+    backgroundColor: '#f9fafb',
+  },
+  secondaryButton: {
+    borderWidth: 1,
+    borderColor: '#0b8cf0',
+    paddingVertical: 12,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  secondaryButtonText: {
+    color: '#0b8cf0',
+    fontWeight: '700',
+    fontSize: 16,
+  },
+  webviewOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: '#ffffff',
+    zIndex: 10,
+  },
+  closeButton: {
+    width: '100%',
+    paddingVertical: 14,
+    backgroundColor: '#111827',
+    alignItems: 'center',
+  },
+  closeButtonText: {
+    color: '#ffffff',
+    fontWeight: '700',
+    fontSize: 16,
   },
 });
 

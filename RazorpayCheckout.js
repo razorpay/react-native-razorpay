@@ -168,6 +168,91 @@ class RazorpayCheckout {
 
   }
 
+  // Dynamically load Shopify Checkout Sheet Kit and keep a singleton instance
+  static async initializeShopifyCheckout() {
+    if (this.shopifyCheckoutInstance) {
+      return true;
+    }
+    try {
+      const shopifyModule = await import('@shopify/checkout-sheet-kit');
+      this.shopifyModule = shopifyModule;
+      this.shopifyCheckoutInstance = new shopifyModule.ShopifyCheckoutSheet();
+      this.shopifyListeners = [];
+      return true;
+    } catch (error) {
+      console.warn('Shopify Checkout Sheet Kit not available:', error);
+      return false;
+    }
+  }
+
+  // Register listeners so we know when the Checkout Sheet Kit flow starts
+  static async setupShopifyEventListeners() {
+    const initialized = await this.initializeShopifyCheckout();
+    if (!initialized || !this.shopifyCheckoutInstance) {
+      return null;
+    }
+
+    // Clear any stale listeners before wiring new ones
+    this.clearShopifyEventListeners();
+
+    try {
+      const close = this.shopifyCheckoutInstance.addEventListener('close', () => {
+        console.log('Shopify Checkout Sheet Kit closed');
+      });
+
+      const completed = this.shopifyCheckoutInstance.addEventListener('completed', (event) => {
+        console.log('Shopify Checkout completed', event?.orderDetails?.id);
+      });
+
+      const error = this.shopifyCheckoutInstance.addEventListener('error', (evt) => {
+        console.log('Shopify Checkout error', evt?.message);
+      });
+
+      // Shopify emits a pixel event when checkout begins; trigger our injection there
+      const pixel = this.shopifyCheckoutInstance.addEventListener('pixel', async (event) => {
+        console.log('Shopify pixel event', event);
+        if (event && event.name === 'checkout_started') {
+          try {
+            await this.injectJavascriptIntoWebview(true);
+          } catch (e) {
+            console.warn('Failed to inject script for Checkout Sheet Kit', e);
+          }
+        }
+      });
+
+      this.shopifyListeners = [close, completed, error, pixel].filter(Boolean);
+
+      return {
+        close,
+        completed,
+        error,
+        pixel
+      };
+    } catch (err) {
+      console.error('Failed to setup Shopify Checkout Sheet Kit listeners', err);
+      return null;
+    }
+  }
+
+  // Remove any Shopify listeners we registered
+  static clearShopifyEventListeners() {
+    if (!this.shopifyListeners || this.shopifyListeners.length === 0) {
+      return;
+    }
+    this.shopifyListeners.forEach(listener => {
+      if (listener && typeof listener.remove === 'function') {
+        listener.remove();
+      }
+    });
+    this.shopifyListeners = [];
+  }
+
+  // Public helper to start listening for Checkout Sheet Kit events
+  static async registerForCheckoutSheetKitEvent() {
+    console.log('Registering for Shopify Checkout Sheet Kit events');
+    return await this.setupShopifyEventListeners();
+  }
+
 }
 
 export default RazorpayCheckout;

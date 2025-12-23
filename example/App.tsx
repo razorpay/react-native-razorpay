@@ -15,6 +15,7 @@ import {
 import {WebView} from 'react-native-webview';
 import RazorpayCheckout from 'react-native-razorpay';
 import {shopifyCheckout} from './shopify.ts';
+import {NativeModules} from 'react-native';
 
 
 const defaultJson = JSON.stringify(
@@ -40,7 +41,7 @@ function App(): React.JSX.Element {
       }
     },
   );
-  const [url, setUrl] = useState<string>('https://example.com');
+  const [url, setUrl] = useState<string>('https://vivek-test-store-6.myshopify.com/checkouts/cn/hWN6Ui9xRw9qz5PUJPpb4Y3m/en-in?_r=AQABIJhT_lxn3XJqngEY-jtFkcBN1lTI8QOojVTEItgZQKQ&preview_theme_id=142627504230');
   const [showWebView, setShowWebView] = useState(false);
 
   const isJsonValid = useMemo(() => parsedJson !== null, [parsedJson]);
@@ -79,6 +80,8 @@ function App(): React.JSX.Element {
     }
     setShowWebView(true);
     setTimeout(() => {
+      console.log('RNRazorpayCheckout module', NativeModules.RNRazorpayCheckout);
+   console.log('injectJavascriptIntoWebView typeof', typeof NativeModules.RNRazorpayCheckout?.injectJavascriptIntoWebView);
       RazorpayCheckout.injectJavascriptIntoWebview();
     }, 50);
   };
@@ -92,6 +95,8 @@ function App(): React.JSX.Element {
     }
     shopifyCheckout.present(url);
     setTimeout(() => {
+      console.log('RNRazorpayCheckout module', NativeModules.RNRazorpayCheckout);
+   console.log('injectJavascriptIntoWebView typeof', typeof NativeModules.RNRazorpayCheckout?.injectJavascriptIntoWebView);
       RazorpayCheckout.injectJavascriptIntoWebview(true);
     }, 500);
   };

@@ -1216,6 +1216,27 @@ PODS:
   - react-native-razorpay (2.3.1):
     - razorpay-pod (= 1.5.0)
     - React
+  - react-native-webview (13.16.0):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.11.18.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - React-nativeconfig (0.77.3)
   - React-NativeModulesApple (0.77.3):
     - glog
@@ -1505,6 +1526,34 @@ PODS:
     - React-logger (= 0.77.3)
     - React-perflogger (= 0.77.3)
     - React-utils (= 0.77.3)
+  - RNShopifyCheckoutSheetKit (3.4.0):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.11.18.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - ShopifyCheckoutSheetKit (~> 3.4.0)
+    - ShopifyCheckoutSheetKit/AcceleratedCheckouts (~> 3.4.0)
+    - Yoga
+  - ShopifyCheckoutSheetKit (3.4.0):
+    - ShopifyCheckoutSheetKit/Core (= 3.4.0)
+  - ShopifyCheckoutSheetKit/AcceleratedCheckouts (3.4.0):
+    - ShopifyCheckoutSheetKit/Core
+  - ShopifyCheckoutSheetKit/Core (3.4.0)
   - SocketRocket (0.7.1)
   - Yoga (0.0.0)
 
@@ -1548,6 +1597,7 @@ DEPENDENCIES:
   - React-Mapbuffer (from `../node_modules/react-native/ReactCommon`)
   - React-microtasksnativemodule (from `../node_modules/react-native/ReactCommon/react/nativemodule/microtasks`)
   - react-native-razorpay (from `../..`)
+  - react-native-webview (from `../node_modules/react-native-webview`)
   - React-nativeconfig (from `../node_modules/react-native/ReactCommon`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -1577,12 +1627,14 @@ DEPENDENCIES:
   - ReactAppDependencyProvider (from `build/generated/ios`)
   - ReactCodegen (from `build/generated/ios`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - "RNShopifyCheckoutSheetKit (from `../node_modules/@shopify/checkout-sheet-kit`)"
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   trunk:
     - razorpay-core-pod
     - razorpay-pod
+    - ShopifyCheckoutSheetKit
     - SocketRocket
 
 EXTERNAL SOURCES:
@@ -1661,6 +1713,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/react/nativemodule/microtasks"
   react-native-razorpay:
     :path: "../.."
+  react-native-webview:
+    :path: "../node_modules/react-native-webview"
   React-nativeconfig:
     :path: "../node_modules/react-native/ReactCommon"
   React-NativeModulesApple:
@@ -1719,6 +1773,8 @@ EXTERNAL SOURCES:
     :path: build/generated/ios
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNShopifyCheckoutSheetKit:
+    :path: "../node_modules/@shopify/checkout-sheet-kit"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -1762,6 +1818,7 @@ SPEC CHECKSUMS:
   React-Mapbuffer: 1864935968d15b9b73d8e413d29c780f0ab50038
   React-microtasksnativemodule: 3b784cf40f7c3c9500b9a5f9e4eec5c9bbfbef8f
   react-native-razorpay: 376ba84b614ef8a22b5701df4ffee10f4c116d14
+  react-native-webview: b729d1bcf8fbd141237355dcfd6bb65b9a1d3b1a
   React-nativeconfig: f77b4627803bf7886a1f2e96b33b8af34e583cc4
   React-NativeModulesApple: dfa86c79c621f2a9cdb39636570c2e1623b71367
   React-perflogger: 1f83401f01544142b32151ef6c66870455c64994
@@ -1791,6 +1848,8 @@ SPEC CHECKSUMS:
   ReactAppDependencyProvider: 31015410a4a53b9fd0a908ad4d6e3e2b9a25086a
   ReactCodegen: eac5d74d85dff515b48a5c36f154bc4128f217e6
   ReactCommon: bf4612cba0fa356b529385029f470d5529dddde4
+  RNShopifyCheckoutSheetKit: 2c5052305ebd0a3adedaf1f13f09ca7edfc89151
+  ShopifyCheckoutSheetKit: 2251f2708752ad0b8a7f7baf1ee527d2167b0d4b
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   Yoga: 92f3bb322c40a86b7233b815854730442e01b8c4
 

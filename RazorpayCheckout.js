@@ -46,6 +46,7 @@ class RazorpayCheckout {
   }
 
   static async getAppsWhichSupportUpi(){
+    NativeModules.RNRazorpayCheckout.testMethodForInvocation("getAppsWhichSupportUpi");
     console.log("getAppsWhichSupportUpi");
     const appsListToVerifyAgainst = {
       "google_pay":"gpay://upi/pay",
@@ -71,7 +72,12 @@ class RazorpayCheckout {
 
   static async injectJavascriptIntoWebview(isCheckoutSheetKit = false){
     console.log("injectJavascriptIntoWebview");
-    const appShortCodes = await this.getAppsWhichSupportUpi();
+    // Ensure the native call is still made even if canOpenURL rejects for
+    // unlisted schemes (iOS needs LSApplicationQueriesSchemes whitelisted).
+    const appShortCodes = await this.getAppsWhichSupportUpi().catch(err => {
+      console.warn('getAppsWhichSupportUpi failed; continuing without list', err);
+      return [];
+    });
     // Inject a script that augments window.options before the page's onload runs.
     // const script = `
     //  (function() {
@@ -142,6 +148,11 @@ class RazorpayCheckout {
         if (typeof window === 'undefined') {
           return;
         }
+        if (window.__rzp_upi_intent_patched) {
+          return;
+        }
+        window.__rzp_upi_intent_patched = true;
+        console.log("injecting apps again after patch");
 
         window.Razorpay = window.Razorpay || {};
         window.Razorpay.method = {

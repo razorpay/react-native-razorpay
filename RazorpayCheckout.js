@@ -46,7 +46,12 @@ class RazorpayCheckout {
   }
 
   static async getAppsWhichSupportUpi(){
-    NativeModules.RNRazorpayCheckout.testMethodForInvocation("getAppsWhichSupportUpi");
+    try{
+      NativeModules.RNRazorpayCheckout.testMethodForInvocation("getAppsWhichSupportUpi");
+    }catch(error){
+      //no-op
+    }
+    
     console.log("getAppsWhichSupportUpi");
     const appsListToVerifyAgainst = {
       "google_pay":"gpay://upi/pay",

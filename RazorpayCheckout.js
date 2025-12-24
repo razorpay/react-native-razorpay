@@ -59,8 +59,7 @@ class RazorpayCheckout {
       "phonepe":"phonepe://pay",
       "cred":"credpay://upi/pay",
       "paytm":"paytmmp://upi/pay",
-      "bhim":"bhim://upi/pay",
-      "postpe":"postpe://upi/pay"
+      "bhim":"bhim://upi/pay"
     }
     const appShortCodesWhichSupportUpi = [];
     for (const appShortCode in appsListToVerifyAgainst) {

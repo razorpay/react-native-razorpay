@@ -1,0 +1,133 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.2.3 effective-5.10 (swiftlang-6.2.3.3.21 clang-1700.6.3.2)
+// swift-module-flags: -target x86_64-apple-ios10.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -module-name RazorpayStandard
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface -formal-cxx-interoperability-mode=off -interface-compiler-version 6.2.3
+import CommonCrypto
+import CoreLocation
+import CoreTelephony
+import DeveloperToolsSupport
+import Foundation
+import Photos
+import RazorpayCore
+import Swift
+import SwiftUI
+import SystemConfiguration
+import UIKit
+import WebKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+@objc @_inheritsConvenienceInitializers @objcMembers final public class StandardCheckoutImplementation : ObjectiveC.NSObject, RazorpayCore.StandardCheckoutImplementationProtocol {
+  @objc final public var upiTurbo: (any RazorpayCore.UPITurboUIPlugin)?
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc final public func initWithKey(_ key: Swift.String, andDelegate delegate: any RazorpayCore.RazorpayProtocol) -> Any?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc final public func initWithKey(_ key: Swift.String, andDelegateWithData delegate: any RazorpayCore.RazorpayPaymentCompletionProtocolWithData) -> Any?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc final public func initWithKey(_ key: Swift.String, andDelegateWithData delegate: any RazorpayCore.RazorpayPaymentCompletionProtocolWithData, plugin: (any RazorpayCore.UPITurboUIPlugin)?) -> Any?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc final public func initWithKey(_ key: Swift.String, andDelegateWithData delegate: any RazorpayCore.RazorpayPaymentCompletionProtocolWithData, andHostedOptiConfig config: [Swift.String : Swift.String]) -> Any?
+  #endif
+  @objc final public func publishUri(with data: Swift.String)
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc final public func setExternalWalletSelectionDelegate(_ walletDelegate: any RazorpayCore.ExternalWalletSelectionProtocol, checkoutInstance: Any?)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc final public func open(_ options: [Swift.AnyHashable : Any], checkoutInstance: Any?)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc final public func open(_ options: [Swift.AnyHashable : Any], displayController: UIKit.UIViewController, checkoutInstance: Any?)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc final public func open(_ options: [Swift.AnyHashable : Any], arrExternalPaymentEntities: [any RazorpayCore.PluginPaymentDelegate], checkoutInstance: Any?)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc final public func open(_ options: [Swift.AnyHashable : Any], displayController: UIKit.UIViewController, arrExternalPaymentEntities: [any RazorpayCore.PluginPaymentDelegate], checkoutInstance: Any?)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc final public func openMagicX(storefrontUrl: Swift.String, itemsData: Swift.String, withDelegate magicXProtocol: any RazorpayCore.MagicXResultProtocol, checkoutInstance: Any?)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc final public func close(checkoutInstance: Any?)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc final public func clearUserData(checkoutInstance: Any?)
+  #endif
+  @objc final public func checkIntegration(withMerchantKey key: Swift.String)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class Otpelf : ObjectiveC.NSObject {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public static func initWithWebView(_ webView: WebKit.WKWebView, andMerchantKey merchantKey: Swift.String?)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public static func getSharedInstance() -> RazorpayStandard.Otpelf?
+  #endif
+  @objc public func setPaymentData(_ data: [Swift.AnyHashable : Any])
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public func webView(didFinish navigation: WebKit.WKNavigation!) throws
+  #endif
+  @objc public func close()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class CXAvailability {
+  @objc deinit
+}
+public struct CXError {
+}
+public class TurboPluginManager {
+  public init()
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func getSessionId() -> Swift.String?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func getMercahntKey() -> Swift.String?
+  #endif
+  public func getHTMLLoaingPage() -> Swift.String
+  public func isCFBEnabledUser() -> Swift.Bool
+  public func getBaseAnalyticsProperties() -> [Swift.AnyHashable : Any]
+  public func trackEvent(eventName: Swift.String, payload: [Swift.AnyHashable : Any])
+  public func submitAnalyticsEvents()
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func gatherAnalyticsDataCustomUI() -> [Swift.String : Any]?
+  #endif
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor @preconcurrency public class PreloadManager : ObjectiveC.NSObject, WebKit.WKNavigationDelegate {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency @objc public func webView(_ webView: WebKit.WKWebView, didCommit navigation: WebKit.WKNavigation!)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency @objc public func webView(_ webView: WebKit.WKWebView, didFinish navigation: WebKit.WKNavigation!)
+  #endif
+  @_Concurrency.MainActor @preconcurrency public static func startPreload()
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public init()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc final public class RazorpayCheckout : ObjectiveC.NSObject {
+  @objc final public var upiTurbo: (any RazorpayCore.UPITurboUIPlugin)?
+  @available(*, unavailable, message: "This method is unavailable. Use initWithKey:andDelegate: instead. See https://docs.razorpay.com/docs/ios for more information.")
+  @objc public static func initWithKey(_ key: Swift.String, andDelegate delegate: any RazorpayCore.RazorpayPaymentCompletionProtocol, forViewController vc: UIKit.UIViewController)
+  @objc public static func initWithKey(_ key: Swift.String, andDelegate delegate: any RazorpayCore.RazorpayProtocol) -> RazorpayStandard.RazorpayCheckout
+  @objc public static func initWithKey(_ key: Swift.String, andDelegateWithData delegate: any RazorpayCore.RazorpayPaymentCompletionProtocolWithData, andHostedOptiConfig config: [Swift.String : Swift.String]) -> RazorpayStandard.RazorpayCheckout
+  @objc public static func initWithKey(_ key: Swift.String, andDelegateWithData delegate: any RazorpayCore.RazorpayPaymentCompletionProtocolWithData) -> RazorpayStandard.RazorpayCheckout
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public static func initWithKey(_ key: Swift.String, andDelegateWithData delegate: any RazorpayCore.RazorpayPaymentCompletionProtocolWithData, plugin: (any RazorpayCore.UPITurboUIPlugin)?) -> RazorpayStandard.RazorpayCheckout
+  #endif
+  @objc public static func publishUri(with data: Swift.String)
+  @objc final public func setExternalWalletSelectionDelegate(_ walletDelegate: any RazorpayCore.ExternalWalletSelectionProtocol)
+  @objc final public func open(_ options: [Swift.AnyHashable : Any], displayController: UIKit.UIViewController)
+  @objc final public func open(_ options: [Swift.AnyHashable : Any])
+  @objc final public func open(_ options: [Swift.AnyHashable : Any], displayController: UIKit.UIViewController, arrExternalPaymentEntities: [any RazorpayCore.PluginPaymentDelegate])
+  @objc public static func checkIntegration(withMerchantKey key: Swift.String)
+  @objc final public func open(_ options: [Swift.AnyHashable : Any], arrExternalPaymentEntities: [any RazorpayCore.PluginPaymentDelegate])
+  @objc final public func openMagicX(storefrontUrl: Swift.String, itemsData: Swift.String, withDelegate magicXProtocol: any RazorpayCore.MagicXResultProtocol)
+  @objc final public func close()
+  @objc final public func clearUserData()
+  @objc deinit
+}
+extension RazorpayStandard.PreloadManager : Swift.Sendable {}

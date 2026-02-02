@@ -1,0 +1,11 @@
+framework module RazorpayCore {
+  umbrella header "RazorpayCore-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module RazorpayCore.Swift {
+  header "RazorpayCore-Swift.h"
+  requires objc
+}

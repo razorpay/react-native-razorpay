@@ -1,0 +1,103 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.2.3 effective-4.2 (swiftlang-6.2.3.3.21 clang-1700.6.3.2)
+// swift-module-flags: -target arm64-apple-ios10.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 4.2 -enforce-exclusivity=checked -O -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -module-name Razorpay
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface -formal-cxx-interoperability-mode=off -interface-compiler-version 6.2.3
+import Foundation
+@_exported import Razorpay
+@_exported import RazorpayCore
+import Swift
+import UIKit
+import WebKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers final public class RazorpayCheckout : ObjectiveC.NSObject {
+  @objc public static let shared: Razorpay.RazorpayCheckout
+  @objc final public var upiTurbo: (any RazorpayCore.UPITurboPlugin)?
+  @objc final public var upiTurboUI: (any RazorpayCore.UPITurboUIPlugin)?
+  @objc deinit
+}
+extension Razorpay.RazorpayCheckout {
+  @objc public static func initWithKey(_ key: Swift.String, andDelegate delegate: any RazorpayCore.RazorpayProtocol) -> Razorpay.RazorpayCheckout
+  @objc public static func initWithKey(_ key: Swift.String, andDelegateWithData delegate: any RazorpayCore.RazorpayPaymentCompletionProtocolWithData) -> Razorpay.RazorpayCheckout
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public static func initWithKey(_ key: Swift.String, andDelegateWithData delegate: any RazorpayCore.RazorpayPaymentCompletionProtocolWithData, plugin: (any RazorpayCore.UPITurboUIPlugin)?) -> Razorpay.RazorpayCheckout
+  #endif
+  @objc public static func initWithKey(_ key: Swift.String, andDelegateWithData delegate: any RazorpayCore.RazorpayPaymentCompletionProtocolWithData, andHostedOptiConfig config: [Swift.String : Swift.String]) -> Razorpay.RazorpayCheckout
+  @objc public static func initWithKey(_ key: Swift.String, andDelegate delegate: any RazorpayCore.RazorpayProtocol, _ unified: Swift.Bool = true) throws -> Razorpay.RazorpayCheckout
+  @objc public static func initWithKey(_ key: Swift.String, andDelegateWithData delegate: any RazorpayCore.RazorpayPaymentCompletionProtocolWithData, _ unified: Swift.Bool = true) throws -> Razorpay.RazorpayCheckout
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public static func initWithKey(_ key: Swift.String, andDelegateWithData delegate: any RazorpayCore.RazorpayPaymentCompletionProtocolWithData, plugin: (any RazorpayCore.UPITurboUIPlugin)?, _ unified: Swift.Bool = true) throws -> Razorpay.RazorpayCheckout
+  #endif
+  @objc public static func initWithKey(_ key: Swift.String, andDelegateWithData delegate: any RazorpayCore.RazorpayPaymentCompletionProtocolWithData, andHostedOptiConfig config: [Swift.String : Swift.String], _ unified: Swift.Bool = true) throws -> Razorpay.RazorpayCheckout
+  @objc final public func setExternalWalletSelectionDelegate(_ walletDelegate: any RazorpayCore.ExternalWalletSelectionProtocol)
+  @objc final public func open(_ options: [Swift.AnyHashable : Any])
+  @objc final public func open(_ options: [Swift.AnyHashable : Any], displayController: UIKit.UIViewController)
+  @objc final public func open(_ options: [Swift.AnyHashable : Any], arrExternalPaymentEntities: [any RazorpayCore.PluginPaymentDelegate])
+  @objc final public func open(_ options: [Swift.AnyHashable : Any], displayController: UIKit.UIViewController, arrExternalPaymentEntities: [any RazorpayCore.PluginPaymentDelegate])
+  @objc final public func openMagicX(storefrontUrl: Swift.String, itemsData: Swift.String, withDelegate magicXProtocol: any RazorpayCore.MagicXResultProtocol)
+  @objc public static func clearUserData()
+  @objc public static func checkIntegration(withMerchantKey key: Swift.String)
+}
+extension Razorpay.RazorpayCheckout {
+  @objc public static func initWithKey(_ key: Swift.String, andDelegate delegate: any RazorpayCore.RazorpayPaymentCompletionProtocol, withPaymentWebView merchantWebView: WebKit.WKWebView) -> Razorpay.RazorpayCheckout
+  @objc public static func initWithKey(_ key: Swift.String, andDelegate delegate: any RazorpayCore.RazorpayPaymentCompletionProtocol, withPaymentWebView merchantWebView: WebKit.WKWebView, plugin: any RazorpayCore.UPITurboPlugin) -> Razorpay.RazorpayCheckout
+  @objc public static func initWithKey(_ key: Swift.String, andDelegate delegate: any RazorpayCore.RazorpayPaymentCompletionProtocol, withPaymentWebView merchantWebView: WebKit.WKWebView, UIPlugin: any RazorpayCore.UPITurboUIPlugin) -> Razorpay.RazorpayCheckout
+  @objc public static func initWithKey(_ key: Swift.String) -> Razorpay.RazorpayCheckout
+  @objc public static func initWithKey(_ key: Swift.String, andDelegate delegate: any RazorpayCore.RazorpayPaymentCompletionProtocol, withPaymentWebView merchantWebView: WebKit.WKWebView, _ unified: Swift.Bool = true) throws -> Razorpay.RazorpayCheckout
+  @objc public static func initWithKey(_ key: Swift.String, andDelegate delegate: any RazorpayCore.RazorpayPaymentCompletionProtocol, withPaymentWebView merchantWebView: WebKit.WKWebView, plugin: any RazorpayCore.UPITurboPlugin, _ unified: Swift.Bool = true) throws -> Razorpay.RazorpayCheckout
+  @objc public static func initWithKey(_ key: Swift.String, andDelegate delegate: any RazorpayCore.RazorpayPaymentCompletionProtocol, withPaymentWebView merchantWebView: WebKit.WKWebView, UIPlugin: any RazorpayCore.UPITurboUIPlugin, _ unified: Swift.Bool = true) throws -> Razorpay.RazorpayCheckout
+  @objc public static func initWithKey(_ key: Swift.String, _ unified: Swift.Bool = true) throws -> Razorpay.RazorpayCheckout
+  @objc final public func publishUri(with data: Swift.String) throws
+  @objc final public func close()
+  @objc final public func changeApiKey(_ newApiKey: Swift.String)
+  @objc final public func payWithCred(withOptions options: [Swift.AnyHashable : Any], withSuccessCallback success: @escaping ([Swift.AnyHashable : Any]) -> Swift.Void, andFailureCallback failure: @escaping (Swift.String) -> Swift.Void)
+  @objc final public func getCardFlows(_ options: [Swift.AnyHashable : Any], withCallback: @escaping (Swift.Bool) -> Swift.Void)
+  @objc final public func getCardOtpData(response: @escaping (Swift.Bool) -> Swift.Void)
+  @objc public static func submitOtp(otp: Swift.String)
+  @objc public static func resendOtp(response: @escaping (Swift.Bool) -> Swift.Void)
+  @objc public static func redirectToBankPage()
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc public static func getPaymentMethods(withOptions options: [Swift.AnyHashable : Any]?, withSuccessCallback success: @escaping ([Swift.AnyHashable : Any]) -> Swift.Void, andFailureCallback failure: @escaping (Swift.String) -> Swift.Void)
+  #endif
+  @objc public static func getSubscriptionAmount(havingSubscriptionId subId: Swift.String, withSuccessCallback success: @escaping (Swift.UInt64) -> Swift.Void, andFailureCallback failure: @escaping (Swift.String) -> Swift.Void)
+  @objc public static func getSubscriptionAmount(options: [Swift.AnyHashable : Any], withSuccessCallback success: @escaping (Swift.UInt64) -> Swift.Void, andFailureCallback failure: @escaping (Swift.String) -> Swift.Void)
+  @objc final public func authorize(_ options: [Swift.AnyHashable : Any])
+  @objc public static func openCheckout(dict: [Swift.AnyHashable : Any])
+  @objc final public func userCancelledPayment()
+  @objc final public func decodeURI(from data: Swift.String)
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc final public func webView(_ webView: WebKit.WKWebView, didCommit navigation: WebKit.WKNavigation!)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc final public func webView(_ webView: WebKit.WKWebView, didFailProvisionalNavigation navigation: WebKit.WKNavigation!, withError er: any Swift.Error)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc final public func webView(_ webView: WebKit.WKWebView, didFail navigation: WebKit.WKNavigation!, withError er: any Swift.Error)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc final public func webView(_ webView: WebKit.WKWebView, didFinish navigation: WebKit.WKNavigation!)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc final public func webView(_ webView: WebKit.WKWebView, decidePolicyFor navigationAction: WebKit.WKNavigationAction, checkoutInstance: Any?, handler decisionHandler: @escaping (WebKit.WKNavigationActionPolicy) -> Swift.Void)
+  #endif
+  @objc final public func getCardNetwork(fromCardNumber cardNumber: Swift.String) -> Swift.String
+  @objc public static func getAppsWhichSupportUpi(handler: @escaping ([[Swift.AnyHashable : Any]]) -> Swift.Void)
+  @objc public static func getAppsWhichSupportUpiRecurring(handler: @escaping ([[Swift.AnyHashable : Any]]) -> Swift.Void)
+  @objc final public func isCardValid(_ cardNumber: Swift.String) -> Swift.Bool
+  @objc final public func isValidVpa(_ vpa: Swift.String, withSuccessCallback success: @escaping ([Swift.AnyHashable : Any]) -> Swift.Void, withFailure failure: @escaping ([Swift.AnyHashable : Any]) -> Swift.Void)
+  @objc final public func getCardNetworkLength(ofNetwork network: Swift.String) -> Swift.Int
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc final public func getBankLogo(havingBankCode bankCode: Swift.String) -> Foundation.URL?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc final public func getWalletSqLogo(havingWalletName name: Swift.String) -> Foundation.URL?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc final public func getWalletLogo(havingWalletName name: Swift.String) -> Foundation.URL?
+  #endif
+  @objc public static func payWithExternalPaymentEntity(options: [Swift.AnyHashable : Any], arrExternalPaymentEntities: [any RazorpayCore.PluginPaymentDelegate])
+  @objc final public func setWebView(_ webView: WebKit.WKWebView) throws
+  @objc final public func setDelegate(_ delegate: any RazorpayCore.RazorpayPaymentCompletionProtocol) throws
+  @objc final public func handleRedirection(_ url: Swift.String) -> Swift.Bool
+}

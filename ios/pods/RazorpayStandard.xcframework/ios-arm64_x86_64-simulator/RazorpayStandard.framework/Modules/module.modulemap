@@ -1,0 +1,4 @@
+framework module RazorpayStandard {
+  header "RazorpayStandard-Swift.h"
+  requires objc
+}

@@ -18,6 +18,6 @@ Pod::Spec.new do |s|
 
   s.dependency 'React'
   # s.dependency 'razorpay-pod', '1.5.0'
-  s.vendored_frameworks = ['ios/pods/Razorpay.xcframework', 'ios/pods/core/RazorpayCore.xcframework', 'ios/pods/RazorpayStandard.xcframework']
+  s.vendored_frameworks = ['ios/pods/Razorpay.xcframework', 'ios/pods/RazorpayCore.xcframework', 'ios/pods/RazorpayStandard.xcframework']
 
 end

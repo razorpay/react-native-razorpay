@@ -10,11 +10,12 @@ Pod::Spec.new do |s|
 
   s.authors      = package['author']
   s.homepage     = package['homepage']
-  s.platform     = :ios, "10.0"
-  s.ios.deployment_target = '10.0'
+  s.platform     = :ios, "12.0"
+  s.ios.deployment_target = '12.0'
 
   s.source       = { :git => "https://github.com/razorpay/react-native-razorpay.git", :tag => "v#{s.version}" }
-  s.source_files  = "ios/**/*.{h,m}"
+  s.source_files  = "ios/**/*.{h,m,mm}"
+  s.exclude_files = "ios/pods/**/*"
 
   s.dependency 'React'
   

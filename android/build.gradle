@@ -1,7 +1,19 @@
 apply plugin: 'com.android.library'
+
+// Function to check if new architecture is enabled
+def isNewArchitectureEnabled() {
+    return project.hasProperty("newArchEnabled") && project.newArchEnabled == "true"
+}
+
+// Apply React Native plugin for new architecture
+if (isNewArchitectureEnabled()) {
+    apply plugin: "com.facebook.react"
+}
+
 repositories {
     mavenCentral()
 }
+
 def safeExtGet(prop, fallback) {
     rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
 }
@@ -9,20 +21,50 @@ def safeExtGet(prop, fallback) {
 android {
     compileSdkVersion safeExtGet('compileSdkVersion', 28)
 
-
     defaultConfig {
         minSdkVersion safeExtGet('minSdkVersion', 16)
         targetSdkVersion safeExtGet('targetSdkVersion', 28)
         versionCode 1
         versionName "1.0"
+
+        buildConfigField("boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString())
     }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
     buildFeatures {
-        buildConfig false
+        buildConfig true
+    }
+
+    sourceSets {
+        main {
+            if (isNewArchitectureEnabled()) {
+                java.srcDirs += [
+                    "src/newarch"
+                ]
+            } else {
+                java.srcDirs += [
+                    "src/oldarch"
+                ]
+            }
+        }
     }
 }
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
     implementation 'com.razorpay:standard-core:1.7.1'
+}
+
+// Add codegen configuration for new architecture
+if (isNewArchitectureEnabled()) {
+    react {
+        libraryName = "RNRazorpayCheckout"
+        codegenJavaPackageName = "com.razorpay.rn"
+    }
 }
 

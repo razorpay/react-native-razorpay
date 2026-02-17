@@ -11,6 +11,14 @@
     "type": "git",
     "url": "git+https://github.com/razorpay/react-native-razorpay.git"
   },
+  "codegenConfig": {
+    "name": "RNRazorpayCheckoutSpec",
+    "type": "modules",
+    "jsSrcsDir": "src",
+    "android": {
+      "javaPackageName": "com.razorpay.rn"
+    }
+  },
   "peerDependencies": {
     "react": ">=16.8.0",
     "react-native": ">=0.66.0"

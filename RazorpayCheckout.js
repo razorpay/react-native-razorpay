@@ -2,7 +2,29 @@
 
 import { NativeModules, NativeEventEmitter } from 'react-native';
 
-const razorpayEvents = new NativeEventEmitter(NativeModules.RazorpayEventEmitter);
+// Runtime detection for new architecture
+const isTurboModuleEnabled = global.__turboModuleProxy != null;
+
+let RazorpayCheckoutModule;
+let RazorpayEventEmitterModule;
+
+if (isTurboModuleEnabled) {
+  // New Architecture - Try to load TurboModule specs
+  try {
+    RazorpayCheckoutModule = require('./src/NativeRazorpayCheckout').default;
+    RazorpayEventEmitterModule = require('./src/NativeRazorpayEventEmitter').default;
+  } catch (error) {
+    // Fallback to old architecture if TurboModule not available
+    RazorpayCheckoutModule = NativeModules.RNRazorpayCheckout;
+    RazorpayEventEmitterModule = NativeModules.RazorpayEventEmitter;
+  }
+} else {
+  // Old Architecture
+  RazorpayCheckoutModule = NativeModules.RNRazorpayCheckout;
+  RazorpayEventEmitterModule = NativeModules.RazorpayEventEmitter;
+}
+
+const razorpayEvents = new NativeEventEmitter(RazorpayEventEmitterModule);
 
 const removeSubscriptions = () => {
   razorpayEvents.removeAllListeners('Razorpay::PAYMENT_SUCCESS');
@@ -23,7 +45,7 @@ class RazorpayCheckout {
         rejectFn(data);
         removeSubscriptions();
       });
-      NativeModules.RNRazorpayCheckout.open(options);
+      RazorpayCheckoutModule.open(options);
     });
   }
   static onExternalWalletSelection(externalWalletCallback) {

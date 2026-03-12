@@ -42,3 +42,10 @@ android/keystores/debug.keystore
 node_modules
 .yarn
 .cursorignore
+
+# Detox E2E Testing
+e2e/artifacts/*.png
+e2e/artifacts/*.mp4
+e2e/artifacts/*.log
+e2e/artifacts/*.dtxrec
+*.detox.log

@@ -30,23 +30,27 @@ function AppContent() {
   return (
     <View style={styles.container}>
       
-      <Button title="Pay" onPress={() => {
-        console.log("Paying");
-        RazorpayCheckout.open({
-          "description": "Test Payment",
-          "currency": "INR",
-          "amount": "100",
-          "name": "Test App - React Native",
-          "theme": {
-              "color": "#F37254"
-              },
-              "key":"rzp_test_1DP5mmOlF5G5ag"
-        }).then((data) => {
-          console.log(data);
-        }).catch((error) => {
-          console.log(error);
-        });
-      }} />
+      <Button
+        title="Pay"
+        testID="pay-button"
+        onPress={() => {
+          console.log("Paying");
+          RazorpayCheckout.open({
+            "description": "Test Payment",
+            "currency": "INR",
+            "amount": "100",
+            "name": "Test App - React Native",
+            "theme": {
+                "color": "#F37254"
+                },
+                "key":"rzp_test_1sjnKZ3EsBduvp"
+          }).then((data) => {
+            console.log(data);
+          }).catch((error) => {
+            console.log(error);
+          });
+        }}
+      />
     </View>
   );
 }

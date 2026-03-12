@@ -8,22 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		056D5A042C84869DB3638901 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
-		05913FCA83B5F9CAEF872A8F /* libPods-NewArchSample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECD3411656BBF695B934CF94 /* libPods-NewArchSample.a */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		669859F13D056D9D09C46CB0 /* libPods-NewArchSample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65F9869097302F2B6CE17547 /* libPods-NewArchSample.a */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0894A57AEE967BAE78159F9E /* Pods-NewArchSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewArchSample.release.xcconfig"; path = "Target Support Files/Pods-NewArchSample/Pods-NewArchSample.release.xcconfig"; sourceTree = "<group>"; };
+		09CA6EB6A5ADB641C7AD215F /* Pods-NewArchSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewArchSample.debug.xcconfig"; path = "Target Support Files/Pods-NewArchSample/Pods-NewArchSample.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* NewArchSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewArchSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = NewArchSample/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = NewArchSample/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = NewArchSample/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		1C6897048FA49856C0E9D916 /* Pods-NewArchSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewArchSample.debug.xcconfig"; path = "Target Support Files/Pods-NewArchSample/Pods-NewArchSample.debug.xcconfig"; sourceTree = "<group>"; };
+		65F9869097302F2B6CE17547 /* libPods-NewArchSample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NewArchSample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = NewArchSample/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = NewArchSample/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		9D0D7FEA1A97152DD59E0B51 /* Pods-NewArchSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewArchSample.release.xcconfig"; path = "Target Support Files/Pods-NewArchSample/Pods-NewArchSample.release.xcconfig"; sourceTree = "<group>"; };
-		ECD3411656BBF695B934CF94 /* libPods-NewArchSample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NewArchSample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -32,7 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05913FCA83B5F9CAEF872A8F /* libPods-NewArchSample.a in Frameworks */,
+				669859F13D056D9D09C46CB0 /* libPods-NewArchSample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,7 +55,7 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				ECD3411656BBF695B934CF94 /* libPods-NewArchSample.a */,
+				65F9869097302F2B6CE17547 /* libPods-NewArchSample.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -92,8 +92,8 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				1C6897048FA49856C0E9D916 /* Pods-NewArchSample.debug.xcconfig */,
-				9D0D7FEA1A97152DD59E0B51 /* Pods-NewArchSample.release.xcconfig */,
+				09CA6EB6A5ADB641C7AD215F /* Pods-NewArchSample.debug.xcconfig */,
+				0894A57AEE967BAE78159F9E /* Pods-NewArchSample.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -105,13 +105,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "NewArchSample" */;
 			buildPhases = (
-				F5FC3676D531309B191A7E70 /* [CP] Check Pods Manifest.lock */,
+				D30BCFC1A8322CD5AC6A13EE /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				607162068B9656300338ECF6 /* [CP] Embed Pods Frameworks */,
-				42D8FFBBFD98506F40ADF68D /* [CP] Copy Pods Resources */,
+				677E077B01097F3FFCB2748B /* [CP] Embed Pods Frameworks */,
+				F90C916235F19821EB9A71DC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -183,24 +183,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"\\\"$WITH_ENVIRONMENT\\\" \\\"$REACT_NATIVE_XCODE\\\"\"\n";
 		};
-		42D8FFBBFD98506F40ADF68D /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NewArchSample/Pods-NewArchSample-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NewArchSample/Pods-NewArchSample-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NewArchSample/Pods-NewArchSample-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		607162068B9656300338ECF6 /* [CP] Embed Pods Frameworks */ = {
+		677E077B01097F3FFCB2748B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -217,7 +200,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NewArchSample/Pods-NewArchSample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F5FC3676D531309B191A7E70 /* [CP] Check Pods Manifest.lock */ = {
+		D30BCFC1A8322CD5AC6A13EE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -239,6 +222,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		F90C916235F19821EB9A71DC /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NewArchSample/Pods-NewArchSample-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NewArchSample/Pods-NewArchSample-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NewArchSample/Pods-NewArchSample-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -255,7 +255,7 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1C6897048FA49856C0E9D916 /* Pods-NewArchSample.debug.xcconfig */;
+			baseConfigurationReference = 09CA6EB6A5ADB641C7AD215F /* Pods-NewArchSample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -284,7 +284,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9D0D7FEA1A97152DD59E0B51 /* Pods-NewArchSample.release.xcconfig */;
+			baseConfigurationReference = 0894A57AEE967BAE78159F9E /* Pods-NewArchSample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

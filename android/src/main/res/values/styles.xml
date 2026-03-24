@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Theme for Razorpay Checkout to opt out of edge-to-edge -->
+    <style name="RazorpayCheckoutTheme" parent="CheckoutTheme">
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+    </style>
+</resources> 

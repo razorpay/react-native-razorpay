@@ -6,11 +6,15 @@
 //  Copyright © 2016 Facebook. All rights reserved.
 //
 
-#import "RCTEventEmitter.h"
+#import "React/RCTEventEmitter.h"
 
+#ifdef RCT_NEW_ARCH_ENABLED
+#import <RNRazorpayCheckoutSpec/RNRazorpayCheckoutSpec.h>
 
-
+@interface RazorpayEventEmitter : RCTEventEmitter <NativeRazorpayEventEmitterSpec>
+#else
 @interface RazorpayEventEmitter : RCTEventEmitter
+#endif
 
 + (void)onPaymentSuccess:(NSString *)payment_id
                  andData:(NSDictionary *)response;

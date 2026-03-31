@@ -34,9 +34,9 @@ class example extends Component {
           },
           name: 'foo',
           prefill: {
-            email: 'akshay@razorpay.com',
-            contact: '8955806560',
-            name: 'Akshay Bhalotia'
+            email: 'gaurav@example.com',
+            contact: '9999999999',
+            name: 'Gaurav Kumar'
           },
           theme: {color: '#F37254'}
         }

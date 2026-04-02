@@ -2,8 +2,12 @@
 
 import { NativeModules, NativeEventEmitter } from 'react-native';
 
-// Runtime detection for new architecture
-const isTurboModuleEnabled = global.__turboModuleProxy != null;
+// Runtime detection for new architecture.
+// RN <0.74 uses __turboModuleProxy; RN >=0.74 (bridgeless) exposes TurboModuleRegistry and nativeFabricUIManager instead.
+const isTurboModuleEnabled =
+  global.__turboModuleProxy != null ||
+  global.TurboModuleRegistry != null ||
+  global.nativeFabricUIManager != null;
 
 let RazorpayCheckoutModule;
 let RazorpayEventEmitterModule;

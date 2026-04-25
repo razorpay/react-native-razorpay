@@ -1,2 +1,34 @@
-example/*
+example/
 DeploymentScripts/
+Scripts/
+
+# Android build artifacts
+android/build/
+android/.gradle/
+android/.idea/
+android/local.properties
+
+# iOS build artifacts
+ios/build/
+ios/DerivedData/
+
+# OS files
+.DS_Store
+
+# IDE files
+.idea/
+*.iml
+
+# Git
+.github/
+
+# CI
+.semgrepignore
+.cursorignore
+
+# Claude Code
+.claude/
+
+# Dev files
+sampleApps/
+yarn.lock

@@ -10,6 +10,19 @@
     "type": "git",
     "url": "git+https://github.com/razorpay/react-native-razorpay.git"
   },
+  "react-native": {
+    "newArchEnabled": true
+  },
+  "expo": {
+    "plugins": [
+      [
+        "react-native-razorpay",
+        {
+          "newArchEnabled": true
+        }
+      ]
+    ]
+  },
   "codegenConfig": {
     "name": "RNRazorpayCheckoutSpec",
     "type": "modules",

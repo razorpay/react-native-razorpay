@@ -98,6 +98,15 @@ typedef RazorpayCheckout Razorpay;
     decisionHandler(WKNavigationActionPolicyAllow);
 }
 
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
+    if ([self.oldDelegate respondsToSelector:@selector(webView:decidePolicyForNavigationResponse:decisionHandler:)]) {
+        [self.oldDelegate webView:webView decidePolicyForNavigationResponse:navigationResponse decisionHandler:decisionHandler];
+        return;
+    }
+    
+    decisionHandler(WKNavigationResponsePolicyAllow);
+}
+
 - (id)forwardingTargetForSelector:(SEL)aSelector {
     if ([self.oldDelegate respondsToSelector:aSelector]) {
         return self.oldDelegate;
@@ -117,7 +126,12 @@ typedef RazorpayCheckout Razorpay;
 @interface RNRazorpayCheckout () <RazorpayPaymentCompletionProtocolWithData,
 ExternalWalletSelectionProtocol>
 
-@property (nonatomic, strong) RazorpayWebViewNavigationDelegate *navigationDelegateProxy;
+// Retains exactly one proxy per webview (weak key so entries are cleared when
+// the webview is deallocated). Keying by webview -- rather than a single
+// strong property -- prevents an older proxy from being deallocated out from
+// under a still-attached weak `navigationDelegate`/`oldDelegate` reference
+// when injection runs more than once (e.g. repeated pixel events).
+@property (nonatomic, strong) NSMapTable<WKWebView *, RazorpayWebViewNavigationDelegate *> *webViewNavigationDelegateProxies;
 
 @end
 
@@ -478,16 +492,28 @@ RCT_EXPORT_METHOD(injectJavascriptIntoWebView:(NSString *)javascript isCheckoutS
 
 - (void)proxyWebViewNavigationDelegateAndInjectJavascript:(WKWebView *)webView javascript:(NSString *)javascript {
     NSLog(@"[Razorpay][iOS] proxyWebViewNavigationDelegateAndInjectJavascript");
-    
-    id<WKNavigationDelegate> oldDelegate = webView.navigationDelegate;
-    
-    RazorpayWebViewNavigationDelegate *newDelegate = [[RazorpayWebViewNavigationDelegate alloc] initWithOldDelegate:oldDelegate javascript:javascript];
-    newDelegate.owner = self; // to call evaluateScript helper
-    
-    // Keep a strong reference; WKWebView.navigationDelegate is weak.
-    self.navigationDelegateProxy = newDelegate;
-    webView.navigationDelegate = newDelegate;
-    
+
+    if (self.webViewNavigationDelegateProxies == nil) {
+        self.webViewNavigationDelegateProxies = [NSMapTable weakToStrongObjectsMapTable];
+    }
+
+    RazorpayWebViewNavigationDelegate *existingProxy = [self.webViewNavigationDelegateProxies objectForKey:webView];
+    if (existingProxy != nil && webView.navigationDelegate == existingProxy) {
+        // Already proxying this webview; just refresh the script to inject and
+        // leave the existing delegate chain (and its oldDelegate) untouched.
+        NSLog(@"[Razorpay][iOS] Reusing existing navigation delegate proxy for webview");
+        existingProxy.javascript = javascript;
+    } else {
+        id<WKNavigationDelegate> oldDelegate = webView.navigationDelegate;
+
+        RazorpayWebViewNavigationDelegate *newDelegate = [[RazorpayWebViewNavigationDelegate alloc] initWithOldDelegate:oldDelegate javascript:javascript];
+        newDelegate.owner = self; // to call evaluateScript helper
+
+        // Keep a strong reference keyed by webview; WKWebView.navigationDelegate is weak.
+        [self.webViewNavigationDelegateProxies setObject:newDelegate forKey:webView];
+        webView.navigationDelegate = newDelegate;
+    }
+
     // Also attach a user script to run at document start for all frames.
     WKUserContentController *controller = webView.configuration.userContentController;
     WKUserScript *userScript = [[WKUserScript alloc] initWithSource:javascript
@@ -497,7 +523,7 @@ RCT_EXPORT_METHOD(injectJavascriptIntoWebView:(NSString *)javascript isCheckoutS
     
     // Also inject immediately in case the page is already loaded.
     [self evaluateScript:javascript onWebView:webView context:@"immediate injection"];
-    
+
     // Probe current document state for debugging
     NSString *probe = @"(function(){return {readyState: document.readyState, url: window.location.href};})();";
     [self evaluateScript:probe onWebView:webView context:@"probe readyState"];

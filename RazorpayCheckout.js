@@ -64,7 +64,13 @@ class RazorpayCheckout {
     const appShortCodesWhichSupportUpi = [];
     for (const appShortCode in appsListToVerifyAgainst) {
       console.log("appShortCode", appShortCode);
-      const canOpen = await Linking.canOpenURL(appsListToVerifyAgainst[appShortCode]);
+      // canOpenURL rejects (rather than resolving false) for schemes not
+      // whitelisted in LSApplicationQueriesSchemes. Catch per-app so one
+      // unwhitelisted/misbehaving scheme doesn't discard apps already found.
+      const canOpen = await Linking.canOpenURL(appsListToVerifyAgainst[appShortCode]).catch(err => {
+        console.warn(`canOpenURL failed for ${appShortCode}; treating as not installed`, err);
+        return false;
+      });
       console.log("canOpen", canOpen);
       if (canOpen) {
         appShortCodesWhichSupportUpi.push(appShortCode);

@@ -70,3 +70,14 @@ export type ExternalWalletData = {
   external_wallet: string;
   [key: string]: any;
 };
+
+export type OrderApiConfig = {
+  url: string;
+  headers?: { [key: string]: string };
+};
+
+export type MockOrderResponse = {
+  id: number;
+  title?: string;
+  [key: string]: any;
+};

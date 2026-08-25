@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.1.0]
+
+### Added
+
+- `RazorpayCheckout.createAndOpen(payload, apiConfig?, options?)` — performs an HTTP call
+  (defaults to a JSONPlaceholder mock endpoint), logs the response, maps it into checkout
+  options (`order_id`, `currency`), and opens the standard payment sheet via the existing
+  `open()` flow. Throws structured errors `NETWORK_ERROR` / `ORDER_API_ERROR` before any
+  native invocation if the API call fails. No native changes; fully backward compatible.
+
 ## [Unreleased](https://github.com/razorpay/react-native-razorpay/tree/HEAD)
 
 [Full Changelog](https://github.com/razorpay/react-native-razorpay/compare/v2.1.33...HEAD)

@@ -22,6 +22,22 @@ describe('open() behaviour is frozen', () => {
     await expect(promise).rejects.toEqual({ code: 0, description: 'cancelled' });
   });
 
+  // Ordering matters: the native SDK can emit its result as soon as it launches.
+  // If listener registration happens after the native open() call, that emission
+  // has no listener to catch it and the promise never settles, orphaning the
+  // payment. Capture listener count from inside the native mock's own
+  // implementation so we see state at the exact moment open() is invoked,
+  // rather than after — a post-hoc check can't tell the two orderings apart.
+  it('should register listeners then call native open', () => {
+    const ts = makeSuite();
+    let listenersAtCallTime = -1;
+    ts.native.open.mockImplementation(() => {
+      listenersAtCallTime = ts.emitter.listenerCount(EVENTS.success);
+    });
+    ts.RazorpayCheckout.open({ key: 'k' });
+    expect(listenersAtCallTime).toBe(1);
+  });
+
   it('should prefer successCallback then never resolve the promise', async () => {
     const ts = makeSuite();
     const onSuccess = jest.fn();

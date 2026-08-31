@@ -23,8 +23,8 @@ function makeHttp(responses) {
   const calls = [];
   return {
     calls,
-    post: jest.fn((url, body) => {
-      calls.push({ url, body });
+    post: jest.fn((url, body, options) => {
+      calls.push({ url, body, options });
       const next = queue.shift();
       if (next instanceof Error) return Promise.reject(next);
       return Promise.resolve(next);
@@ -72,6 +72,31 @@ describe('openMagicCheckout', () => {
       order_status_url: 'https://s/o/1',
       payment_id: 'pay_1',
       status: 'placed',
+    });
+  });
+
+  // SF1. This is the request that turns a captured payment into a Shopify
+  // order. If `key` or `razorpay_signature` ever stops reaching the wire the
+  // backend rejects every confirmation, so the body is pinned field by field
+  // rather than through the client boundary alone.
+  it('should post the handle to complete then send order id payment id signature and key', async () => {
+    const host = makeHost();
+    const http = makeHttp([
+      { status: 200, data: { order_id: 'order_1', experiments: {} } },
+      { status: 200, data: { order_id: 'shop_1' } },
+    ]);
+    const sdk = createMagicCheckout({ host, http, now: () => 0 });
+
+    const promise = sdk.openMagicCheckout(OPTIONS);
+    await flush();
+    host.handlers.onSuccess(SUCCESS);
+    await promise;
+
+    expect(http.calls[1].body).toEqual({
+      razorpay_order_id: 'order_1',
+      razorpay_payment_id: 'pay_1',
+      razorpay_signature: 'sig_1',
+      key: 'rzp_test_k',
     });
   });
 
@@ -313,6 +338,7 @@ describe('openMagicCheckout', () => {
 
     await expect(promise).rejects.toMatchObject({
       code: MAGIC_ERROR_CODES.COMPLETE_FAILED,
+      reason: 'non_error_rejection',
       details: {
         handle: {
           razorpay_order_id: 'order_1',
@@ -322,6 +348,47 @@ describe('openMagicCheckout', () => {
         },
       },
     });
+  });
+
+  // SF4. An exception thrown inside our own SDK and a client that rejected
+  // with a bare string are different incidents; `reason` is the field they get
+  // split by, so it must not collapse them into one bucket.
+  it('should distinguish a thrown Error then report its type as the reason', async () => {
+    const host = makeHost();
+    const client = {
+      init: jest.fn(() => Promise.resolve({ order_id: 'order_1', experiments: {} })),
+      complete: jest.fn(() => Promise.reject(new TypeError('x is not a function'))),
+    };
+    const openMagicCheckout = makeOpenMagicCheckout({ host, client });
+
+    const promise = openMagicCheckout(OPTIONS);
+    await flush();
+    host.handlers.onSuccess(SUCCESS);
+
+    await expect(promise).rejects.toMatchObject({
+      code: MAGIC_ERROR_CODES.COMPLETE_FAILED,
+      reason: 'unexpected_TypeError',
+      details: {
+        original: 'x is not a function',
+        handle: { razorpay_payment_id: 'pay_1', key: 'rzp_test_k' },
+      },
+    });
+  });
+
+  it('should pass the server-tuned budget through then hand it to complete', async () => {
+    const host = makeHost();
+    const http = makeHttp([
+      { status: 200, data: { order_id: 'order_1', poll_budget_ms: 3000 } },
+      { status: 200, data: {} },
+    ]);
+    const sdk = createMagicCheckout({ host, http, now: () => 0 });
+
+    const promise = sdk.openMagicCheckout(OPTIONS);
+    await flush();
+    host.handlers.onSuccess(SUCCESS);
+    await promise;
+
+    expect(http.calls[1].options.timeout).toBeLessThanOrEqual(3000);
   });
 
   const invalid = {

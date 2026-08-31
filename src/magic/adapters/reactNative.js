@@ -28,19 +28,46 @@ export function createReactNativeHost() {
 
 // React Native ships fetch, so this adds no dependency. It exists as a port so
 // the core can be tested without a network and reused by a non-RN wrapper.
+//
+// RN's fetch never sets a timeout of its own -- on Android the socket read is
+// unbounded -- so the wall-clock bound the core asks for has to be enforced
+// here, with AbortController (also built into RN). An aborted request rejects,
+// which the core already classifies as a transport failure and retries.
 export function createFetchHttp() {
   return {
-    post(url, body) {
-      return fetch(url, {
+    post(url, body, options) {
+      const timeout = options && options.timeout;
+      const controller =
+        typeof AbortController === 'function' && timeout > 0 ? new AbortController() : null;
+      const timer = controller ? setTimeout(() => controller.abort(), timeout) : null;
+      const clear = () => {
+        if (timer) clearTimeout(timer);
+      };
+
+      const init = {
         method: 'POST',
         headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
-      }).then((res) =>
-        res
-          .json()
-          .catch(() => ({}))
-          .then((data) => ({ status: res.status, data }))
-      );
+      };
+      if (controller) init.signal = controller.signal;
+
+      return fetch(url, init)
+        .then((res) =>
+          res
+            .json()
+            .catch(() => ({}))
+            .then((data) => ({ status: res.status, data }))
+        )
+        .then(
+          (result) => {
+            clear();
+            return result;
+          },
+          (err) => {
+            clear();
+            throw err;
+          }
+        );
     },
   };
 }

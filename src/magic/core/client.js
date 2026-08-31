@@ -3,7 +3,7 @@
 import {
   initUrl,
   completeUrl,
-  POLL_BUDGET_MS,
+  resolvePollBudgetMs,
   BACKOFF_INITIAL_MS,
   BACKOFF_CAP_MS,
 } from './endpoints';
@@ -53,22 +53,35 @@ export function createClient(http) {
         {}
       );
     }
-    return { order_id: data.order_id, experiments: data.experiments };
+    return {
+      order_id: data.order_id,
+      experiments: data.experiments,
+      poll_budget_ms: resolvePollBudgetMs(data.poll_budget_ms),
+    };
   }
 
   // Confirms MCS RECEIVED the request; it does not wait for the Shopify order.
   // Once MCS has it, the mutex, the 24h placed-marker and the SQS worker own
   // the outcome, so the client waiting longer changes nothing a shopper sees.
-  async function complete(key, experiments, handle, now) {
+  async function complete(key, experiments, handle, now, budgetMs) {
     const url = completeUrl(key, experiments);
+    const budget = resolvePollBudgetMs(budgetMs);
     const started = now();
     let attempt = 0;
 
     for (;;) {
+      // The budget has to bound the request itself, not just the gaps between
+      // attempts. By this point a payment has been captured, and the transports
+      // we run on (RN's fetch, and OkHttp under it) impose no read timeout of
+      // their own -- so an unbounded attempt would leave the caller holding a
+      // promise that never settles over money that has already moved.
+      const remaining = budget - (now() - started);
+      if (remaining <= 0) return { status: 'pending', data: {} };
+
       let res;
       let transportError = null;
       try {
-        res = await http.post(url, handle);
+        res = await http.post(url, handle, { timeout: remaining });
       } catch (e) {
         transportError = e;
       }
@@ -91,7 +104,7 @@ export function createClient(http) {
 
       // 5xx or transport failure: retry is safe because MCS is idempotent
       // (mutex + 24h marker + Shopify search fallback).
-      if (now() - started >= POLL_BUDGET_MS) {
+      if (now() - started >= budget) {
         return { status: 'pending', data: {} };
       }
       await sleep(backoffFor(attempt));

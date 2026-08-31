@@ -20,11 +20,18 @@ function validate(options) {
 // public API surface -- a future client swap, or any other rejection shape
 // (a string, a plain object), must not throw trying to attach `.details`.
 // Normalising here means the handle always has somewhere safe to land.
-function asMagicCheckoutError(err, reason) {
+//
+// The reason is derived, not passed in: "our own SDK threw a TypeError" and
+// "the client rejected with a bare string" are different incidents, and `reason`
+// is the field an on-call engineer splits MAGIC_COMPLETE_FAILED by first.
+function asMagicCheckoutError(err) {
   if (err instanceof MagicCheckoutError) return err;
-  return new MagicCheckoutError(MAGIC_ERROR_CODES.COMPLETE_FAILED, reason, {
-    original: err instanceof Error ? err.message : err,
-  });
+  const isError = err instanceof Error;
+  return new MagicCheckoutError(
+    MAGIC_ERROR_CODES.COMPLETE_FAILED,
+    isError ? `unexpected_${err.name}` : 'non_error_rejection',
+    { original: isError ? err.message : err }
+  );
 }
 
 export function makeOpenMagicCheckout({ host, client }) {
@@ -40,7 +47,7 @@ export function makeOpenMagicCheckout({ host, client }) {
 
     return client
       .init(key, { cart_id, storefront_access_token })
-      .then(({ order_id, experiments }) => {
+      .then(({ order_id, experiments, poll_budget_ms }) => {
         return new Promise((resolve, reject) => {
           let unsubscribe = null;
           const release = () => {
@@ -96,7 +103,7 @@ export function makeOpenMagicCheckout({ host, client }) {
               }
 
               client
-                .complete(key, experiments, handle)
+                .complete(key, experiments, handle, poll_budget_ms)
                 .then((result) => {
                   resolve({
                     order_id: result.data.order_id,
@@ -110,7 +117,7 @@ export function makeOpenMagicCheckout({ host, client }) {
                   // Every phase-3 rejection must carry the handle -- it is
                   // the on-call recovery path for a payment that was
                   // captured but never turned into a Shopify order.
-                  const normalized = asMagicCheckoutError(err, 'non_error_rejection');
+                  const normalized = asMagicCheckoutError(err);
                   normalized.details = Object.assign({}, normalized.details, { handle });
                   reject(normalized);
                 });

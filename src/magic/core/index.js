@@ -11,8 +11,8 @@ export function createMagicCheckout({ host, http, now }) {
   const rawClient = createClient(http);
   const client = {
     init: rawClient.init,
-    complete: (key, experiments, handle) =>
-      rawClient.complete(key, experiments, handle, clock),
+    complete: (key, experiments, handle, budgetMs) =>
+      rawClient.complete(key, experiments, handle, clock, budgetMs),
   };
   return { openMagicCheckout: makeOpenMagicCheckout({ host, client }) };
 }

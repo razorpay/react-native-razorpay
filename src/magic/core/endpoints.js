@@ -10,6 +10,24 @@ export const POLL_BUDGET_MS = 8000;
 export const BACKOFF_INITIAL_MS = 500;
 export const BACKOFF_CAP_MS = 2000;
 
+// Sane band for a server-supplied budget. Below the floor phase 3 could not
+// complete a round trip and every order would report pending; above the ceiling
+// the native SDK is left waiting on the WebView callback for longer than a
+// shopper will tolerate.
+const MIN_POLL_BUDGET_MS = 100;
+const MAX_POLL_BUDGET_MS = 60000;
+
+// A merchant's app binary is pinned behind app-store review, so the budget has
+// to be movable from the phase-1 response rather than living only in a constant
+// we cannot re-deploy. A missing, non-numeric or out-of-band value must never be
+// able to make phase 3 misbehave, so anything we do not trust falls back to the
+// compiled default.
+export function resolvePollBudgetMs(value) {
+  if (typeof value !== 'number' || !isFinite(value)) return POLL_BUDGET_MS;
+  if (value < MIN_POLL_BUDGET_MS || value > MAX_POLL_BUDGET_MS) return POLL_BUDGET_MS;
+  return value;
+}
+
 const PRE_PAYMENT_GUARDRAIL = 'shopify_pre_payment_guardrail';
 
 export function initUrl(key) {

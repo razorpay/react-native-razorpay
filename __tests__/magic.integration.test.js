@@ -51,6 +51,40 @@ describe('openMagicCheckout through the RN adapter', () => {
     await expect(promise).resolves.toMatchObject({ order_id: 'shop_1', status: 'placed' });
   });
 
+  // MB1, end to end through the real adapter. Phase 3 runs after the payment
+  // has been captured, so a socket that accepts the request and goes silent is
+  // the worst case on this branch: without a wall-clock bound the promise never
+  // settles and the merchant never even receives the recovery handle. Without
+  // the fix this test does not fail an assertion, it hangs.
+  it('should bound a silent phase three then resolve as pending inside the budget', async () => {
+    let call = 0;
+    global.fetch.mockImplementation((url, init) => {
+      call += 1;
+      if (call === 1) {
+        return Promise.resolve({
+          status: 200,
+          json: () => Promise.resolve({ order_id: 'order_1', poll_budget_ms: 100 }),
+        });
+      }
+      return new Promise((resolve, reject) => {
+        const signal = init && init.signal;
+        if (signal) signal.addEventListener('abort', () => reject(new Error('Aborted')));
+      });
+    });
+
+    const ts = makeSuite();
+    const promise = ts.RazorpayCheckout.openMagicCheckout(OPTIONS);
+    await new Promise((r) => setImmediate(r));
+
+    ts.emitter.emit(EVENTS.success, {
+      razorpay_payment_id: 'pay_1',
+      razorpay_order_id: 'order_1',
+      razorpay_signature: 'sig_1',
+    });
+
+    await expect(promise).resolves.toMatchObject({ status: 'pending', payment_id: 'pay_1' });
+  });
+
   it('should leave open() untouched then keep its listeners working', async () => {
     const ts = makeSuite();
     const promise = ts.RazorpayCheckout.open({ key: 'k' });

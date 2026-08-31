@@ -18,6 +18,7 @@ React Native wrapper around our Android and iOS mobile SDKs
 * [Proguard Rules](#proguard-rules)
 * [Notes](#things-to-be-taken-care)
 * [FAQ's](#faqs)
+* [Magic Checkout (Shopify)](#magic-checkout-shopify)
 * [Contributing](#contributing)
 * [License](#license)
 
@@ -240,6 +241,102 @@ If you are using proguard for your builds, you need to add following lines to pr
       ```
     - P.S: The apps won't be visible if the application is run with metro builder. The info.plist is generated successfully and integrated only when the app is built as standalone app.  
 - Still having trouble with integrating our payment gateway? Follow [this link](https://github.com/razorpay/react-native-razorpay/wiki/FAQ's) for more info.
+
+## Magic Checkout (Shopify)
+
+Magic Checkout (1CC) lets Shopify merchants offer a one-click checkout inside your React
+Native app. It requires the merchant to be 1CC-enabled on Shopify server-side — there is no
+SDK flag that turns it on from the app.
+
+```js
+import RazorpayCheckout from 'react-native-razorpay';
+
+try {
+  const result = await RazorpayCheckout.openMagicCheckout({
+    key: 'rzp_live_xxxxxxxx',
+    storefront_access_token: '<your Shopify Storefront access token>',
+    cart_id: 'gid://shopify/Cart/c1-abcdef',
+  });
+
+  if (result.status === 'placed') {
+    // The Shopify order exists. result.order_id and result.order_status_url are set.
+  } else {
+    // result.status === 'pending'. This is NOT a failure — see below.
+  }
+} catch (error) {
+  // error.code is one of: MAGIC_ORDER_CREATE_FAILED, MAGIC_CHECKOUT_CANCELLED,
+  // MAGIC_PAYMENT_FAILED, MAGIC_COMPLETE_FAILED, MAGIC_INVALID_OPTIONS.
+  // Log error.code and error.reason for triage — see "Handling errors safely"
+  // below before you touch error.details.
+  console.log(error.code, error.reason);
+}
+```
+
+### Parameters
+
+| Parameter | Required | Notes |
+|---|---|---|
+| `key` | yes | Your Razorpay public `key_id` — the same one you already use for `RazorpayCheckout.open` |
+| `storefront_access_token` | yes | **Your app's own** Shopify Storefront access token, not the merchant's. A Storefront cart is only readable by the app that created it, so the token has to be yours |
+| `cart_id` | yes | The Storefront cart's **id** (e.g. `gid://shopify/Cart/c1-abcdef`) — an identifier, never the cart object itself. Passing a cart object is rejected; amounts and line items always stay server-side |
+
+### Pending is not a failure
+
+When `openMagicCheckout` resolves with `status: 'pending'`, Razorpay has already received
+and accepted the payment — its backend worker is placing the Shopify order asynchronously,
+retrying automatically (roughly at 5, 10 and 15 minutes) and refunding the payment if every
+attempt fails. This is a **success path**, not an error.
+
+Show the shopper something like "We're confirming your order" — never "Your order failed."
+Telling a shopper their successful, paid order failed is a worse outcome than saying
+nothing.
+
+### Handling errors safely
+
+Every rejection from `openMagicCheckout` carries three fields:
+
+| Field | Contents |
+|---|---|
+| `error.code` | One of `MAGIC_ORDER_CREATE_FAILED`, `MAGIC_CHECKOUT_CANCELLED`, `MAGIC_PAYMENT_FAILED`, `MAGIC_COMPLETE_FAILED`, `MAGIC_INVALID_OPTIONS` |
+| `error.reason` | A specific, queryable cause string (e.g. `user_cancelled`, `missing_cart_id`) |
+| `error.details` | Diagnostic and recovery context — see below |
+
+On a failure that happens **after the payment already succeeded** (order confirmation
+failing to reach Razorpay), `error.details.handle` is populated with the exact payload
+needed to retry order confirmation — including `razorpay_signature` and your `key`. This is
+deliberate: it is the only way to recover a payment that was captured but never turned into
+a Shopify order.
+
+**Never blind-log `error.details` (or `error.details.handle`) to a crash reporter, analytics
+tool, or any third-party logging service.** Doing so ships a live Razorpay payment signature
+off-device. For monitoring and triage, log `error.code` and `error.reason` only. Persist
+`error.details.handle` yourself, in your own secure storage, solely for the retry described
+next.
+
+### Recovering a payment whose order did not confirm
+
+If your app is killed between the payment succeeding and Razorpay confirming the Shopify
+order, `openMagicCheckout` may never resolve or reject — the promise is simply gone.
+Everything needed to retry is already in the handle described above, so persist it as soon
+as you have it and replay it later with a plain POST, no extra SDK call required:
+
+```
+POST https://api.razorpay.com/v1/1cc/shopify/complete?key_id=<key>
+{
+  "razorpay_order_id":   "...",
+  "razorpay_payment_id": "...",
+  "razorpay_signature":  "...",
+  "key":                 "..."
+}
+```
+
+Retrying is safe: Razorpay guarantees at most one Shopify order per Razorpay order within a
+24-hour window, so replaying the same handle multiple times cannot create duplicate orders.
+
+### Not supported in this release
+
+Analytics fan-out (GA4, Facebook Pixel, MoEngage, CleverTap), coupon prefill UI,
+abandoned-cart recovery, loyalty coins, gift cards, and WooCommerce or Magento storefronts.
 
 ## Contributing
 

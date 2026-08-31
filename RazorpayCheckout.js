@@ -6,6 +6,24 @@ import {
   removeSubscriptions,
   runCheckout,
 } from './src/internal/checkoutSession';
+import { createMagicCheckout } from './src/magic/core';
+import {
+  createReactNativeHost,
+  createFetchHttp,
+} from './src/magic/adapters/reactNative';
+
+// Built lazily so importing RazorpayCheckout.js never touches the native
+// bridge until a Magic checkout is actually requested.
+let magic;
+function getMagic() {
+  if (!magic) {
+    magic = createMagicCheckout({
+      host: createReactNativeHost(),
+      http: createFetchHttp(),
+    });
+  }
+  return magic;
+}
 
 class RazorpayCheckout {
   static open(options, successCallback, errorCallback) {
@@ -16,6 +34,10 @@ class RazorpayCheckout {
         teardown: removeSubscriptions,
       });
     });
+  }
+
+  static openMagicCheckout(options) {
+    return getMagic().openMagicCheckout(options);
   }
 
   static onExternalWalletSelection(externalWalletCallback) {

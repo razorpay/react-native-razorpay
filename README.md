@@ -283,9 +283,11 @@ try {
 ### Pending is not a failure
 
 When `openMagicCheckout` resolves with `status: 'pending'`, Razorpay has already received
-and accepted the payment — its backend worker is placing the Shopify order asynchronously,
-retrying automatically (roughly at 5, 10 and 15 minutes) and refunding the payment if every
-attempt fails. This is a **success path**, not an error.
+and accepted the payment, and its backend continues attempting to place the Shopify order
+asynchronously. This is a **success path**, not an error. The retry schedule and what
+happens if placement never succeeds are owned by Razorpay's backend and documented at
+[razorpay.com/docs](https://razorpay.com/docs/) — they are not behaviour this SDK controls,
+so do not build your integration around specific timings.
 
 Show the shopper something like "We're confirming your order" — never "Your order failed."
 Telling a shopper their successful, paid order failed is a worse outcome than saying
@@ -301,24 +303,30 @@ Every rejection from `openMagicCheckout` carries three fields:
 | `error.reason` | A specific, queryable cause string (e.g. `user_cancelled`, `missing_cart_id`) |
 | `error.details` | Diagnostic and recovery context — see below |
 
-On a failure that happens **after the payment already succeeded** (order confirmation
+On a rejection that happens **after the payment already succeeded** (order confirmation
 failing to reach Razorpay), `error.details.handle` is populated with the exact payload
-needed to retry order confirmation — including `razorpay_signature` and your `key`. This is
-deliberate: it is the only way to recover a payment that was captured but never turned into
-a Shopify order.
+Razorpay needs to confirm the order — including `razorpay_signature` and your `key`. This is
+deliberate: it gives your app something to reference, and to retry with, for a payment that
+was captured but has not yet become a Shopify order.
 
 **Never blind-log `error.details` (or `error.details.handle`) to a crash reporter, analytics
 tool, or any third-party logging service.** Doing so ships a live Razorpay payment signature
 off-device. For monitoring and triage, log `error.code` and `error.reason` only. Persist
-`error.details.handle` yourself, in your own secure storage, solely for the retry described
-next.
+`error.details.handle` yourself, in your own secure storage, solely for the in-session retry
+described next.
 
-### Recovering a payment whose order did not confirm
+### When order confirmation does not complete
 
-If your app is killed between the payment succeeding and Razorpay confirming the Shopify
-order, `openMagicCheckout` may never resolve or reject — the promise is simply gone.
-Everything needed to retry is already in the handle described above, so persist it as soon
-as you have it and replay it later with a plain POST, no extra SDK call required:
+**What the SDK gives you, and when.** The handle reaches your app in exactly one place:
+`error.details.handle`, on a rejection from `openMagicCheckout`. That means your app is
+still running when you receive it. There is no callback, event or other API that hands you
+the handle earlier — so the only recovery you can drive from the client is a retry made
+while the app that started the checkout is still alive.
+
+**If the app is still alive.** Retrying with the same handle is safe: Razorpay de-duplicates
+order placement for a given Razorpay order, so replaying an identical handle within the
+idempotency window will not create a second Shopify order. The confirmation call is a plain
+POST of the handle, roughly:
 
 ```
 POST https://api.razorpay.com/v1/1cc/shopify/complete?key_id=<key>
@@ -330,8 +338,18 @@ POST https://api.razorpay.com/v1/1cc/shopify/complete?key_id=<key>
 }
 ```
 
-Retrying is safe: Razorpay guarantees at most one Shopify order per Razorpay order within a
-24-hour window, so replaying the same handle multiple times cannot create duplicate orders.
+That URL is **illustrative only**. The confirmation route Razorpay uses for a given merchant
+is chosen server-side and is not always this path, and the SDK does not expose which one
+applies to you — so do not hardcode it. Check
+[razorpay.com/docs](https://razorpay.com/docs/), or ask Razorpay support, before building a
+direct confirmation call. Do not call `openMagicCheckout` again to recover: that starts a
+new checkout and takes a second payment.
+
+**If the app is killed** between the payment succeeding and confirmation completing, the
+promise is gone and no handle was ever delivered — client-side recovery is not possible.
+Nothing your app can do covers this case. Razorpay's backend owns order placement from the
+moment it has the payment and continues attempting it asynchronously; that path, not the
+app, is what resolves this scenario.
 
 ### Not supported in this release
 

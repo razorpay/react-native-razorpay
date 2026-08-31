@@ -1,2 +1,76 @@
 example/*
 DeploymentScripts/
+
+# Test tooling and suites — added alongside the Magic Checkout work.
+# Consumers get the library, not its tests: before that work this package had
+# no tests at all, so .npmignore never needed to exclude them.
+/__tests__/
+/__mocks__/
+src/**/__tests__/
+/jest.config.js
+/babel.config.js
+
+# Design records, implementation plans and local scratch. Note npm ignores
+# .gitignore entirely once .npmignore exists, so these need naming here even
+# though git already excludes some of them.
+docs/
+planning/
+tmp/
+.slash-cli/
+
+# Everything below restores what .gitignore was silently supplying before this
+# file existed. Without it a maintainer's working copy leaks into the tarball —
+# the release process is a manual local `npm publish`, so whatever happens to be
+# lying around at publish time is what merchants download.
+
+# Editor, IDE and agent-tool state
+.idea/
+/.vscode/
+*.iml
+.playwright-mcp/
+.cursorignore
+.semgrepignore
+.DS_Store
+
+# Build output and local toolchain state
+build/
+.gradle/
+local.properties
+buck-out/
+\.buckd/
+android/app/libs
+android/keystores/debug.keystore
+node_modules/
+.yarn/
+npm-debug.log
+*-lock.json
+
+# Xcode local artefacts
+xcuserdata
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
+*.xccheckout
+*.moved-aside
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+project.xcworkspace
+
+# Detox E2E artefacts
+e2e/artifacts/*
+*.detox.log
+
+# Repo-maintenance material: nothing here is consumed by an installing app.
+/.github/
+/Scripts/
+CLAUDE.md
+CONTRIBUTING.md
+ReleaseHelper.md
+code_of_conduct.md
+
+# Diagram exports at the repo root only — the sample apps' own icon assets are
+# left alone so a shipped sample still builds.
+/*.png

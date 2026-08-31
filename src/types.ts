@@ -70,3 +70,29 @@ export type ExternalWalletData = {
   external_wallet: string;
   [key: string]: any;
 };
+
+export type MagicCheckoutOptions = {
+  /** Razorpay public key_id. Authenticates the init call and identifies the merchant. */
+  key: string;
+  /** The app's Shopify Storefront access token. Only the app that created a cart can read it. */
+  storefront_access_token: string;
+  /** Storefront cart id, e.g. "gid://shopify/Cart/c1-abc". An identifier — never a cart object. */
+  cart_id: string;
+};
+
+export type MagicCheckoutResult = {
+  /** Shopify order id. Undefined while status is 'pending'. */
+  order_id?: string;
+  order_status_url?: string;
+  total_amount?: number;
+  payment_id: string;
+  /** 'placed' — Shopify order exists. 'pending' — accepted, being placed asynchronously. */
+  status: 'placed' | 'pending';
+};
+
+export type MagicHandle = {
+  razorpay_order_id: string;
+  razorpay_payment_id: string;
+  razorpay_signature: string;
+  key: string;
+};

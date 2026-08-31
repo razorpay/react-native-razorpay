@@ -49,3 +49,6 @@ e2e/artifacts/*.mp4
 e2e/artifacts/*.log
 e2e/artifacts/*.dtxrec
 *.detox.log
+
+# Orchestration scratch workspace (ledgers, briefs, review packages)
+.slash-cli/

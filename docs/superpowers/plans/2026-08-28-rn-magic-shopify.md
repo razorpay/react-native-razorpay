@@ -2391,7 +2391,7 @@ export function createClient(http) {
 ```bash
 npm test -- src/magic/core/__tests__/client.test.js
 ```
-Expected: PASS, 11 tests.
+Expected: PASS, 10 tests.
 
 - [ ] **Step 5: Commit**
 

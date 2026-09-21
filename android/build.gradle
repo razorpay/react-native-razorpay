@@ -58,6 +58,10 @@ android {
 dependencies {
     implementation 'com.facebook.react:react-native:+'
     implementation 'com.razorpay:checkout:1.6.41'
+    // checkout's POM resolves standard-core via the deprecated LATEST metaversion, which makes
+    // merchant builds non-deterministic (dev-era core 1.0.0-1.0.8 shipped a pg-router.dev
+    // deeplink intent filter flagged by security scanners). Floor it to a verified-clean release.
+    implementation 'com.razorpay:standard-core:1.7.18'
 }
 
 // Add codegen configuration for new architecture
